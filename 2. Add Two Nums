@@ -1,0 +1,93 @@
+You are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+##############################################################################
+Not tough, since the addition is from least significant digit to highest significant digit
+Just be careful to handle some special cases:
+
+Case 1: Empty Linked List, one or both Linked Lists could be empty;
+Case 2: Each of linked list contains just one node, and the sum of both nodes larger than 9, then the tail node should be created with a val=1; 
+Case 3: The sum of the last addition is more than 9, then the tail node should be created with a val=1;
+
+#################################################################################
+Java source code:
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        if(l1==null || l2==null){
+            if(l1==null)
+                return l2;
+            else
+                return l1;
+        }
+        
+        int sum=l1.val+l2.val;
+        ListNode curr=new ListNode(sum%10);
+        ListNode p1=l1.next;
+        ListNode p2=l2.next;
+        ListNode head=curr;
+        int over=0;
+        
+        if(p1==null && p2==null){
+            if(sum>9){
+                ListNode tail=new ListNode(1);
+                curr.next=tail;
+            }
+            
+        }
+        else{
+            if(sum>9)
+               over=1;
+            
+            while(p1!=null || p2!=null){
+            
+            if(p1==null){
+                sum=p2.val;
+                p1=null;
+                p2=p2.next;
+            }
+            else if(p2==null){
+                sum=p1.val;
+                p2=null;
+                p1=p1.next;
+            }
+            else {
+                sum=p1.val+p2.val;
+                p1=p1.next;
+                p2=p2.next;
+            }
+            
+            sum=sum+over;
+            
+            ListNode tail=new ListNode(sum%10);
+            curr.next=tail;
+            curr=tail;
+            
+           
+            over=0; 
+            if(sum>9){
+                over=1;
+                if(p1==null && p2==null){
+                    tail=new ListNode(1);
+                    curr.next=tail;
+                }
+                
+            }
+                
+            
+        }
+        }
+ 
+        
+        return head;
+        
+    }
+}
