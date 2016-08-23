@@ -3,11 +3,14 @@ public class Solution {
         Map<Integer, Integer> map=new HashMap<>();
         for(int i=0; i<nums.length; i++){
             int complement=target-nums[i];
+            
+            // if the complement has already in hashmap, then just return the index of complement and the current index i
             if(map.containsKey(complement)){
                 int[] result={map.get(complement), i};
                 return result;
             }
             
+            // otherwise, move on
             map.put(nums[i], i); 
         }
         
