@@ -1,0 +1,49 @@
+class Solution(object):
+    
+    def findkth(self, k, nums1, astart,nums2,bstart):
+        if astart>=len(nums1):
+            return nums2[bstart+k-1]
+        if bstart>=len(nums2):
+            return nums1[astart+k-1]
+        
+        if k==1:
+            return min(nums1[astart],nums2[bstart])
+        
+        aMid=astart+k/2-1
+        bMid=bstart+k/2-1
+        
+        aValue=99999999
+        if aMid<len(nums1):
+            aValue=nums1[aMid]
+        bValue=99999999
+        if bMid<len(nums2):
+            bValue=nums2[bMid]
+    
+        
+        if aValue>bValue:
+            return self.findkth(k-k/2,nums1,astart,nums2,bMid+1)
+        else:
+            return self.findkth(k-k/2,nums1,aMid+1,nums2, bstart)
+            
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        
+        m=len(nums1)
+        n=len(nums2)
+        l=m+n
+        
+        if l%2 == 0:
+            return (self.findkth(l/2,nums1,0,nums2,0)+self.findkth(l/2+1,nums1,0,nums2,0))/2.0
+        else:
+            return self.findkth(l/2+1,nums1,0,nums2,0)
+    
+    
+            
+            
+            
+            
+            
