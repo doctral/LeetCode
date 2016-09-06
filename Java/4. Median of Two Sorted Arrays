@@ -1,0 +1,51 @@
+// This problem can be treated as this problem: find the kth number in array A and B, where kth is the median. Therefore,
+// modify the binary search algorithm to make it. 
+
+public class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m=nums1.length;
+        int n=nums2.length;
+        int l=m+n;
+        if(l%2==0){
+            return (findkth(l/2, nums1,0,nums2,0)+findkth(l/2+1, nums1,0,nums2,0))/2;
+        }
+        else{
+            return findkth(l/2+1,nums1,0,nums2,0);
+        }
+        
+    }
+    
+    public double findkth(int k, int[] nums1, int astart, int[] nums2, int bstart){
+        // if remaining of nums1 is empty
+        if(astart>=nums1.length){
+            return nums2[bstart+k-1];
+        }
+        // if remaining of nums2 is empty
+        if(bstart>=nums2.length){
+            return nums1[astart+k-1];
+        }
+        
+        // k==1 means we are just looking for the minimum number in the remaining array list
+        if(k==1){
+            return Math.min(nums1[astart],nums2[bstart]);
+        }
+        
+        // search kth number in the first k/2 part of both array
+        int aMid=astart+k/2-1;
+        int bMid=bstart+k/2-1;
+        
+        int aValue=(aMid<nums1.length)?nums1[aMid]:Integer.MAX_VALUE;
+        int bValue=(bMid<nums2.length)?nums2[bMid]:Integer.MAX_VALUE;
+        
+        // aValue>bValue, means the kth number should be in the range of 0-k/2 in A array, and bMid+1~B.length, vice versa
+        
+        if(aValue>bValue){
+            return findkth(k-k/2,nums1,astart, nums2, bMid+1);
+        }
+        else{
+            return findkth(k-k/2,nums1,aMid+1,nums2,bstart);
+        }
+        
+    }
+    
+}
