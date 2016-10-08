@@ -1,0 +1,33 @@
+public class Solution {
+    public String convert(String s, int numRows) {
+        if (numRows <= 1 || s.length() <= numRows){
+            return s;
+        }
+        
+        String[] parts=new String[numRows];
+        
+        for(int i=0; i<numRows; i++){
+            parts[i]="";
+        }
+        
+        for(int index=0; index<s.length();index++){
+                int i=index%(2*numRows-2);
+                if(i<numRows){
+                    parts[i]+=s.charAt(index);
+                }
+                else{
+                    i=2*numRows-2-i;
+                    parts[i]+=s.charAt(index);
+                }
+                
+
+        }
+        
+        String str="";
+        for(int i=0; i<numRows; i++){
+            str+=parts[i];
+        }
+        
+        return str;
+    }
+}
