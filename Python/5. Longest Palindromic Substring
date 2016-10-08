@@ -1,0 +1,38 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        
+        length=len(s)
+        
+        if length<2:
+            return s
+        
+        longest=s[0]
+        
+        for i in range(length):
+            temp1=self.helper(s,i,i)
+            
+            temp2=self.helper(s,i,i+1)
+            
+            if len(longest)<len(temp1) or len(longest)<len(temp2):
+                if len(temp1)<len(temp2):
+                    longest=temp2
+                else:
+                    longest=temp1
+            
+        
+        return longest            
+        
+    
+    def helper(self,s,low,high):
+    
+        while low>=0 and high<len(s) and s[low]==s[high]:
+            
+            low-=1
+            high+=1
+            
+        
+        return s[low+1:high]     
