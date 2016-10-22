@@ -1,0 +1,43 @@
+public class Solution {
+    public int myAtoi(String str) {
+        str=str.trim();
+        if(str==null || str.length()==0){
+            return 0;
+        }
+        
+        int flag=1;
+        char f=str.charAt(0);
+        if(f<'0' || f>'9'){
+            if(f=='+' ||f=='-'){
+                if (f=='-'){
+                    flag=-1;
+                }
+                str=str.substring(1,str.length());
+            }
+            else{
+                return 0;
+            }
+            
+        }
+        int index=0;
+        double num=0;
+        while(index<str.length()){
+            if(str.charAt(index)<'0' ||str.charAt(index)>'9'){
+                return (int)num*flag;
+            }
+            int x =Character.getNumericValue(str.charAt(index));
+            num=num*10+x;
+            if(num*flag>Integer.MAX_VALUE){
+                return Integer.MAX_VALUE;
+            }
+            if(num*flag<Integer.MIN_VALUE){
+                return Integer.MIN_VALUE;
+            }
+            
+             index++;
+            
+            }
+           return (int)(num*flag);
+        }
+        
+    }
