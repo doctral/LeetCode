@@ -1,0 +1,34 @@
+// Arrays.sort()
+// Arrays.asList()
+public class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result=new ArrayList<>();
+        if(nums.length<3){
+            return result;
+        }
+        Arrays.sort(nums);
+        int i=0;
+        while(i<nums.length-2){
+            if(nums[i]>0){
+                break;
+            }
+            int j=i+1;
+            int p=nums.length-1;
+            while(j<p){
+                int sum=nums[i]+nums[j]+nums[p];
+                if(sum==0){
+                    result.add(Arrays.asList(nums[i],nums[j],nums[p]));
+                }
+                if(sum<=0){
+                    while(nums[j]==nums[++j] && j<p);
+                }
+                if(sum>=0){
+                    while(nums[p]==nums[--p] && j<p);
+                }
+            }
+            while(nums[i]==nums[++i] && i<nums.length-2);
+        }
+        return result;
+        
+    }
+}
