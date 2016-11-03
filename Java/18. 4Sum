@@ -1,0 +1,43 @@
+public class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> result=new ArrayList<>();
+        Arrays.sort(nums);
+        int len=nums.length;
+        
+        if(len<4){
+            return result;
+        }
+        if(nums[0]+nums[1]+nums[2]+nums[3]>target ||nums[len-1]+nums[len-2]+nums[len-3]+nums[len-4]<target){
+            return result;
+        }
+       
+        int i=0;
+        while(i<len-3){
+            int j=i+1;
+            if(nums[i]+nums[i+1]+nums[i+2]+nums[i+3]>target){
+                break;
+            }
+            int tar=target-nums[i];
+            while(j<len-2){
+                int p=j+1;
+                int r=len-1;
+                while(p<r){
+                    int sum=nums[j]+nums[p]+nums[r];
+                    if(sum==tar){
+                        result.add(Arrays.asList(nums[i],nums[j],nums[p],nums[r]));
+                    }
+                    if(sum>=tar && p<r){
+                        while(p<r && nums[r]==nums[--r]);
+                    }
+                    if(sum<=tar && p<r){
+                        while(p<r && nums[p]==nums[++p]);
+                    }
+                }
+                
+                while(j<len-2 && nums[j]==nums[++j]);
+            }
+            while(i<len-3 && nums[i]==nums[++i]);
+        }
+        return result;
+    }
+}
