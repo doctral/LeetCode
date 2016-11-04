@@ -1,0 +1,34 @@
+public class Solution {
+    public boolean isValid(String s) {
+        if(s.length()<1){
+            return true;
+        }
+        if(s.length()%2 !=0){
+            return false;
+        }
+        char[] str=s.toCharArray();
+        Stack<Character> stack=new Stack<>();
+        for(char ch:str){
+            if(ch=='('||ch=='{'||ch=='['){
+                stack.push(ch);
+            }
+            else if(ch==')'){
+                if(stack.isEmpty() ||stack.pop()!='('){
+                    return false;
+                }
+            }
+            else if(ch=='}'){
+                if(stack.isEmpty() ||stack.pop()!='{'){
+                    return false;
+                }
+            }
+            else if(ch==']'){
+                if(stack.isEmpty() ||stack.pop()!='['){
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+        
+    }
+}
