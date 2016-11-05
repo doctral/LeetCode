@@ -1,0 +1,19 @@
+public class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> str=new ArrayList<>();
+        DFS("",n,n,str);
+        return str;
+    }
+    
+    private void DFS(String str, int left, int right, List<String> st){
+        if(left==0 && right==0){
+            st.add(str);
+        }
+        if(left>0){
+            DFS(str+"(",left-1,right,st);
+        }
+        if(right>left){
+            DFS(str+")",left,right-1,st);
+        }
+    }
+}
