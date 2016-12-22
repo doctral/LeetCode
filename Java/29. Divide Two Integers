@@ -1,0 +1,54 @@
+public class Solution {
+    public int divide(int dividend, int divisor) {
+        if(divisor==0){
+            return Integer.MAX_VALUE;
+        }
+        if(dividend==0){
+            return 0;
+        }
+        int flag=1;
+        if(dividend>0&&divisor<0 ||dividend<0&&divisor>0){
+            flag=-1;
+        }
+        long d=Math.abs((long)dividend);
+        long s=Math.abs((long)divisor);
+        if(d<s){
+            return 0;
+        }
+        long result=0;
+        long dif_10=s+s+s+s+s+s+s+s+s+s;
+        long dif_100=dif_10+dif_10+dif_10+dif_10+dif_10+dif_10+dif_10+dif_10+dif_10+dif_10;
+        long dif_1000=dif_100+dif_100+dif_100+dif_100+dif_100+dif_100+dif_100+dif_100+dif_100+dif_100;
+        long dif_10000=dif_1000+dif_1000+dif_1000+dif_1000+dif_1000+dif_1000+dif_1000+dif_1000+dif_1000+dif_1000;
+        long dif_100000=dif_10000+dif_10000+dif_10000+dif_10000+dif_10000+dif_10000+dif_10000+dif_10000+dif_10000+dif_10000;
+        long dif_1000000=dif_100000+dif_100000+dif_100000+dif_100000+dif_100000+dif_100000+dif_100000+dif_100000+dif_100000+dif_100000;
+        while(d>=dif_1000000){
+            d=d-dif_1000000;
+            result+=1000000;
+        }
+        while(d>=dif_100000){
+            d=d-dif_100000;
+            result+=100000;
+        }
+        while(d>=dif_10000){
+            d=d-dif_10000;
+            result+=10000;
+        }
+        while(d>=s){
+            d=d-s;
+            result++;
+        }
+        if(flag==1&&result>Integer.MAX_VALUE || flag==-1&&(0-result)<Integer.MIN_VALUE){
+            return Integer.MAX_VALUE;
+        }
+        else{
+            if(flag==1){
+                return (int)result;
+            }
+            else{
+                return (int)(0-result);        
+            }
+        }
+        
+    }
+}
