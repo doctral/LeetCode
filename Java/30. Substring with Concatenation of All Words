@@ -11,17 +11,18 @@ public class Solution {
         }
         
         HashMap<String, Integer> freq=new HashMap<String,Integer>();
-        for(int i=0;i<words.length;i++){
-            if(freq.containsKey(words[i])){
-                freq.put(words[i],freq.get(words[i])+1);
+        for(int j=0;j<words.length;j++){
+            if(freq.containsKey(words[j])){
+                freq.put(words[j],freq.get(words[j])+1);
             }
             else{
-                freq.put(words[i],1);
+                   freq.put(words[j],1);
+                }
             }
-        }
         
         for(int i=0; i<=s.length()-words_num*word_len;i++){
-            HashMap<String,Integer> flag=freq; 
+            HashMap<String,Integer> flag=new HashMap(freq);
+
             boolean f=true;
             int start=i;
             
@@ -38,14 +39,15 @@ public class Solution {
                 }
                 start=end;
             }
-            
+        
             boolean re=true;
-            for(int n=0;n<flag.length;n++){
-                if(flag[n]==false){
+            for(int x:flag.values()){
+                if(x>0){
                     re=false;
                     break;
                 }
             }
+        
             if(re==true){
                 result.add(i);
             }
