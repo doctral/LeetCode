@@ -1,0 +1,56 @@
+public class Solution {
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> result=new ArrayList<Integer>();
+        if(s.length()==0 || words.length==0){
+            return result;
+        }
+        int words_num=words.length;
+        int word_len=words[0].length();
+        if(s.length()<words_num*word_len){
+            return result;
+        }
+        
+        HashMap<String, Integer> freq=new HashMap<String,Integer>();
+        for(int i=0;i<words.length;i++){
+            if(freq.containsKey(words[i])){
+                freq.put(words[i],freq.get(words[i])+1);
+            }
+            else{
+                freq.put(words[i],1);
+            }
+        }
+        
+        for(int i=0; i<=s.length()-words_num*word_len;i++){
+            HashMap<String,Integer> flag=freq; 
+            boolean f=true;
+            int start=i;
+            
+            while(f){
+                f=false;
+                int end=start+word_len;
+                if(end>s.length()){
+                    break;
+                }
+                String sub=s.substring(start,end);
+                if(flag.containsKey(sub)&&flag.get(sub)>0){
+                    f=true;
+                    flag.put(sub,flag.get(sub)-1);
+                }
+                start=end;
+            }
+            
+            boolean re=true;
+            for(int n=0;n<flag.length;n++){
+                if(flag[n]==false){
+                    re=false;
+                    break;
+                }
+            }
+            if(re==true){
+                result.add(i);
+            }
+            
+        }
+        return result;
+    }
+}
