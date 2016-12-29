@@ -1,0 +1,35 @@
+public class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int s=0;
+        int e=nums.length-1;
+        if(target>nums[e]){
+            return e+1;
+        }
+        if(target<nums[s]){
+            return s;
+        }
+        int loc=0;
+        while(s<=e){
+            int mid=(s+e)/2;
+            if(nums[mid]==target){
+                loc = mid;
+                break;
+            }
+            if(target>nums[mid]&&target<nums[mid+1]){
+                loc=mid+1;
+                break;
+            }
+            if(target<nums[mid]&&target>nums[mid-1]){
+                loc= mid;
+                break;
+            }
+            if(target>nums[mid]){
+                s=mid+1;
+            }
+            else{
+                e=mid-1;
+            }
+        }
+        return loc;
+    }
+}
