@@ -1,0 +1,24 @@
+public class Solution {
+    public String multiply(String num1, String num2) {
+        if(num1==null || num2==null) return null;
+        int[] results=new int[num1.length()+num2.length()];
+        int i,j,carry;
+        for(i=num1.length()-1; i>=0;i--){
+            int product=0;
+            carry=0;
+            for(j=num2.length()-1; j>=0; j--){
+                product=carry+results[i+j+1]+Character.getNumericValue(num1.charAt(i))*Character.getNumericValue(num2.charAt(j));
+                results[i+j+1]=product%10;
+                carry=product/10;
+            }
+            results[i+j+1]=carry;
+        }
+        i++;
+        StringBuilder sb=new StringBuilder();
+        while(i<results.length-1 && results[i]==0) i++;
+        while(i<results.length) sb.append(results[i++]);
+        return sb.toString();
+        
+        
+    }
+}
