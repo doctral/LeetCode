@@ -1,0 +1,8 @@
+An optimization problem must have two key features in order for DYNAMIC PROGRAMMING to apply:
+1. optimal sunstructure: the optimal solution to the problem contains within its optimal solutions to subproblems 
+2. overlapping subproblems
+
+There are two equivalent approaches to implement dynamic programming:
+1. Top-down with memorization: the procedure first checks to see whether it has previously solved this subproblem. If so, it returns the saved value, saving further computation at this level; if not, the procedure computes the value in the usual manner. (It memorize what results it has computed previously)
+
+2. Bottom-up method: from the smallest to largest ...
