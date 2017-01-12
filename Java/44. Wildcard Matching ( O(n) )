@@ -1,0 +1,30 @@
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        int s_index=0, p_index=0, match=0, star_index=-1;
+        while(s_index<s.length()){
+            if(p_index<p.length() &&(p.charAt(p_index)=='?' ||p.charAt(p_index)==s.charAt(s_index))){
+                s_index++;
+                p_index++;
+            }
+            else if(p_index<p.length() && p.charAt(p_index)=='*'){
+                star_index=p_index;
+                match=s_index;
+                p_index++;
+            }
+            else if(star_index!=-1){
+                match++;
+                s_index=match;
+                p_index=star_index+1;
+            }
+            else {
+                return false;
+            }
+            
+        }
+        
+        while(p_index<p.length() && p.charAt(p_index)=='*'){
+            p_index++;
+        }
+        return p_index==p.length();
+    }
+}
