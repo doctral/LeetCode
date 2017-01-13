@@ -1,0 +1,3 @@
+44. wildcard matching
+when char=='*', two cases, 1: '*' matches empty char, in this case, move to next char in pattern 
+                           2: '*' matches one or more chars in string s, in this case, simply move to next char in string s 
