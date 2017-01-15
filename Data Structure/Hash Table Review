@@ -62,7 +62,23 @@ Key points:
                             it searches entry at indices (k+j^2) % N, where j=0,1,2,.. until it's found. 
                Disadvantages: a) secondary clustering: the entries collide with an occupied entry use the same probe
                                  sequence.
-                              b) an available cell is not guaranteed. 
+                              b) an available cell is not guaranteed.
+        3. Double Hashing:
+                          When collision occurs, double hashing uses a secondary hash function to determine the increment to
+                          avoid the clustering problem. Note that, the second function should never has a zero value, since
+                          zero is not an increment.
+   SEPARATE CHAINING: the separate chain scheme places all entries with the same hash index in the same location, rather than 
+   finding new locations. Each location in the separate chaining scheme uses a bucket (Implemented by an array, ArrayList, or
+   LinkedList) to hold multiple entries. 
+
+9. Load Factor and Rehashing
+   Load factor (=n/N, n is the number of entries, N is the size of Hash table) measures how full a hash table is, if the load
+   factor is exceeded, increase the hash-table size and reload the entries into the new hash table, this is called rehashing.
+   For the open addressing scheme, the load factor is between 0-1, and for the separate chaining scheme, the load factor can
+   be any value.
+   For open addressing scheme, the load factor should under 0.5, and for the separate chaining scheme, the load factor should
+   under 0.9.  
+              
 
         
           
