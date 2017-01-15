@@ -1,0 +1,28 @@
+public class Solution {
+    public int jump(int[] nums){
+        int min=0;
+        int index=0;
+        while(index<nums.length){
+            if(index==nums.length-1){
+                break;
+            }
+            else if(nums[index]>=nums.length-1-index){
+                min++;
+                break;
+            }
+            else{
+                min++;
+                int temp=0;
+                for(int i=0; i<=nums[index] && index+i<nums.length; i++){
+                    if(i+nums[index+i]>temp+nums[index+temp]){
+                        temp=i;
+                    }
+                }
+                index=index+temp;
+            }
+            
+        }
+        return min;
+    }
+
+}
