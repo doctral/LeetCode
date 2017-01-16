@@ -1,0 +1,9 @@
+There are three implementations of Set: HashSet, LinkedHashSet, TreeSet. 
+          HashSet implemented using hashing and array of LinkedList (LinkedList[] )
+          LinkedHashSet: implemented using LinkedList
+          TreeSet: implemented using red-black tree
+
+The implementation of HashSet is pretty similar to the implementation of HashMap, the difference is as following:
+    1. boolean add(e: E): add the element to the set and return true if the element is added to the set successfully
+    2. boolean remove(e: E): reomve the element from the set and return true, otherwise return false
+    3. HaseSet extends and overrides java.lang.Iterable, so the elements in HashSet are iterable 
