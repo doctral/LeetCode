@@ -1,0 +1,84 @@
+Key points:
+1. it takes O(1) time to search, del, and insert an element using hashing.
+2. Hashing uses a hashing function to map a key to an index.
+   Each position in the hash table has three possible states: occupied, marked, or empty 
+3. java.util.Map has three implementations: 
+   1) HashMap: using hashing
+   2) LinkedHashMap: using LinkedList
+   3) TreeMap: using red-black Tree
+4. Hash function: maps a key to an index in the hash table. 
+5. Collision happens when two or more keys are mapped to the same index in the hash value
+6. A typical hash function first converts a search key to an integer value called a hash code, then compressed the hash code  into an index to the hash table.
+   HASH CODE:
+      1. Hash code for primitive types (byte, short, int, char, float, long, double)
+         if the search key is byte, short, int, or char, simple cast them to int
+         if the search key is float, use floatToIntBits(float f) to cast it to int
+         if the search key is long, we fold the 64-bit into two halves and perform the exclusive-or operation to combine the 
+         two halves. i.e: int hashcode=(int)(key ^ (key >> 32) ); ^ is the exclusive-or operator, >> is the right-shift 
+         operator.
+         if the search key is double, first convert it to a long type value using Double.doubleToLongBits(double key) method,
+         then perform a folding as long type.
+      2. Hash code for strings
+         Sum the Unicode of all characters in the string, and to avoid collisions, also take the positions of characters into
+         consideration. 
+         i.e.: hashcode=sum(si*pow(b,n-1-i) ), where si=str.charAt(i), b is constant=31, 33, 37, 39, or 41
+   COMPRESSING HASH CODES:
+      In java API for java.util.HashMap, the hash table size N is set to a value of the power of 2.
+          Why? When N is a power of 2, then :
+               h(hashcode)=hashcode % N
+               is the same as :
+               h(hashcode)=hashcode & (N-1), where & is a bitwise AND operator which yields 1 when both bits are 1. 
+               For example, hashcode 11 (base 10)=01011, let N=4, then N-1=3=00011, therefore, 01011 & 00011=11=3
+      a supplemental hash function in java.util.HashMap is also used to distribute hashing evenly:
+          private static int supplementalHash(int h){
+             h ^= (h >>> 20) ^ (h >>> 12);
+             return h ^ (h >>>7 ) ^ (h >>> 4);
+          }
+          where ^ and >>> are bitwise exclusive-or and unsigned right-shift operations.
+    The complete HASH FUNCTION is defined as:
+        h(hashcode)= supplementalHash(hashcode) % N
+        which is equal to:
+        h(hashcode)= supplementalHash(hashcode) & (N-1)
+        
+7. The bitwise operations are much faster than the multiplication, division, and remainder operations   
+
+8. Collision Handling
+   There are two ways for handling collisions: OPEN ADDRESSING and SEPARATE CHAINING
+   OPEN ADDRESSING: linear probing, quadratic probing, and double hashing
+        1. Linear probing: 
+                           Insert: when a collision occurs during the insertion of an entry to a hash table, linear probing
+                           finds the next available position sequentially, until a available position is found. When probing
+                           reaches the end of the table,it goes back to the beginning of the table.
+                           
+                           Search: give the key k, check whether hashtable[k % N] contains the entry, if not, check next
+                           position, and so on, until it is found, or an empty cell is reached.
+                           
+                           Remove: search and found the entry, place a special marker to denote that this position is
+                           available. 
+               Disadvantages: linear probing causes the consecutive cells to be occupied as a cluster. Each cluster must
+               search in sequence when retrieving, adding or removing an entry. As clusters grow in size, they may merge into
+               even larger clusters, and slow down the search time. 
+        2. Quadratic Probing:
+                            it searches entry at indices (k+j^2) % N, where j=0,1,2,.. until it's found. 
+               Disadvantages: a) secondary clustering: the entries collide with an occupied entry use the same probe
+                                 sequence.
+                              b) an available cell is not guaranteed.
+        3. Double Hashing:
+                          When collision occurs, double hashing uses a secondary hash function to determine the increment to
+                          avoid the clustering problem. Note that, the second function should never has a zero value, since
+                          zero is not an increment.
+   SEPARATE CHAINING: the separate chain scheme places all entries with the same hash index in the same location, rather than 
+   finding new locations. Each location in the separate chaining scheme uses a bucket (Implemented by an array, ArrayList, or
+   LinkedList) to hold multiple entries. 
+
+9. Load Factor and Rehashing
+   Load factor (=n/N, n is the number of entries, N is the size of Hash table) measures how full a hash table is, if the load
+   factor is exceeded, increase the hash-table size and reload the entries into the new hash table, this is called rehashing.
+   For the open addressing scheme, the load factor is between 0-1, and for the separate chaining scheme, the load factor can
+   be any value.
+   For open addressing scheme, the load factor should under 0.5, and for the separate chaining scheme, the load factor should
+   under 0.9.  
+              
+
+        
+          
