@@ -1,0 +1,30 @@
+public class Solution {
+    public boolean canJump(int[] nums) {
+        if(nums.length<1) return false;
+        if(nums.length==1) return true;
+        int index=0;
+        boolean arrived=false;
+        while(index<nums.length && !arrived){
+            if(nums[index]==0 && index<nums.length-1){
+                break;
+            }
+            else if(nums[index]>=nums.length-index-1){
+                arrived=true;
+                break;
+            }
+            else{
+                int next=0;
+                int temp=0;
+                for(int i=0; i<=nums[index] && index+i<nums.length; i++){
+                    if(i+nums[index+i]>=temp){
+                        temp=i+nums[index+i];
+                        next=index+i;
+                    }
+                }
+                index=next;
+            }
+        }
+        return arrived;
+        
+    }
+}
