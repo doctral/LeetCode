@@ -1,0 +1,35 @@
+public class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] res=new int[n][n];
+        if(n<1) return res;
+        int top=0, bottom=n-1, left=0, right=n-1;
+        int num=1;
+        
+        while(true){
+            for(int i=left; i<=right; i++){
+                res[top][i]=num++;
+            }
+            top++;
+            if(num>n*n) break;
+            
+            for(int i=top; i<=bottom; i++){
+                res[i][right]=num++;
+            }
+            right--;
+            if(num>n*n) break;
+            
+            for(int i=right; i>=left; i--){
+                res[bottom][i]=num++;
+            }
+            bottom--;
+            if(num>n*n) break;
+            
+            for(int i=bottom; i>=top; i--){
+                res[i][left]=num++;
+            }
+            left++;
+            if(num>n*n) break;
+        }
+        return res;
+    }
+}
