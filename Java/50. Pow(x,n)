@@ -1,0 +1,13 @@
+public class Solution {
+    public double myPow(double x, int n) {
+        double temp=(double)n;
+        if(temp<0){
+            temp=-temp;
+            x=1.0/x;
+        }
+        
+        if(n==0) return 1;
+        if(n==1) return x;
+        return temp%2==0? myPow(x*x,(int)(temp/2)): x*myPow(x*x,(int)(temp/2));
+    }
+}
