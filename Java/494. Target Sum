@@ -1,0 +1,30 @@
+public class Solution {
+    public int findTargetSumWays(int[] nums, int S) {
+        int sum=0; 
+        int zeroes=0;
+        for(int num: nums){
+            if(num==0) zeroes++;
+            sum+=num;
+        }
+        int[] newArray=new int[nums.length-zeroes];
+        int index=0;
+        for(int num: nums){
+            if(num!=0)
+                newArray[index++]=num;
+        }
+        return (int)(Math.pow(2,zeroes))*backtrack(newArray, S, sum, 0, 0);
+        
+    }
+    private int backtrack(int[] nums, int S, int sum, int index, int methods){
+        if(S==sum){
+            return methods+1;
+        }
+        else{
+            for(int i=index; i<nums.length; i++){
+                int next=sum-2*nums[i];
+                methods=backtrack(nums, S, next, i+1, methods);
+            }
+            return methods;
+        }
+    }
+}
