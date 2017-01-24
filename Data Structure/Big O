@@ -1,0 +1,8 @@
+1. What's the relationship between best/worst/expected case and big O/omega/theta?
+   There is no particular relationship between the concepts.
+   Best, worst, expected cases describe the big O time  for particular inputs or scenarios.
+   Big O, big omega, and big theta describe the upper/lower/tight bounds for the runtime, respectively.
+2. Time complexity and Space complexity are parallel concepts.
+3. Amortized time
+4. Recursive function: 
+   When the recursive function makes multiple calls, the runtime will often look like O(2^n)  
