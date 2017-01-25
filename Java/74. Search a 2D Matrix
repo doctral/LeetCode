@@ -1,0 +1,33 @@
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix.length<1) return false;
+        if(matrix[0].length<1) return false;
+        int m=matrix.length, n=matrix[0].length;
+        if(target<matrix[0][0] || target>matrix[m-1][n-1]) return false;
+        int row=0;
+        for(int i=0; i<m; i++){
+            if(target==matrix[i][0]) return true;
+            if(target>matrix[i][0]){
+                row=i;
+            }
+            else{
+                break;
+            }
+        }
+        int left=0, right=n-1;
+        while(left<=right){
+            int mid=(left+right)/2;
+            if(matrix[row][mid]==target){
+                return true;
+            }
+            if(matrix[row][mid]>target){
+                right=mid-1;
+            }
+            else{
+                left=mid+1;
+            }
+        }
+        return false;
+        
+    }
+}
