@@ -1,0 +1,29 @@
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        if(nums.length<3){
+            return nums.length;
+        }
+        int curr=0;
+        int next=1;
+        int count=1;
+        while(next<nums.length){
+            if(nums[curr]!=nums[next]){
+                count=1;
+                nums[curr+1]=nums[next];
+                next++;
+                curr++;
+            }
+            else if(count==1){
+                nums[curr+1]=nums[next];
+                count++;
+                curr++;
+                next++;
+            }
+            else{
+                next++;
+            }
+        }
+        return curr+1;
+        
+    }
+}
