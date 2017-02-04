@@ -1,0 +1,3 @@
+1. A string in Java is treated as an object, and String object is immutable, its content cannot be changed once the string is created. 
+2. String, StringBuilder, and StringBuffer are CLASSES that can be used for processing strings.
+3. Create a string from an array of characters: String str=new String(charArray);
