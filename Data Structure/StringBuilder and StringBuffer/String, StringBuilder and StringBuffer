@@ -1,3 +1,17 @@
 1. A string in Java is treated as an object, and String object is immutable, its content cannot be changed once the string is created. 
 2. String, StringBuilder, and StringBuffer are CLASSES that can be used for processing strings.
 3. Create a string from an array of characters: String str=new String(charArray);
+4. String Comparisons:
+   The == operator checks only whether two objects refer to the same object, it does not tell whether they have the same 
+   content. 
+   Use "equals" or "compareTo" to compare strings. The compareTo returns 0, positive, or negative integer, depends on one
+   string is equal to, greater than or less than the other string.   string1.compareTo(string2)
+5. Once a string is created, its content cannot be changed. Therefore, the methods "toLowerCase","toUpperCase", "trim", and 
+   other methods return a new string derived from the original string. 
+
+6. StringBuilder and StringBuffer: are more flexible than String class. 
+   The only difference between StringBuilder and StringBuffer is, StringBuffer is synchronized, which means that only one task
+   is allowed to execute StringBuffer at one time.
+   
+7. Both StringBuilder and StringBuffer can be implemented by using array. But instances of StringBuilder are not safe for use 
+   by multiple threads.    
