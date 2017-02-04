@@ -1,0 +1,54 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int[] findFrequentTreeSum(TreeNode root) {
+        Map<Integer,Integer> res=new HashMap<>();
+        traverse(root, res);
+        int most=0;
+        int count=0;
+        for(int key:res.keySet()){
+            if(res.get(key)>most){
+                most=res.get(key);
+                count=1;
+            }
+            else if(res.get(key)==most){
+                count++;
+            }
+        }
+        int[] sums=new int[count];
+        int index=0;
+        for(int key:res.keySet()){
+            if(res.get(key)==most){
+                sums[index++]=key;
+            }
+        }
+        return sums;
+        
+    }
+    void traverse(TreeNode root, Map<Integer,Integer> map){
+        if(root!=null){
+            int total=sum(root);
+            if(map.containsKey(total)){
+                map.put(total, map.get(total)+1);
+            }
+            else{
+                map.put(total, 1);
+            }
+            traverse(root.left, map);
+            traverse(root.right,map);
+        }
+    }
+    int sum(TreeNode root){
+        if(root!=null){
+            return root.val+sum(root.left)+sum(root.right);
+        }
+        return 0;
+    }
+}
