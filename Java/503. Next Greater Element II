@@ -1,0 +1,24 @@
+public class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int[] big=new int[2*nums.length];
+        for(int i=0; i<nums.length; i++){
+            big[i]=nums[i];
+        }
+        for(int i=nums.length; i<big.length; i++){
+            big[i]=nums[i-nums.length];
+        }
+        int[] res=new int[nums.length];
+        for(int i=0; i<nums.length; i++){
+            int next=-1;
+            int index=i+1;
+            while(index<big.length &&big[index]<=nums[i]){
+                index++;
+            }
+            if(index<big.length){
+                next=big[index];
+            }
+            res[i]=next;
+        }
+        return res;
+    }
+}
