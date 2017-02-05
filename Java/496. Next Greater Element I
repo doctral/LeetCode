@@ -1,0 +1,23 @@
+public class Solution {
+    public int[] nextGreaterElement(int[] findNums, int[] nums) {
+        int[] res=new int[findNums.length];
+        for(int i=0; i<findNums.length; i++){
+            int next=-1;
+            for(int j=0; j<nums.length-1; j++){
+                if(findNums[i]==nums[j]){
+                    int index=j+1;
+                    while(index<nums.length && nums[index]<findNums[i]){
+                        index++;
+                    }
+                    if(index<nums.length){
+                        next=nums[index];
+                    }
+                    break;
+                }
+            }
+            res[i]=next;
+        }
+        return res;
+        
+    }
+}
