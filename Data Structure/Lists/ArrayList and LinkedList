@@ -1,0 +1,1 @@
+ArrayList is implemented using an array (E[] objects) with a fixed size. When the array is full, create a new array twice as large as the current one, copy the element from the current array to the new array. 
