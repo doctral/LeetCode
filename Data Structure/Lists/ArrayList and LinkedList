@@ -1,8 +1,9 @@
 ArrayList:
-ArrayList is implemented using an array (E[] objects) with a fixed size. When the array is full, create a new array twice as large as the current one, copy the element from the current array to the new array.
+ArrayList is implemented using an array (E[] objects) with a fixed size. When the array is full, create a new array twice as large as the
+current one, copy the element from the current array to the new array.
 The add(int index, E e) and remove(int index) methods in ArrayList is not efficient.
 
 LinkedList:
 A Linked List is implemented using a linked structure.
-If the node is the last in the list, its pointer data field 'next' contains the value null. This property can be used to detect the last 
+If the node is the last in the list, its pointer data field 'next' contains the value null. This property can be used to detect the last
 node.
