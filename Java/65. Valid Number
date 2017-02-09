@@ -1,0 +1,34 @@
+public class Solution {
+    public boolean isNumber(String s) {
+        if(s.length()==0) return false;
+        int left=0, right=s.length()-1;
+        while(left<=right && Character.isWhitespace(s.charAt(left))) left++;
+        while(right>=0 && Character.isWhitespace(s.charAt(right))) right--;
+        if(left>right) return false;
+        if(s.charAt(left)=='+' || s.charAt(left)=='-') left++;
+        boolean isNum=false, isDot=false, isExp=false;
+        while(left<=right){
+            char ch=s.charAt(left);
+            if(Character.isDigit(ch)){
+                isNum=true;
+            }
+            else if(ch=='.'){
+                if(isExp || isDot) return false;
+                isDot=true;
+            }
+            else if(ch=='e'){
+                if(isExp || !isNum) return false;
+                isNum=false;
+                isExp=true;
+            }
+            else if(ch=='+'||ch=='-'){
+                if(s.charAt(left-1)!='e') return false;
+            }
+            else{
+                return false;
+            }
+            left++;
+        }
+        return isNum;
+    }
+}
