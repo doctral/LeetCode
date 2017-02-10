@@ -1,0 +1,8 @@
+Stack:
+Since the insertion and deletion operations on a stack are made only at the end of the stack, it is more efficient to implement a stack
+with an ARRAY LIST than a linked list. 
+A stack can be used to implement a recursive algorithm iteratively. 
+
+Queue:
+Since the deletions are made at the beginning of the list, it is more efficient to implement a queue using a linked list than a array list. 
+Queues are often used in BFS or in implementing a cache. 
