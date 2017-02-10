@@ -7,3 +7,6 @@ LinkedList:
 A Linked List is implemented using a linked structure.
 If the node is the last in the list, its pointer data field 'next' contains the value null. This property can be used to detect the last
 node.
+
+Vector:
+Vector is the same as the array list, except that Vector contains synchronized methods for accessing and modifying the vector. 
