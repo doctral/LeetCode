@@ -1,0 +1,9 @@
+Binart Search Tree:
+A binary Search Tree is a binary tree in which every node fits a specific ordering property: ALL LEFT DESCENDENTS <= PARENT <= ALL RIGHT 
+DESCENDENTS. 
+
+VS Binary Tree: a binary tree is a tree in which each node has up to two children.
+
+For a reasonable balanced binary search tree, the insertion, look up, and deletion operations can all be done in O(log n) time. 
+
+A binary search tree can be implemented using a linked structure. 
