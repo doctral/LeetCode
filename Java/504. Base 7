@@ -1,0 +1,27 @@
+public class Solution {
+    public String convertTo7(int num) {
+        int sign=1;
+        if(num<0){
+            sign=-1;
+            num=num*sign;
+        }
+        int high=0;
+        while(num/(int)(Math.pow(7,high+1))>0){
+            high++;
+        }
+        StringBuilder sb=new StringBuilder();
+        if(sign==-1) sb.append("-");
+       // System.out.println(high);
+        while(high>=0){
+            int div=(int)Math.pow(7,high);
+            int d=num/div;
+            //System.out.println(d);
+            sb.append(d);
+            num=num%div;
+            high--;
+        }
+        return sb.toString();
+        
+        
+    }
+}
