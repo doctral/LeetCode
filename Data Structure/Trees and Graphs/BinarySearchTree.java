@@ -273,6 +273,26 @@ public class BinarySearchTree {
         }
         return res;
     }
+    
+    // BFS implementation using two queue
+    // This is more efficient
+    public void BFS(TreeNode<Integer> root){
+        if(root==null) return;
+        Queue<TreeNode<Integer>> currLevel=new LinkedList<>();
+        currLevel.add(root);
+        while(!currLevel.isEmpty()){
+            Queue<TreeNode<Integer>> nextLevel=new LinkedList<>();
+            while(!currLevel.isEmpty()){
+                TreeNode<Integer> curr=currLevel.poll();
+                System.out.print(curr.element+" ");
+                if(curr.left!=null) nextLevel.add(curr.left);
+                if(curr.right!=null) nextLevel.add(curr.right);
+            }
+            while(!nextLevel.isEmpty()){
+                currLevel.add(nextLevel.poll());
+            }
+        }
+    }
 
 
     
