@@ -9,5 +9,15 @@ For a reasonable balanced binary search tree, the insertion, look up, and deleti
 A binary search tree can be implemented using a linked structure. 
 
 Deleting Elements from a BST:
-http://www.algolist.net/Data_structures/Binary_search_tree/Removal
+Case 1: Node is a leaf node: This is a simple case, figure out whether this node is left or right node of parent 
+        and set null as child for the parent for that side.
+Case 2: Node is having one child: Establish a direct link between parent node and child node of this node.
+Case 3: Node has two children: This is little tricky.. the steps involved in this are.
+        Step 1: First find the successor (or predessor) of the this node.
+        Step 2: Delete the successor (or predessor) from the tree.
+        Step 3: Replace the node to be deleted with the successor (or predessor)
 
+
+Inorder: left, root, right
+Preorder: root, left, right
+Postorder: left, right. root
