@@ -8,5 +8,6 @@ For a reasonable balanced binary search tree, the insertion, look up, and deleti
 
 A binary search tree can be implemented using a linked structure. 
 
-SEARCHING for an element:
+Deleting Elements from a BST:
+http://www.algolist.net/Data_structures/Binary_search_tree/Removal
 
