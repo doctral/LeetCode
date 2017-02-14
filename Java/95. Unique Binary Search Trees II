@@ -1,0 +1,26 @@
+public class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        if(n==0) return new ArrayList<TreeNode>();
+        return generate(1,n);
+    }
+    private List<TreeNode> generate(int start, int end){
+        List<TreeNode> res=new LinkedList<>();
+        if(start>end){
+            res.add(null); // failed to insert start, 
+            return res;
+        }
+        for(int i=start; i<=end; i++){ // insert i as root
+            List<TreeNode> left=generate(start,i-1);
+            List<TreeNode> right=generate(i+1,end);
+            for(TreeNode le:left){
+                for(TreeNode ri:right){
+                    TreeNode root=new TreeNode(i);
+                    root.left=le;
+                    root.right=ri;
+                    res.add(root);
+                }
+            }
+        }
+        return res;
+    }
+}
