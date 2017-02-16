@@ -1,0 +1,23 @@
+public class Solution {
+    public boolean isInterleave(String s1, String s2, String s3) {
+        int m=s1.length(), n=s2.length(), p=s3.length();
+        if(m+n!=p) return false;
+        boolean[][] res=new boolean[m+1][n+1];
+        res[0][0]=true;
+        char[] str1=s1.toCharArray();
+        char[] str2=s2.toCharArray();
+        char[] str3=s3.toCharArray();
+        for(int i=1; i<=m; i++){
+            res[i][0]=res[i-1][0]&&(str1[i-1]==str3[i-1]);
+        }
+        for(int i=1; i<=n; i++){
+            res[0][i]=res[0][i-1]&&(str2[i-1]==str3[i-1]);
+        }
+        for(int i=1; i<=m; i++){
+            for(int j=1; j<=n; j++){
+                res[i][j]=(res[i-1][j]&&str1[i-1]==str3[i+j-1]) || (res[i][j-1]&&str2[j-1]==str3[i+j-1]);
+            }
+        }
+        return res[m][n];
+    }
+}
