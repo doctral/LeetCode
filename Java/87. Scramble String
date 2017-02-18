@@ -1,0 +1,23 @@
+public class Solution {
+    public boolean isScramble(String s1, String s2) {
+        if(s1.length()<=1) return s1.equals(s2);
+        // check if s1 and s2 have the same characters, it's an efficient way to reduce running time O(n)
+        // Or sort each charArray with O(nlogn), which is slower
+        int[] letters=new int[26];
+        char[] t1=s1.toCharArray(), t2=s2.toCharArray();
+        for(int i=0; i<t1.length; i++){
+            letters[t1[i]-'a']++;
+            letters[t2[i]-'a']--;
+        }
+        for(int i: letters) if(i!=0) return false;
+        // otherwise, go to next step
+        // check if( (s1.left,s2.left) && (s1.right, s2.right) ) || ((s1.left, s2.right) && (s1.right, s2.left)) is scramble,
+        // if yes, return true, otherwise, return false
+        int len=s1.length();
+        for(int i=1; i<s1.length(); i++){
+            if(isScramble(s1.substring(0,i),s2.substring(0,i)) && isScramble(s1.substring(i,len),s2.substring(i,len))) return true;
+            if(isScramble(s1.substring(0,i),s2.substring(len-i,len)) && isScramble(s1.substring(i,len),s2.substring(0,len-i))) return true;
+        }
+        return false;
+    }
+}
