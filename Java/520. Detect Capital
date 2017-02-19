@@ -1,0 +1,18 @@
+public class Solution {
+    public boolean detectCapitalUse(String word) {
+        if(word.length()<=1) return true;
+        char[] chs=word.toCharArray();
+        boolean first=Character.isUpperCase(chs[0]), second=Character.isUpperCase(chs[1]);
+        if(first==false && second) return false;
+        for(int i=2; i<chs.length; i++){
+            if(first && second && !Character.isUpperCase(chs[i])){
+                return false;
+            }
+            if(first && !second && Character.isUpperCase(chs[i])){
+                return false;
+            }
+            if(!first && !second && Character.isUpperCase(chs[i])) return false;
+        }
+        return true;
+    }
+}
