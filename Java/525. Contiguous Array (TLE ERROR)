@@ -16,7 +16,7 @@ public class Solution {
     private int findMax(int[] nums, int ones, int zeroes, int left, int right){
         if(left>right) return 0;
         if(ones==zeroes) return 2*ones;
-        if( (ones>zeroes && (nums[left==1] || nums[right]==1)) ||(zeroes>ones && (nums[left]==0 ||nums[right]==0) ) ){
+        if((ones>zeroes && (nums[left]==1||nums[right]==1))||(zeroes>ones&&(nums[left]==0||nums[right]==0))){
             if(ones>zeroes){
                 if(nums[left]==1){
                     left++;
@@ -38,10 +38,21 @@ public class Solution {
             max=findMax(nums, ones, zeroes, left, right);
         }
         else{
-            // incomplete
-
+            if(ones>zeroes){
+                zeroes--;
+            }
+            else{
+                ones--;
+            }
+            int t1=findMax(nums, ones, zeroes, left+1, right);
+            int t2=findMax(nums, ones, zeroes, left, right-1);
+            if(t1>t2){
+                max=t1;
+            }
+            else{
+                max=t2;
+            }
         }
         return max;
     }
 }
-[0,1,0,1,1,1,0,0,1,1,0,1,1,1,1,1,1,0,1,1,0,1,1,0,0,0,1,0,1,0,0,1,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,1,1,1,0,1,0,0,1,1,1,1,1,0,0,1,1,1,1,0,0,1,0,1,1,0,0,0,0,0,0,1,0,1,0,1,1,0,0,1,1,0,1,1,1,1,0,1,1,0,0,0,1,1]
