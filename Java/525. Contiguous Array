@@ -1,0 +1,22 @@
+public class Solution {
+    public int findMaxLength(int[] nums) {
+        int max=0, sum=0;
+        Map<Integer, Integer> sum_index=new HashMap<>();
+        sum_index.put(0,-1); 
+        for(int i=0; i<nums.length; i++){
+            if(nums[i]==0){
+                sum=sum-1;
+            }
+            else{
+                sum++;
+            }
+            if(sum_index.containsKey(sum)){
+                max=Math.max(max, i-sum_index.get(sum));
+            }
+            else{
+                sum_index.put(sum, i);
+            }
+        }
+        return max;
+    }
+}
