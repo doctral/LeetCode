@@ -1,0 +1,46 @@
+public class Solution {
+    int max=0;
+    public int findMaxLength(int[] nums) {
+        int ones=0, zeroes=0;
+        for(int num: nums){
+            if(num==0){
+                zeroes++;
+            }
+            else{
+                ones++;
+            }
+        }
+        if(zeroes==ones) return 2*ones;
+        return findMax(nums, ones, zeroes, 0, nums.length-1);
+    }
+    private int findMax(int[] nums, int ones, int zeroes, int left, int right){
+        if(left>right) return 0;
+        if(ones==zeroes) return 2*ones;
+        if( (ones>zeroes && (nums[left==1] || nums[right]==1)) ||(zeroes>ones && (nums[left]==0 ||nums[right]==0) ) ){
+            if(ones>zeroes){
+                if(nums[left]==1){
+                    left++;
+                }
+                else{
+                    right--;
+                }
+                ones--;
+            }
+            else{
+                if(nums[left]==0){
+                    left++;
+                }
+                else{
+                    right--;
+                }
+                zeroes--;
+            }
+            max=findMax(nums, ones, zeroes, left, right);
+        }
+        else{
+            // incomplete
+
+        }
+        return max;
+    }
+}
