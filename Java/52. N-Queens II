@@ -1,0 +1,32 @@
+public class Solution {
+    int max=0;
+    int[] queens;
+    public int totalNQueens(int n) {
+        queens=new int[n];
+        for(int i=0; i<n; i++){
+            queens[i]=-1;
+        }
+        backtrack(n, 0);
+        return max;
+    }
+    private void backtrack(int n, int row){
+        if(row==n){
+            max++;
+        }
+        else{
+            for(int i=0; i<n; i++){
+                if(!valid(row, i)) continue;
+                queens[row]=i;
+                backtrack(n, row+1);
+                queens[row]=-1;
+            }
+        }
+        
+    }
+    private boolean valid(int row, int col){
+        for(int i=1; i<=row; i++){
+            if(queens[row-i]==col || queens[row-i]==col-i || queens[row-i]==col+i) return false;
+        }
+        return true;
+    }
+}
