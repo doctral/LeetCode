@@ -1,0 +1,19 @@
+Selection Sort:
+    Algorithm: find the smallest number in the array and swap it with the first num in the array.
+               Repeat this step until only a number remains.
+               
+Insertion Sort:
+    Algorithm: repeatedly inserting a new element into a sorted sublist until the whole array is sorted.
+
+Bubble Sort:
+    Algorithm: on each pass, sucessive neighboring pairs are compared. If a pair is in decreasing order, its values are swapped. 
+
+Merge Sort:
+    Algorithm: divides the array into two halves and applies a merge sort on each half recursively. After the two halves are sorted,
+    then merge them. 
+
+Quick Sort:
+    Algorithm: 
+        
+    
+               
