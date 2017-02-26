@@ -1,0 +1,43 @@
+public class Solution {
+    private char[][] Board;
+    private boolean[][] used;
+    public char[][] updateBoard(char[][] board, int[] click) {
+        int row=click[0], col=click[1];
+        if(board[row][col]=='M'){
+            board[row][col]='X';
+            return board;
+        }
+        this.Board=board;
+        used=new boolean[board.length][board[0].length];
+        check(row, col);
+        return Board;
+    }
+    
+    private void check(int row, int col){
+        if(row>=0 && row<Board.length && col>=0 && col<Board[0].length && Board[row][col]!='M' && !used[row][col]){
+            int num=mines(row+1,col)+mines(row-1,col)+mines(row,col+1)+mines(row,col-1)+mines(row-1,col-1)+
+            mines(row-1,col+1)+mines(row+1,col-1)+mines(row+1,col+1);
+            used[row][col]=true;
+            if(num==0){
+                Board[row][col]='B';
+                check(row-1,col);
+                check(row+1,col);
+                check(row, col-1);
+                check(row,col+1);
+                check(row-1,col-1);
+                check(row-1,col+1);
+                check(row+1, col-1);
+                check(row+1,col+1);
+            }
+            else{
+                Board[row][col]=(char)('0'+num);
+            }
+        }
+        
+    }
+    private int mines(int row, int col){
+        if(row<0 || row>=Board.length || col<0 || col>=Board[0].length) return 0;
+        if(Board[row][col]=='M') return 1;
+        return 0;
+    }
+}
