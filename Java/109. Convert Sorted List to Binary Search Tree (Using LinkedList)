@@ -1,0 +1,18 @@
+public class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        return insert(head, null);
+    }
+    private TreeNode insert(ListNode head, ListNode tail){
+        if(head==tail) return null;
+        ListNode slow=head;
+        ListNode fast=head;
+        while(fast!=tail && fast.next!=tail){
+            fast=fast.next.next;
+            slow=slow.next;
+        }
+        TreeNode root=new TreeNode(slow.val);
+        root.left=insert(head, slow);
+        root.right=insert(slow.next, tail);
+        return root;
+    }
+}
