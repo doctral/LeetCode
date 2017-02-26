@@ -1,0 +1,22 @@
+public class Solution {
+    int min;
+    public int getMinimumDifference(TreeNode root) {
+        min=Integer.MAX_VALUE;
+        List<Integer> nums=new ArrayList<>();
+        traversal(root, nums);
+        for(int i=0; i<nums.size()-1; i++){
+            if(min>nums.get(i+1)-nums.get(i)){
+                min=nums.get(i+1)-nums.get(i);
+            }
+        }
+        return min;
+        
+    }
+    private void traversal(TreeNode root, List<Integer> nums){
+        if(root!=null){
+            traversal(root.left, nums);
+            nums.add(root.val);
+            traversal(root.right, nums);
+        }
+    }
+}
