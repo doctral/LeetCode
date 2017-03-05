@@ -1,0 +1,33 @@
+public class Solution {
+    public int findBlackPixel(char[][] picture, int N) {
+        int[] row=new int[picture.length];
+        int[] col=new int[picture[0].length];
+        for(int i=0; i<picture.length; i++){
+            for(int j=0; j<picture[0].length; j++){
+                if(picture[i][j]=='B'){
+                    row[i]=row[i]+1;
+                    col[j]=col[j]+1;
+                }
+            }
+        }
+        int total=0;
+        for(int i=0; i<picture.length; i++){
+            for(int j=0; j<picture[0].length; j++){
+                if(picture[i][j]=='B' && row[i]==N && col[j]==N){
+                    boolean flag=true;
+                    for(int r=0; r<picture.length && flag; r++){
+                        if(picture[r][j]=='B' && r!=i){
+                            for(int c=0; c<picture[0].length && flag; c++){
+                                if(picture[i][c]!=picture[r][c]){
+                                    flag=false;
+                                }
+                            }
+                        }
+                    }
+                    if(flag) total++;
+                }
+            }
+        }
+        return total;
+    }
+}
