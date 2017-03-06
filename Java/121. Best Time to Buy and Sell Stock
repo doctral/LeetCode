@@ -1,0 +1,20 @@
+public class Solution {
+    public int maxProfit(int[] prices) {
+        int max=0;
+        int left=0, right=prices.length-1;
+        while(right>0 && prices[right]<=prices[right-1]){
+            right--;
+        }
+        while(left<right && prices[left]>=prices[left+1]){
+            left++;
+        }
+        for(int i=left; i<right; i++){
+            if(prices[i]>=prices[i+1]) continue;
+            for(int j=right; j>i ; j--){
+                if(prices[j]<=prices[j-1] || prices[i]>=prices[j] || prices[j]-prices[i]<=max) continue;
+                max=prices[j]-prices[i];
+            }
+        }
+        return max;
+    }
+}
