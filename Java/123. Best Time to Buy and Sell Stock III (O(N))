@@ -1,0 +1,29 @@
+public class Solution {
+    public int maxProfit(int[] prices) {
+        int max=0;
+        if(prices.length<2) return max;
+        int[] first=new int[prices.length];
+        int currMin=prices[0],leftmax=0;
+        for(int i=1; i<prices.length; i++){
+            if(prices[i]<=currMin){
+                currMin=prices[i];
+            }
+            else if(leftmax<prices[i]-currMin){
+                leftmax=prices[i]-currMin;
+            }
+            first[i]=leftmax;
+        }
+        int currMax=prices[prices.length-1];
+        int rightmax=0;
+        for(int i=prices.length-1; i>=0; i--){
+            if(prices[i]>currMax){
+                currMax=prices[i];
+            }
+            else if(rightmax<currMax-prices[i]){
+                rightmax=currMax-prices[i];
+            }
+            if(max<rightmax+first[i]) max=rightmax+first[i];
+        }
+        return max;
+    }
+}
