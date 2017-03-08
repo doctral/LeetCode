@@ -1,0 +1,35 @@
+public class Solution {
+    public int maxProfit(int[] prices) {
+        int max=0, left=0, right=prices.length-1;
+        while(left<right){
+            while(left<right && prices[left]>=prices[left+1]){
+                left++;
+            }
+            if(left>=right) return max;
+            while(right>left && prices[right]<=prices[right-1]){
+                right--;
+            }
+            if(left>=right) return max;
+            for(int i=left+1; i<=right; i++){
+                int leftmax=findMax(prices, left, i);
+                int rightmax=findMax(prices, i, right);
+                max=Math.max(max, leftmax+rightmax);
+            }
+            left++;
+        }
+        return max;
+    }
+    private int findMax(int[] prices, int left, int right){
+        if(right-left<1) return 0;
+        int max=0, currMin=prices[left];
+        for(int i=left+1; i<=right; i++){
+            if(prices[i]<=currMin){
+                currMin=prices[i];
+            }
+            else{
+                max=Math.max(max, prices[i]-currMin);
+            }
+        }
+        return max;
+    }
+}
