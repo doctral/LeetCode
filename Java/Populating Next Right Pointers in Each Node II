@@ -1,0 +1,22 @@
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        TreeLinkNode fake=new TreeLinkNode(0);
+        TreeLinkNode curr=fake;
+        while(root!=null){
+            if(root.left!=null){
+                curr.next=root.left;
+                curr=curr.next;
+            }
+            if(root.right!=null){
+                curr.next=root.right;
+                curr=curr.next;
+            }
+            root=root.next;
+            if(root==null){
+                root=fake.next;
+                curr=fake;
+                fake.next=null;
+            }
+        }
+    }
+}
