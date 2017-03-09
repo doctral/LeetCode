@@ -1,0 +1,18 @@
+public class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> res=new ArrayList<>();
+        int k=rowIndex+1;
+        if(k<=0) return res;
+        res.add(1);
+        for(int i=2; i<=k; i++){
+            List<Integer> temp=new ArrayList<>();
+            temp.add(1);
+            for(int j=1; j<i-1; j++){
+                temp.add(res.get(j-1)+res.get(j));
+            }
+            temp.add(1);
+            res=temp;
+        }
+        return res;
+    }
+}
