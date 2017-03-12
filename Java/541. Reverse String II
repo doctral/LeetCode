@@ -1,0 +1,38 @@
+public class Solution {
+    public String reverseStr(String s, int k) {
+        char[] chs=s.toCharArray();
+        int index=0;
+        while(chs.length-index>= 2*k){
+            int left=index, right=index+k-1;
+            while(left<right){
+                char t=chs[left];
+                chs[left]=chs[right];
+                chs[right]=t;
+                left++;
+                right--;
+            }
+            index+=2*k;
+        }
+        if(chs.length-index>=k){
+            int left=index, right=index+k-1;
+            while(left<right){
+                char t=chs[left];
+                chs[left]=chs[right];
+                chs[right]=t;
+                left++;
+                right--;
+            }
+        }
+        else{
+            int left=index, right=chs.length-1;
+            while(left<right){
+                char t=chs[left];
+                chs[left]=chs[right];
+                chs[right]=t;
+                left++;
+                right--;
+            }
+        }
+        return new String(chs);
+    }
+}
