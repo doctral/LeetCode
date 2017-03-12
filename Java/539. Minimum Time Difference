@@ -1,0 +1,21 @@
+public class Solution {
+    public int findMinDifference(List<String> timePoints) {
+        int[] times=new int[timePoints.size()+1];
+        for(int i=0; i<timePoints.size(); i++){
+            String[] strs=timePoints.get(i).split(":");
+            int h=Integer.parseInt(strs[0]);
+            int min=Integer.parseInt(strs[1]);
+            times[i]=h*60+min;
+        }
+        times[times.length-1]=24*60; // fake max
+        Arrays.sort(times);
+        times[times.length-1]=times[0]+24*60;
+        int min=24*60;
+        for(int i=0; i<times.length-1; i++){
+            if(times[i+1]-times[i]<min){
+                min=times[i+1]-times[i];
+            }
+        }
+        return min;
+    }
+}
