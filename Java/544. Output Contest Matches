@@ -1,0 +1,31 @@
+public class Solution {
+    public String findContestMatch(int n) {
+        List<String> teams=new ArrayList<>();
+        for(int i=1; i<=n/2; i++){
+            StringBuilder sb=new StringBuilder();
+            sb.append("(");
+            sb.append(i);
+            sb.append(",");
+            sb.append(n+1-i);
+            sb.append(")");
+            teams.add(sb.toString());
+        }
+        n=n>>1;
+        List<String> curr;
+        while(n>1){
+            curr=new ArrayList<>(teams);
+            teams=new ArrayList<>();
+            for(int i=0; i<n/2; i++){
+                StringBuilder str=new StringBuilder();
+                str.append("(");
+                str.append(curr.get(i));
+                str.append(",");
+                str.append(curr.get(n-1-i));
+                str.append(")");
+                teams.add(str.toString());
+            }
+            n=n>>1;
+        }
+        return teams.get(0);
+    }
+}
