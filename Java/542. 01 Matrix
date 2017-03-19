@@ -1,0 +1,28 @@
+public class Solution {
+    public List<List<Integer>> updateMatrix(List<List<Integer>> matrix) {
+        int row=matrix.size(), col=matrix.get(0).size();
+        Queue<int[]> queue=new LinkedList<>();
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                if(matrix.get(i).get(j)==0){
+                    queue.add(new int[]{i,j});
+                }
+                else{
+                    matrix.get(i).set(j,Integer.MAX_VALUE);
+                }
+            }
+        }
+        int[][] dirs={{1,0},{-1,0},{0,1},{0,-1}};
+        while(!queue.isEmpty()){
+            int[] curr=queue.remove();
+            for(int[] dir:dirs){
+                int r=curr[0]+dir[0];
+                int c=curr[1]+dir[1];
+                if(r<0 || r>=row || c<0 || c>=col || matrix.get(r).get(c)<=matrix.get(curr[0]).get(curr[1])+1) continue;
+                queue.add(new int[]{r,c});
+                matrix.get(r).set(c, matrix.get(curr[0]).get(curr[1])+1);
+            }
+        }
+        return matrix;
+    }
+}
