@@ -1,0 +1,24 @@
+public class Solution {
+    public TreeNode convertBST(TreeNode root) {
+        List<TreeNode> nodes=new ArrayList<>();
+        List<Integer> values=new ArrayList<>();
+        traversal(nodes, values, root);
+        for(TreeNode node: nodes){
+            int key=node.val;
+            for(int value: values){
+                if(value>key){
+                    node.val=node.val+value;
+                }
+            }
+        }
+        return root;
+    }
+    private void traversal(List<TreeNode> nodes, List<Integer> values, TreeNode root){
+        if(root!=null){
+            nodes.add(root);
+            values.add(root.val);
+            traversal(nodes, values,root.left);
+            traversal(nodes,values,root.right);
+        }
+    }
+}
