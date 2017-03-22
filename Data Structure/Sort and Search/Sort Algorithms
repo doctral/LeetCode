@@ -13,7 +13,22 @@ Merge Sort:
     then merge them. 
 
 Quick Sort:
-    Algorithm: 
-        
+    Algorithm: The algorithm selects an element, called the pivot, in the array. It divides the array into two parts, so that
+    all the elements in the first part are less than or equal to the pivot and all the elements in the second part are greater
+    than the pivot. The quick sort algorithm is then recursively applied to the first part and then the second part.
+
+Heap Sort: a heap sort uses a binary heap, it first adds all the elements to a heap and then removes the largest elements 
+    successively to obtain a sorted list.
+    Heap is complete binary tree, which can be implemented by an arraylist. 
+    For a node at index i, its left child is at position 2i+1, the right child is at 2i+2
+                           its parent node is at (i-1)/2
     
+    Add a new node: first add it to the end of the heap, and then rebuild the tree as follows:
+           Let the last node be the current node;
+           while (the current node > its parent){
+               swap the current node with its parent
+               Now the current node is one level up;
+           }
+    
+    Remove the node
                
