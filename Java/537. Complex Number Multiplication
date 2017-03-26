@@ -1,0 +1,17 @@
+public class Solution {
+    public String complexNumberMultiply(String a, String b) {
+        int m=a.indexOf('+');
+        String str1=a.substring(0, m), str2=a.substring(m+1, a.length()-1);
+        int n=b.indexOf('+');
+        String str3=b.substring(0,n), str4=b.substring(n+1, b.length()-1);
+        int num1=Integer.parseInt(str1), num2=Integer.parseInt(str2), num3=Integer.parseInt(str3), num4=Integer.parseInt(str4);
+        StringBuilder sb=new StringBuilder();
+        int r1=num1*num3-num2*num4, r2=num1*num4+num2*num3;
+        sb.append(r1);
+        sb.append("+");
+        sb.append(r2);
+        sb.append("i");
+        return sb.toString();
+      
+    }
+}
