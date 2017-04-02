@@ -1,0 +1,47 @@
+public class Solution {
+    public int findCircleNum(int[][] M) {
+        int[] groups=new int[M.length];
+        for(int i=0; i<groups.length; i++){
+            groups[i]=-1;
+        }
+        int index=1;
+        for(int i=1; i<M.length; i++){
+            for(int j=0; j<i; j++){
+                if(M[i][j]==1){
+                    
+                    if(groups[i]==-1 && groups[j]==-1){
+                            groups[i]=index;
+                            groups[j]=index;
+                            index++;
+                    }
+                    else if(groups[i]==-1){
+                        groups[i]=groups[j];
+                    }
+                    else if(groups[j]==-1){
+                        groups[j]=groups[i];
+                    }
+                    else if(groups[i]!=groups[j]){
+                        for(int id=0; id<groups.length; id++){
+                            if(groups[id]==groups[i]){
+                                groups[id]=groups[j];
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+        Arrays.sort(groups);
+        int total=1;
+        for(int i=1; i<groups.length; i++){
+            if(groups[i]==-1){
+                total++;
+            }
+            else if(groups[i]!=groups[i-1]){
+                total++;
+            }
+        }
+        return total;
+        
+    }
+}
