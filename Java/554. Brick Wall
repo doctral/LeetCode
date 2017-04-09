@@ -1,0 +1,22 @@
+public class Solution {
+    public int leastBricks(List<List<Integer>> wall) {
+        HashMap<Integer, Integer> sums=new HashMap<>();
+        int max=0;
+        for(List<Integer> list: wall){
+            int sum=0;
+            for(int i=0; i<list.size()-1; i++){
+                sum+=list.get(i);
+                if(sums.containsKey(sum)){
+                    sums.put(sum, sums.get(sum)+1);
+                    if(max<sums.get(sum)) 
+                        max=sums.get(sum);
+                }
+                else{
+                    sums.put(sum,1);
+                    if(max<sums.get(sum)) max=sums.get(sum);
+                }
+            }
+        }
+        return wall.size()-max;
+    }
+}
