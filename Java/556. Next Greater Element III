@@ -1,0 +1,37 @@
+public class Solution {
+    public int nextGreaterElement(int n) {
+        char[] ds=Integer.toString(n).toCharArray();
+        int minIndex=ds.length-2;
+        while(minIndex>=0 && ds[minIndex+1]<=ds[minIndex]){
+            minIndex--;
+        }
+        if(minIndex<0) return -1;
+        int min=minIndex+1;
+        for(int j=minIndex+2; j<ds.length; j++){
+            if(ds[j]>ds[minIndex] && ds[j]<ds[min]){
+                min=j;
+            }
+        }
+        char temp=ds[minIndex];
+        ds[minIndex]=ds[min];
+        ds[min]=temp;
+        char[] left=new char[ds.length-minIndex-1];
+        for(int i=0; i<left.length; i++){
+            left[i]=ds[minIndex+1+i];
+        }
+        Arrays.sort(left);
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<=minIndex; i++){
+            sb.append(ds[i]);
+        }
+        for(char ch: left){
+            sb.append(ch);
+        }
+        double num=Double.parseDouble(sb.toString());
+        if(num>Integer.MAX_VALUE || num < n){
+            return -1;
+        }
+        return (int)num;
+         
+    }
+}
