@@ -1,0 +1,21 @@
+public class Solution {
+    public boolean checkRecord(String s) {
+        int a=0;
+        int l=0;
+        for(int i=0; i<s.length(); i++){
+            if(s.charAt(i)!='L'){
+                l=0;
+                if(s.charAt(i)=='A'){
+                    a++;
+                }
+            }
+            else{
+                l++;
+            }
+            if(a>1 || l>2){
+                return false;
+            }
+        }
+        return true;
+    }
+}
