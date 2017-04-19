@@ -30,5 +30,13 @@ Heap Sort: a heap sort uses a binary heap, it first adds all the elements to a h
                Now the current node is one level up;
            }
     
-    Remove the node
+    Remove the root: After the root is removed, the tree must be rebuilt to maintain the heap property. The algorithm for rebuilding the 
+    tree can be described as follows:
+          move the last node to replace the root.
+          Let the root be the current node
+          while (the current node has children and the current node is smaller than one of its children){
+               swap the current node with the larger of its children
+               now the current node is one level down
+          }
+    
                
