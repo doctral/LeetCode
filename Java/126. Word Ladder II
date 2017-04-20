@@ -1,0 +1,59 @@
+public class Solution {
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        List<List<String>> res=new ArrayList<>();
+        if(!wordList.contains(endWord)) return res;
+        List<List<String>> strs=setList(beginWord, endWord, wordList);
+        if(strs.size()<1) return res;
+        DFS(res, strs, new ArrayList<String>(), 0);
+        return res;
+    }
+    private void DFS(List<List<String>> res, List<List<String>> strs, List<String> temp, int level){
+        if(level==strs.size()){
+            res.add(new ArrayList<String>(temp));
+        }
+        else{
+            for(int i=0; i<strs.get(level).size(); i++){
+                if(temp.size()>0 && !isValid(strs.get(level).get(i), temp.get(temp.size()-1))) continue;
+                temp.add(strs.get(level).get(i));
+                DFS(res, strs, temp, level+1);
+                temp.remove(temp.size()-1);
+            }
+        }
+    }
+    private List<List<String>> setList(String beginWord, String endWord, List<String> wordList){
+        boolean[] used=new boolean[wordList.size()];
+        Queue<String> curr=new LinkedList<>();
+        curr.add(beginWord);
+        List<List<String>> strs=new ArrayList<>();
+        while(!curr.isEmpty()){
+            List<String> list=new ArrayList<>();
+            Queue<String> next=new LinkedList<>();
+            if(curr.contains(endWord)){
+                list.add(endWord);
+                strs.add(list);
+                return strs;
+            }
+            while(!curr.isEmpty()){
+                String str=curr.remove();
+                list.add(str);
+                for(int i=0; i<wordList.size(); i++){
+                    if(used[i]==false && isValid(str, wordList.get(i))){
+                        used[i]=true;
+                        next.add(wordList.get(i));
+                    }
+                }
+            }
+            strs.add(list);
+            curr=next;
+        }
+        return new ArrayList<>();
+    }
+    private boolean isValid(String a, String b){
+        int diff=0;
+        for(int i=0; i<a.length(); i++){
+            if(a.charAt(i)!=b.charAt(i)) diff++;
+            if(diff>1) return false;
+        }
+        return true;
+    }
+}
