@@ -1,0 +1,35 @@
+public class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        if(isValid(beginWord, endWord)) return 2;
+        int len=1;
+        int[] used=new int[wordList.size()];
+        Stack<String> curr=new Stack<>();
+        curr.push(beginWord);
+        while(!curr.isEmpty()){
+            len++;
+            Stack<String> next=new Stack<>();
+            while(!curr.isEmpty()){
+                String str=curr.pop();
+                for(int i=0; i<wordList.size(); i++){
+                    if(used[i]==0 && isValid(str, wordList.get(i)) ){
+                        if(wordList.get(i).equals(endWord)) return len;
+                        used[i]=1;
+                        next.push(wordList.get(i));
+                    }
+                }
+            }
+            curr=next;
+        }
+        return 0;
+    }
+    private boolean isValid(String a, String b){
+        int diff=0;
+        for(int i=0; i<a.length(); i++){
+            if(a.charAt(i)!=b.charAt(i)){
+                diff++;
+            }
+            if(diff>1) return false;
+        }
+        return true;
+    }
+}
