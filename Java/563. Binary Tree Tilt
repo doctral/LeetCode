@@ -1,0 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    private int tiltSum=0;
+    public int findTilt(TreeNode root) {
+        tilt_sum(root);
+        return tiltSum;
+    }
+    private int sum(TreeNode root){
+        if(root==null) return 0;
+        return root.val+sum(root.left)+sum(root.right);
+    }
+    private int tilt(TreeNode root){
+        if(root!=null){
+            int left=sum(root.left);
+            int right=sum(root.right);
+            return Math.abs(left-right);
+        }
+        return 0;
+    }
+    private void tilt_sum(TreeNode root){
+        if(root!=null){
+            tiltSum+=tilt(root);
+            tilt_sum(root.left);
+            tilt_sum(root.right);
+        }
+    }
+}
