@@ -1,0 +1,59 @@
+public class Solution {
+    public int longestLine(int[][] M) {
+        if(M.length<1) return 0;
+        boolean[][] row_used=new boolean[M.length][M[0].length];
+        boolean[][] col_used=new boolean[M.length][M[0].length];
+        boolean[][] dia_used=new boolean[M.length][M[0].length];
+        boolean[][] antidia_used=new boolean[M.length][M[0].length];
+        int max=0;
+        for(int i=0; i<M.length; i++){
+            for(int j=0; j<M[0].length; j++){
+                if(M[i][j]==1){
+                    int temp=1;
+                    if(col_used[i][j]==false && j<M[0].length-1 && M[i][j+1]==1){
+                        int col=j+1;
+                        while(col<M[0].length &&M[i][col]==1){
+                            col_used[i][col]=true;
+                            col++;
+                            temp++;
+                        }
+                    }
+                    max=Math.max(max, temp);
+                    temp=1;
+                    if(row_used[i][j]==false && i<M.length-1 && M[i+1][j]==1){
+                        int row=i+1;
+                        while(row<M.length && M[row][j]==1){
+                            row_used[row][j]=true;
+                            row++;
+                            temp++;
+                        }
+                    }
+                    max=Math.max(max, temp);
+                    temp=1;
+                    if(dia_used[i][j]==false && i<M.length-1 && j<M[0].length-1 && M[i+1][j+1]==1){
+                        int row=i+1, col=j+1;
+                        while(row<M.length && col<M[0].length && M[row][col]==1){
+                            dia_used[row][col]=true;
+                            row++;
+                            col++;
+                            temp++;
+                        }
+                    }
+                    max=Math.max(max, temp);
+                    temp=1;
+                    if(antidia_used[i][j]==false && i<M.length-1 && j>0 && M[i+1][j-1]==1){
+                        int row=i+1, col=j-1;
+                        while(row<M.length && col>=0 && M[row][col]==1){
+                            antidia_used[row][col]=true;
+                            row++;
+                            col--;
+                            temp++;
+                        }
+                    }
+                    max=Math.max(max, temp);
+                }
+            }
+        }
+        return max;
+    }
+}
