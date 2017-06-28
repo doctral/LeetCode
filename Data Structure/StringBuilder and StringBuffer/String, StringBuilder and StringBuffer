@@ -9,6 +9,8 @@
 5. Once a string is created, its content cannot be changed. Therefore, the methods "toLowerCase","toUpperCase", "trim", and 
    other methods return a new string derived from the original string. 
 
+6. On each concatenation, a new copy of the string is created and the two strings are copied over, character by character. StringBuilder can avoid this problem by creating a resizable array of the string and only copying back to a string when necessary.
+
 6. StringBuilder and StringBuffer: are more flexible than String class. 
    The only difference between StringBuilder and StringBuffer is, StringBuffer is synchronized, which means that only one task
    is allowed to execute StringBuffer at one time.
