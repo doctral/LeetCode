@@ -2,6 +2,7 @@ ArrayList:
 ArrayList is implemented using an array (E[] objects) with a fixed size. When the array is full, create a new array twice as large as the
 current one, copy the element from the current array to the new array.
 The add(int index, E e) and remove(int index) methods in ArrayList is not efficient.
+The amortized insertion runtime is O(1), since the total number of copies to insert N elements is roughly 1+2+...+N/8+N/4+N/2, which is just less than N. Therefore, inserting N elements takes about O(N) work total, and each insertion is O(1) on average. 
 
 LinkedList:
 A Linked List is implemented using a linked structure.
