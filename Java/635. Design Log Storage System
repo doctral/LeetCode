@@ -1,0 +1,90 @@
+public class LogSystem {
+    HashMap<Integer, String> map;
+
+    public LogSystem() {
+        map=new HashMap<>();
+    }
+    
+    public void put(int id, String timestamp) {
+        map.put(id, timestamp);
+    }
+    
+    public List<Integer> retrieve(String s, String e, String gra) {
+        List<Integer> res=new ArrayList<>();
+        String[] start=s.split(":");
+        String[] end=e.split(":");
+        if(gra.equals("Year")){
+            int t1=Integer.parseInt(start[0]);
+            int t2=Integer.parseInt(end[0]);
+            for(int key:map.keySet()){
+                int time=Integer.parseInt(map.get(key).split(":")[0]);
+                if(time>=t1 && time<=t2){
+                    res.add(key);
+                }
+            }
+        }
+        else if(gra.equals("Month")){
+            int t1=(Integer.parseInt(start[0])-2000)*12+Integer.parseInt(start[1]);
+            int t2=(Integer.parseInt(end[0])-2000)*12+Integer.parseInt(end[1]);
+            for(int key: map.keySet()){
+                String[] t=map.get(key).split(":");
+                int time=(Integer.parseInt(t[0])-2000)*12+Integer.parseInt(t[1]);
+                if(time>=t1 && time<=t2){
+                    res.add(key);
+                }
+            }
+        }
+        else if(gra.equals("Day")){
+            int t1=((Integer.parseInt(start[0])-2000)*12+Integer.parseInt(start[1]))*30+Integer.parseInt(start[2]);
+            int t2=((Integer.parseInt(end[0])-2000)*12+Integer.parseInt(end[1]))*30+Integer.parseInt(end[2]);
+            for(int key: map.keySet()){
+                String[] t=map.get(key).split(":");
+                int time=((Integer.parseInt(t[0])-2000)*12+Integer.parseInt(t[1]))*30+Integer.parseInt(t[2]);
+                if(time>=t1 && time<=t2){
+                    res.add(key);
+                }
+            }
+        }
+        else if(gra.equals("Hour")){
+            int t1=(((Integer.parseInt(start[0])-2000)*12+Integer.parseInt(start[1]))*30+Integer.parseInt(start[2]))*24+Integer.parseInt(start[3]);
+            int t2=(((Integer.parseInt(end[0])-2000)*12+Integer.parseInt(end[1]))*30+Integer.parseInt(end[2]))*24+Integer.parseInt(end[3]);
+            for(int key: map.keySet()){
+                String[] t=map.get(key).split(":");
+                int time=(((Integer.parseInt(t[0])-2000)*12+Integer.parseInt(t[1]))*30+Integer.parseInt(t[2]))*24+Integer.parseInt(t[3]);
+                if(time>=t1 && time<=t2){
+                    res.add(key);
+                }
+            }
+        }
+        else if(gra.equals("Minute")){
+            int t1=((((Integer.parseInt(start[0])-2000)*12+Integer.parseInt(start[1]))*30+Integer.parseInt(start[2]))*24+Integer.parseInt(start[3]))*60+Integer.parseInt(start[4]);
+            int t2=((((Integer.parseInt(end[0])-2000)*12+Integer.parseInt(end[1]))*30+Integer.parseInt(end[2]))*24+Integer.parseInt(end[3]))*60+Integer.parseInt(end[4]);
+            for(int key: map.keySet()){
+                String[] t=map.get(key).split(":");
+                int time=((((Integer.parseInt(t[0])-2000)*12+Integer.parseInt(t[1]))*30+Integer.parseInt(t[2]))*24+Integer.parseInt(t[3]))*60+Integer.parseInt(t[4]);
+                if(time>=t1 && time<=t2){
+                    res.add(key);
+                }
+            }
+        }
+        else if(gra.equals("Second")){
+            int t1=(((((Integer.parseInt(start[0])-2000)*12+Integer.parseInt(start[1]))*30+Integer.parseInt(start[2]))*24+Integer.parseInt(start[3]))*60+Integer.parseInt(start[4]))*60+Integer.parseInt(start[5]);
+            int t2=(((((Integer.parseInt(end[0])-2000)*12+Integer.parseInt(end[1]))*30+Integer.parseInt(end[2]))*24+Integer.parseInt(end[3]))*60+Integer.parseInt(end[4]))*60+Integer.parseInt(end[5]);
+            for(int key: map.keySet()){
+                String[] t=map.get(key).split(":");
+                int time=(((((Integer.parseInt(t[0])-2000)*12+Integer.parseInt(t[1]))*30+Integer.parseInt(t[2]))*24+Integer.parseInt(t[3]))*60+Integer.parseInt(t[4]))*60+Integer.parseInt(t[5]);
+                if(time>=t1 && time<=t2){
+                    res.add(key);
+                }
+            }
+        }
+        return res;
+    }
+}
+
+/**
+ * Your LogSystem object will be instantiated and called as such:
+ * LogSystem obj = new LogSystem();
+ * obj.put(id,timestamp);
+ * List<Integer> param_2 = obj.retrieve(s,e,gra);
+ */
