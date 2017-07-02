@@ -1,0 +1,11 @@
+public class Solution {
+    public int findDerangement(int n) {
+        double[] res=new double[n+2];
+        res[1]=0;
+        res[2]=1;
+        for(int i=3; i<=n; i++){
+            res[i]=(i-1)*(res[i-1]+res[i-2])%(Math.pow(10,9)+7);
+        }
+        return (int)(res[n]);
+    }
+}
