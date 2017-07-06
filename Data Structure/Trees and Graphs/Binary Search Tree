@@ -1,10 +1,14 @@
 Binart Search Tree:
 A binary Search Tree is a binary tree in which every node fits a specific ordering property: ALL LEFT DESCENDENTS <= PARENT <= ALL RIGHT 
-DESCENDENTS. 
-
 VS Binary Tree: a binary tree is a tree in which each node has up to two children.
 
-For a reasonable balanced binary search tree, the insertion, look up, and deletion operations can all be done in O(log n) time. 
+For a reasonable "balanced" binary search tree, the insertion, look up, and deletion operations can all be done in O(log n) time. 
+
+Two common types of balanced trees are red-black trees and AVL trees.
+
+Complete binary tree: every level except possibly the last level is completely filled, and all nodes are as far left as possible.
+Full binary tree: every node has either zero or two children.
+Perfect binary tree: binary tree both complete and full.
 
 A binary search tree can be implemented using a linked structure. 
 
@@ -16,7 +20,6 @@ Case 3: Node has two children: This is little tricky.. the steps involved in thi
         Step 1: First find the successor (or predessor) of the this node.
         Step 2: Delete the successor (or predessor) from the tree.
         Step 3: Replace the node to be deleted with the successor (or predessor)
-
 
 Inorder: left, root, right
 Preorder: root, left, right
