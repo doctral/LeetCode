@@ -1,0 +1,47 @@
+public class Solution {
+    public int[] exclusiveTime(int n, List<String> logs) {
+        int[] res=new int[n];
+        Stack<Integer> stack=new Stack<>();
+        Integer preID=null, preTime=null;
+        String preStatus=null;
+        for(String str: logs){
+            String[] strs=str.split(":");
+            if(stack.isEmpty()){
+                preID=Integer.parseInt(strs[0]);
+                preStatus=strs[1];
+                preTime=Integer.parseInt(strs[2]);
+                stack.push(preID);
+            }
+            else{
+                int currID=Integer.parseInt(strs[0]);
+                String st=strs[1];
+                int currTime=Integer.parseInt(strs[2]);
+                if(preStatus.equals("start")){
+                    if(st.equals("start")){
+                        res[preID]+=currTime-preTime;
+                    }
+                    else{
+                        res[preID]+=currTime-preTime+1;
+                    }
+                    
+                }
+                else if(st.equals("end")){
+                    res[currID]+=currTime-preTime;
+                }
+                else if(st.equals("start") && preStatus.equals("end") && !stack.isEmpty()){
+                    res[stack.peek()]+=currTime-preTime-1;
+                }
+                                if(st.equals("start")){
+                    stack.push(currID);
+                }
+                else{
+                    stack.pop();
+                }
+                preID=currID;
+                preStatus=st;
+                preTime=currTime;
+            }
+        }
+        return res;
+    }
+}
