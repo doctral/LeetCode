@@ -9,6 +9,9 @@ Given "bbbbb", the answer is "b", with the length of 1.
 Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
 ####################################################################################
-To solve this problem, we can use a hashmap to store <Character, Integer>, where the key is the latest index of that character.
-We define two pointer, one is for the left side, the other one is for the right side. Each time, when a character appears again in the hashmap, we update left pointer to the rightmost index of repeated character.
+To solve this problem, we can use a hashmap to store <Character, Integer>, where the key is the 
+latest index of that character.
+We define two pointer, one is for the left side, the other one is for the right side. Each time,
+when a character appears again in the hashmap, we update left pointer to the rightmost index of 
+repeated character.
 And we update max length by doing Math.max(max, right-left+1). 
