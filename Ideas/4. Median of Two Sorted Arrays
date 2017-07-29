@@ -1,0 +1,44 @@
+There are two sorted arrays nums1 and nums2 of size m and n respectively.
+
+Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+
+########################################################################################################
+This problem can be treated as finding kth element in two sorted arrays. 
+Let len1, len2 be the length of these two arrays, then the total length of two 
+arrays is len=len1+len2. When len is odd, then k=len/2+1, and when len is even,
+then k=(len/2 + len/2+1)/2.
+
+So the key point to design an algorithm to find the kth element in two sorted 
+array in O(log(m+n)) time. To do so, we can modify the binary search algorithm. Each time we eliminate k/2 small numbers until k=1, then we find the right number.
+
+The algorithm works as following:
+int findkth(int k, int[] arrA, int Astart, int[] arrB, int Bstart){
+	// handle edge cases at first
+	// case 1: array A has been eliminated
+	if(Astart >= arrA.length ) then return arrB[Bstart+k-1];
+	// case 2: array B has been eliminated
+	if(Bstart >= arrB.length ) then return arrA[Astart+k-1];
+	// case 3: k==1, that means the next smaller element would be the right one
+	if(k==1) return Math.min(arrA[Astart], arrB[Bstart]);
+
+	//otherwise, we take k/2 as interval to find the mid index of each array
+    
+    int mid_A=Astart+k/2 -1;
+    int mid_B=Bstart+k/2 -1;
+
+    // Now check if the mid index is valid, if valid then get the value, 
+    // otherwise, set it to max. This won't happen at the same time since
+    // k=(len1+len2)/2
+
+    int value_A=(mid_A<arrA.length)? arrA[mid_A]: Integer.MAX_VALUE;
+    int value_B=(mid_B<arrB.length)? arrB[mid_B]: Integer.MAX_VALUE;
+    
+    // Now eliminate k/2  small elements and update the index
+    // case 1: arrB has k/2 smaller numbers to eliminate
+    if(value_A > value_B){
+        return findkth(k-k/2, arrA, Astart, arrB, mid_B+1);
+    }
+    else{
+        return findkth(k-k/2, arrA, mid_A+1, arrB, Bstart);
+    }
+}

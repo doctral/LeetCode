@@ -1,0 +1,20 @@
+Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+
+Example:
+
+Input: "babad"
+
+Output: "bab"
+
+Note: "aba" is also a valid answer.
+Example:
+
+Input: "cbbd"
+
+Output: "bb"
+
+#############################################################################
+This problem can be solved by using dynamic programming, the structure of
+optimal solution is that, for substring(i,j) with length>=3, if it is
+palindrome, then substring(i+1, j-1) should also be palindrome. Thus we can
+solve it using bottom-up fashion.
