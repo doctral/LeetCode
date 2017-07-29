@@ -1,0 +1,14 @@
+Determine whether an integer is a palindrome. Do this without extra space.
+
+#############################################################################
+Edge case: All negative number would not be palindrome.
+           number between 0 and 9 (inclusive) is palindrome.
+
+Step 1: we need to find the MST digit by doing:
+int high=1;
+while(num/high>=10){
+	high*=10;
+}
+Step 2: while num>0, keep comparing the MSD(num/high) with LSD(num%10);
+        update num=(num%high)/10; // remove both MSD and LSD
+        update high=high/100; (each time eliminate two digits)

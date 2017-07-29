@@ -1,0 +1,33 @@
+Reverse digits of an integer.
+
+Example1: x = 123, return 321
+Example2: x = -123, return -321
+
+Note:
+The input is assumed to be a 32-bit signed integer. Your function should return 
+0 when the reversed integer overflows.
+
+##########################################################################
+There are many ways to do this:
+Approach 1:
+The main idea is to convert the input integer to a double, and then using mod and divide to revert the digits. Then check if overflow.
+The tricky part is here, when it is double, double%10 and double/10 is no longer an integer, we need convert it into integer to avoid any unnecessary mistakes.
+
+public class Solution {
+    public int reverse(int x) {
+        double res=0;
+        while(x!=0){
+            int mod=x%10;
+            res=res*10+mod;
+            if(res>Integer.MAX_VALUE||res<Integer.MIN_VALUE) return 0;
+            x=x/10;
+        }
+        return (int)res;
+    }
+}
+
+Approach 2:
+The main idea is, let remain=num%10, curr=preCurr*10+remain;
+After the addition, when overflow happens, (curr-remain)/10 !=preCurr. We can
+use this property to check. 
+In this approach, there is no need to take care of sign(+/-), double, etc.   

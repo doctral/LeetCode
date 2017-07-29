@@ -1,0 +1,16 @@
+Implement atoi to convert a string to an integer.
+Hint: Carefully consider all possible input cases. If you want a challenge, 
+please do not see below and ask yourself what are the possible input cases.
+
+Notes: It is intended for this problem to be specified vaguely (ie, no given 
+input specs). You are responsible to gather all the input requirements up front.
+
+###############################################################################
+There are many edge cases that we need to be careful.
+1) We should trim the input string at first. After that, if the string is empty, 
+then return 0;
+2) We check the character in the trimed string, if it's number or +/-, then we can handle this case, otherwise, this string is not a number and we just return 0;
+3) Now we can go through the string. If we find that the current character is 
+not a digit, then stop here and return the previous value; Otherwise, keep 
+update the value by doing num=num*10+currDigit.
+Take care of overfitting problem. 
