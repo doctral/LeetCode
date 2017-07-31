@@ -1,33 +1,19 @@
 public class Solution {
     public String convert(String s, int numRows) {
-        if (numRows <= 1 || s.length() <= numRows){
-            return s;
+        if(s.length()<numRows || numRows<2) return s;
+        StringBuilder[] sbs=new StringBuilder[numRows];
+        for(int i=0; i<numRows; i++) sbs[i]=new StringBuilder();
+        int increment=1;
+        int sbIndex=0;
+        for(int i=0; i<s.length(); i++){
+            sbs[sbIndex].append(s.charAt(i));
+            if(sbIndex==0) increment=1;
+            if(sbIndex==numRows-1) increment=-1;
+            sbIndex+=increment;
         }
-        
-        String[] parts=new String[numRows];
-        
-        for(int i=0; i<numRows; i++){
-            parts[i]="";
+        for(int i=1; i<numRows; i++){
+            sbs[0].append(sbs[i]);
         }
-        
-        for(int index=0; index<s.length();index++){
-                int i=index%(2*numRows-2);
-                if(i<numRows){
-                    parts[i]+=s.charAt(index);
-                }
-                else{
-                    i=2*numRows-2-i;
-                    parts[i]+=s.charAt(index);
-                }
-                
-
-        }
-        
-        String str="";
-        for(int i=0; i<numRows; i++){
-            str+=parts[i];
-        }
-        
-        return str;
+        return sbs[0].toString();
     }
 }
