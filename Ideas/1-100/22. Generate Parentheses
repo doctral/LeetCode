@@ -1,0 +1,20 @@
+Given n pairs of parentheses, write a function to generate all combinations of 
+well-formed parentheses.
+
+For example, given n = 3, a solution set is:
+
+[
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+]
+
+#################################################################################
+This problem can be solved by recursion. Theoritically, each position has two 
+options: open or close parenthesis. To be valid, before we can put a close 
+parenthesis, the number of open parenthesis must be more then close parenthesis. 
+Based on this idea, we can design our recursion algorithm as following:
+1. If the number of open parenthesis < number n, we can add '('
+2. If the number of close parenthesis < open, we can add ')' 
