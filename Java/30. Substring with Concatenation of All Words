@@ -1,58 +1,29 @@
 public class Solution {
     public List<Integer> findSubstring(String s, String[] words) {
-        List<Integer> result=new ArrayList<Integer>();
-        if(s.length()==0 || words.length==0){
-            return result;
-        }
-        int words_num=words.length;
+        List<Integer> res=new LinkedList<>();
+        if(words.length<1 || words[0].length()<1 ||s.length()<words.length*words[0].length()) return res;
+        int len=words.length*words[0].length();
         int word_len=words[0].length();
-        if(s.length()<words_num*word_len){
-            return result;
+        HashMap<String, Integer> map=new HashMap<>();
+        for(String str:words){
+            map.put(str,map.getOrDefault(str,0)+1);
         }
-        
-        HashMap<String, Integer> freq=new HashMap<String,Integer>();
-        for(int j=0;j<words.length;j++){
-            if(freq.containsKey(words[j])){
-                freq.put(words[j],freq.get(words[j])+1);
-            }
-            else{
-                   freq.put(words[j],1);
+        for(int i=0; i<=s.length()-len; i++){
+            if(map.containsKey(s.substring(i, i+word_len))){
+                HashMap<String, Integer> curr=new HashMap<>();
+                curr.put(s.substring(i,i+word_len),1);
+                boolean good=true;
+                for(int j=i+word_len; j<i+len; j+=word_len){
+                    String sss=s.substring(j,j+word_len);
+                    if(!map.containsKey(sss) || map.get(sss)<=curr.getOrDefault(sss,0)){
+                        good=false;
+                        break;
+                    }
+                    curr.put(sss, curr.getOrDefault(sss,0)+1);
                 }
+                if(good) res.add(i);
             }
-        
-        for(int i=0; i<=s.length()-words_num*word_len;i++){
-            HashMap<String,Integer> flag=new HashMap(freq);
-
-            boolean f=true;
-            int start=i;
-            
-            while(f){
-                f=false;
-                int end=start+word_len;
-                if(end>s.length()){
-                    break;
-                }
-                String sub=s.substring(start,end);
-                if(flag.containsKey(sub)&&flag.get(sub)>0){
-                    f=true;
-                    flag.put(sub,flag.get(sub)-1);
-                }
-                start=end;
-            }
-        
-            boolean re=true;
-            for(int x:flag.values()){
-                if(x>0){
-                    re=false;
-                    break;
-                }
-            }
-        
-            if(re==true){
-                result.add(i);
-            }
-            
         }
-        return result;
+        return res;
     }
 }

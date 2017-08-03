@@ -1,56 +1,36 @@
 public class Solution {
     public int threeSumClosest(int[] nums, int target) {
+        int id1=0;
+        int res=0;
+        int diff=Integer.MAX_VALUE;
         Arrays.sort(nums);
-        
-        int len = nums.length;
-        int diff = Integer.MAX_VALUE;
-        int res = Integer.MAX_VALUE;
-        for (int i=0;i<len-2;i++){
-            if (i>0 && nums[i]==nums[i-1]) continue; // avoid dup
-            // if the minimum > target
-            if (nums[i]+nums[i+1]+nums[i+2]>target) {
-                if (diff > nums[i]+nums[i+1]+nums[i+2]-target){
-                    diff = nums[i]+nums[i+1]+nums[i+2]-target;
-                    res = nums[i]+nums[i+1]+nums[i+2];
+        while(id1<nums.length-2){
+            int id2=id1+1;
+            int id3=nums.length-1;
+            while(id2<id3){
+                if(nums[id1]+nums[id2]+nums[id3]==target){
+                    return target;
                 }
-                break;  // then done
-            }
-            // if the global maximum < target, then done
-            if (nums[len-3]+nums[len-2]+nums[len-1]<target){
-                if (diff > target-nums[len-3]-nums[len-2]-nums[len-1]){
-                    diff = target-nums[len-3]-nums[len-2]-nums[len-1];
-                    res = nums[len-3]+nums[len-2]+nums[len-1];
-                }
-                break;
-            }
-            
-            // if the local maximum < target
-            if (nums[i]+nums[len-2]+nums[len-1]<target){
-                if (diff > target-nums[i]-nums[len-2]-nums[len-1]){
-                    diff = target-nums[i]-nums[len-2]-nums[len-1];
-                    res = nums[i]+nums[len-2]+nums[len-1];
-                }
-                continue;
-            }
-            int l=i+1,r=len-1;
-            while(l<r){
-                if (nums[i]+nums[l]+nums[r]>target) {
-                    if (diff > nums[i]+nums[l]+nums[r] -target){
-                        diff = nums[i]+nums[l]+nums[r]-target;
-                        res = nums[i]+nums[l]+nums[r];
+                if(nums[id1]+nums[id2]+nums[id3]>target){
+                    while(id2<id3 && nums[id1]+nums[id2]+nums[id3]>target){
+                        if(diff>nums[id1]+nums[id2]+nums[id3]-target){
+                            diff=nums[id1]+nums[id2]+nums[id3]-target;
+                            res=diff+target;
+                        }
+                        id3--;
                     }
-                    r--;
                 }
-                else if(nums[i]+nums[l]+nums[r]<target){
-                    if (diff > target-nums[i]-nums[l]-nums[r] ){
-                        diff = target-nums[i]-nums[l]-nums[r];
-                        res = nums[i]+nums[l]+nums[r];
+                else{
+                    while(id2<id3 && nums[id1]+nums[id2]+nums[id3]<target){
+                        if(diff>target-nums[id1]-nums[id2]-nums[id3]){
+                            diff=target-nums[id1]-nums[id2]-nums[id3];
+                            res=target-diff;
+                        }
+                        id2++;
                     }
-                    l++;
                 }
-                else return nums[i]+nums[l]+nums[r];
             }
-            
+            id1++;
         }
         return res;
     }
