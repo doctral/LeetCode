@@ -1,0 +1,45 @@
+Given n non-negative integers representing an elevation map where the width of each bar is 1, compute 
+how much water it is able to trap after raining.
+
+For example, 
+Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
+#####################################################################################################
+The key point to solve this problem is, given any point at index i, the area of trapping water is 
+min(left_Max[i], right_Max[i]) - height[i]. 
+
+Therefore, one approach is using dynamic programming to find left_Max and right_Max by:
+left_Max[i]=max(left_Max[i-1],height[i])
+right_Max[i]=max(right_Max[i+1],height[i])
+
+Based on this property, we can use two pointers to track the left_Max and right_Max from two sides:
+the code is as following:
+
+public class Solution {
+    public int trap(int[] height) {
+        if(height.length<3) return 0;
+        int left=0, right=height.length-1;
+        int leftMax=height[left], rightMax=height[right];
+        int sum=0;
+        while(left<right){
+            if(leftMax<rightMax){
+                left++;
+                if(leftMax>height[left]){
+                    sum+=leftMax-height[left];
+                }
+                else{
+                    leftMax=height[left];
+                }
+            }
+            else{
+                right--;
+                if(rightMax>height[right]){
+                    sum+=rightMax-height[right];
+                }
+                else{
+                    rightMax=height[right];
+                }
+            }
+        }
+        return sum;
+    }
+}

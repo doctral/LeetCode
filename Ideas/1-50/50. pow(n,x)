@@ -1,0 +1,6 @@
+Implement pow(x, n).
+
+#########################################################################################
+1. edge cases: when x=0 or 1, return x;
+               when n<0, then convert n to positive. Be careful about overflow. Cast to long
+2. complexity: O(log n)  

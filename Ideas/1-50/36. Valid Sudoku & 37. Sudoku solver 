@@ -1,0 +1,86 @@
+Q1: Determine if a Sudoku is valid. The Sudoku board could be partially filled, 
+where empty cells are filled with the character '.'.
+Q2: Write a program to solve a Sudoku puzzle by filling the empty cells.
+
+Empty cells are indicated by the character '.'.
+
+You may assume that there will be only one unique solution.
+######################################################################
+Q1: This can be straightforward, simply check row, column, and the 9-grid.
+
+public class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        for(int row=0; row<board.length; row++){
+            int[] nums=new int[9];
+            for(int col=0; col<board[0].length; col++){
+                if(board[row][col]!='.'){
+                    int index=board[row][col]-'1';
+                    if(nums[index]>0) return false;
+                    nums[index]=1;
+                }
+            }
+        }
+        for(int col=0; col<board[0].length; col++){
+            int[] nums=new int[9];
+            for(int row=0; row<board.length; row++){
+                if(board[row][col]!='.'){
+                    if(nums[board[row][col]-'1']>0) return false;
+                    nums[board[row][col]-'1']=1;
+                }
+            }
+        }
+        for(int row=0; row<board.length; row+=3){
+            for(int col=0; col<board[0].length; col+=3){
+                int[] nums=new int[9];
+                for(int i=0; i<3; i++){
+                    for(int j=0; j<3; j++){
+                        if(board[row+i][col+j]!='.'){
+                            int index=board[row+i][col+j]-'1';
+                            if(nums[index]>0) return false;
+                            nums[index]=1;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+}
+
+Q2: This can be solved using backtrack:
+public class Solution {
+    public void solveSudoku(char[][] board) {
+        solve(board);
+    }
+    private boolean solve(char[][] board){
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(board[i][j]=='.'){
+
+                    for(char ch='1'; ch<='9'; ch++){
+                        if(isValid(board, i, j, ch)){
+                            board[i][j]=ch;
+                            if(solve(board)) return true;
+                            board[i][j]='.';
+                        }
+                    }
+                    return false; // failed to fill this grid
+                }
+            }
+        }
+        return true;
+    }
+    private boolean isValid(char[][] board, int row, int col, char ch){
+        for(int i=0; i<9; i++){
+            if(board[row][i]!='.' && board[row][i]==ch) return false;
+            if(board[i][col]!='.' && board[i][col]==ch) return false;
+        }
+        int r=(row/3)*3, c=(col/3)*3;
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                if(board[r+i][c+j]!='.' && board[r+i][c+j]==ch) return false;
+            }
+        }
+        return true;
+    }
+} 

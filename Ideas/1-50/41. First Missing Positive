@@ -1,0 +1,16 @@
+Given an unsorted integer array, find the first missing positive integer.
+
+For example,
+Given [1,2,0] return 3,
+and [3,4,-1,1] return 2.
+
+Your algorithm should run in O(n) time and uses constant space.
+##############################################################################
+From the left side, if there is no missing positive integer, then the array should 
+be a collection of 1,2,3,4,5,...,n. 
+Therefore, we don't need to take care of numbers <1 or >n.
+And we simply need to move each num with 1<= num <= n to its right position, and then check the 
+array again to find the first missing positive integer. 
+
+To check if a number with 1<= num <=n is in its right position, its correct index=num-1, and if 
+its position has the right number, then nums[num-1]==num.

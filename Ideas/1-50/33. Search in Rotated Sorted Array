@@ -1,0 +1,14 @@
+Suppose an array sorted in ascending order is rotated at some pivot unknown to 
+you beforehand.
+
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+You are given a target value to search. If found in the array return its index, 
+otherwise return -1.
+
+You may assume no duplicate exists in the array.
+#################################################################################
+The key point is here, even for a rotated sorted array, when we take the mid point, half the array is still sorted. when num[left]<num[mid], it means left side is sorted; otherwise, the right side is sorted. 
+Be very careful about the edge case, for example, when num[left]==num[mid]. 
+So to determine the left part, we use num[left]<=num[mid].
+Then we use the binary search to search the target.

@@ -1,0 +1,90 @@
+39. Combination Sum
+Given a set of candidate numbers (C) (without duplicates) and a target number (
+T), find all unique combinations in C where the candidate numbers sums to T.
+
+The same repeated number may be chosen from C unlimited number of times.
+
+Note:
+All numbers (including target) will be positive integers.
+The solution set must not contain duplicate combinations.
+For example, given candidate set [2, 3, 6, 7] and target 7, 
+A solution set is: 
+[
+  [7],
+  [2, 2, 3]
+]
+
+#################################################################################
+This problem can be solved easily using backtracking, and the code is as 
+following:
+
+public class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res=new ArrayList<>();
+        dfs(candidates, res, new ArrayList<>(), target, 0);
+        return res;
+    }
+    private void dfs(int[] nums, List<List<Integer>> res, List<Integer> list, int target, int start){
+        if(target<0) return;
+        if(target==0) res.add(new ArrayList<>(list));
+        for(int i=start; i<nums.length; i++){
+            list.add(nums[i]);
+            dfs(nums, res, list, target-nums[i], i);
+            list.remove(list.size()-1);
+        }
+    }
+}
+
+40. Combination Sum II
+Given a collection of candidate numbers (C) and a target number (T), find all 
+unique combinations in C where the candidate numbers sums to T.
+
+Each number in C may only be used once in the combination.
+
+Note:
+All numbers (including target) will be positive integers.
+The solution set must not contain duplicate combinations.
+For example, given candidate set [10, 1, 2, 7, 6, 1, 5] and target 8, 
+A solution set is: 
+[
+  [1, 7],
+  [1, 2, 5],
+  [2, 6],
+  [1, 1, 6]
+]
+########################################################################
+There are two key differences with the previous question:
+1. each number can only be used once. Therefore, each time we need to move to 
+next pointer.
+2. The collection may contains duplicate number. To avoid duplicates, we need to 
+check num[i]==num[i-1], at the same time, we need to make sure each number can be used at least once. 
+
+The basic ideas are as following:
+1. To help to remove duplicates, we can sort the input array.   
+2. To avoid duplicates while make sure we can use each number at least once, we 
+start checking duplicates from startIndex+1.
+
+The code is as following:
+
+public class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res=new LinkedList<>();
+        Arrays.sort(candidates);
+        dfs(candidates, res, new LinkedList<>(), target, 0);
+        return res;
+    }
+    private void dfs(int[] nums, List<List<Integer>> res, LinkedList<Integer> list, int target, int index){
+        if(target<0 || index>nums.length) return;
+        if(target==0){
+            res.add(new LinkedList<>(list));
+        }
+        else{
+            for(int i=index; i<nums.length; i++){
+                if(i>index && nums[i]==nums[i-1]) continue; // i> index helps to make sure each num can be used once
+                list.add(nums[i]);
+                dfs(nums, res, list, target-nums[i], i+1);
+                list.remove(list.size()-1);
+            }
+        }
+    }
+} 

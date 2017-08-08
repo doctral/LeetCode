@@ -1,0 +1,20 @@
+Find the next smaller number or next greater number using the same digits.
+
+##########################################################################
+Find the next smaller number (From the right side, we need to swap a smaller 
+digit with a bigger digit in its leftside): (i.e: 5812349)
+Therefore, there are 4 steps:
+1. From the rightmost side, find the first digit (id1) that is greater than its 
+previous (id1+1) digit (that is 8 with index id1);
+2. From the rightmost side, find the first digit that is smaller than digit with 
+index id1. That is 4.
+3. Swap 8 and 4.
+4. From id1+1 to last digit, we swap each pair of digits from two sides. Done!
+
+Find the next greater number is similar. (From the right side, we need to swap a 
+smaller digit with a bigger digit in its leftside):
+Again, 4 steps: (i.e:4202320)
+1: from the rightmost side, find the first digit that is smaller than its 
+previous digit. (that is 2 with index 3)
+2. From the rightmost side, find the first digit that is greater than that digit.
+3&4. The same as above. 

@@ -1,0 +1,26 @@
+Rotate a 2-d matrix by 90 degree (clockwise/anti-clockwise). 
+
+The code is as following:
+
+############################ for clockwise #################################################
+public class Solution {
+    public void rotate(int[][] matrix) {
+        int len=matrix.length;
+        for(int row=0; row<len/2; row++){             // point 1
+            for(int col=row; col<len-row-1; col++){   // point 2 
+                int temp=matrix[row][col];            // point 3 
+                matrix[row][col]=matrix[len-1-col][row];     // point 3
+                matrix[len-1-col][row]=matrix[len-1-row][len-1-col];    // point 3
+                matrix[len-1-row][len-1-col]=matrix[col][len-1-row];    // point 3
+                matrix[col][len-1-row]=temp;                            // point 3
+            }
+        }
+    }
+}
+
+Point 1: we can rotate matrix by circle. For a matrix with len, the number of circle is len/2.
+Point 2: each rotation, we don't need to swap the last one, since it will be filled by the first point
+point 3: using row and col to make sure each swap has the same trend
+
+Follow up: how to rotate a matrix by 180 degree (clockwise/ anti-clockwise):
+We can rotate 90 degree two times (not efficient) or we can use the similar method as above. Again, we don't need to swap the last element!!!

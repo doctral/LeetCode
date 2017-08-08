@@ -1,0 +1,43 @@
+Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
+
+For example, given the array [-2,1,-3,4,-1,2,1,-5,4],
+the contiguous subarray [4,-1,2,1] has the largest sum = 6.
+###################################################################################################
+Approach 1: DP
+f(0)=nums[0]
+f(n)=nums[n]+(f(n-1)>0? f(n-1): 0);
+
+Approach 2: divide-and-conquer:
+The code is as following:
+
+public class Solution {
+    public int maxSubArray(int[] nums) {
+        return findMax(nums, 0, nums.length-1);
+    }
+    private int findMax(int[] nums, int left, int right){
+        if(left>right) return 0;
+        if(left==right) return nums[left];
+        int mid=(left+right)/2;
+        int left_max=findMax(nums, left, mid);
+        int right_max=findMax(nums, mid+1, right);
+        int mid_max=findMidMax(nums, mid, left, right);
+        if(left_max>=right_max && left_max>=mid_max) return left_max;
+        if(right_max>=left_max && right_max>=mid_max) return right_max;
+        return mid_max;
+    }
+    private int findMidMax(int[] nums, int mid, int left, int right){
+        int left_max=nums[mid];
+        int left_sum=nums[mid];
+        for(int i=mid-1; i>=left; i--){
+            left_sum+=nums[i];
+            if(left_sum>left_max) left_max=left_sum;
+        }
+        int right_max=0;
+        int right_sum=0;
+        for(int i=mid+1; i<=right; i++){
+            right_sum+=nums[i];
+            if(right_sum>right_max) right_max=right_sum;
+        }
+        return left_max+right_max;
+    }
+} 
