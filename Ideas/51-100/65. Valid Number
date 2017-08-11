@@ -1,0 +1,23 @@
+Validate if a given string is numeric.
+
+Some examples:
+"0" => true
+" 0.1 " => true
+"abc" => false
+"1 a" => false
+"2e10" => true
+Note: It is intended for the problem statement to be ambiguous. You should gather all requirements up 
+front before implementing one.
+####################################################################################################
+This is one of the trickest problem.
+To solve this kind of problem, we need to clean the input string at first.
+step 1: trim the input string, and converted it to lowercase. if the string now is empty, return false.
+step 2: set a left pointer, if the first char is '+/-', then left++. check if left<length, otherwise return false.
+step 3: now we can analyze character by character. Since all acceptable chars including '0'-'9',
+'+/-','.', 'e', and all other char would result in false immediately.  
+We set isNum, isDot, isExp as false;
+1) for each char, if it's between 0-9, then isNum is true;
+2)                if it's '.', notice that '..' or 'e.' are false, so if (isDot || isExp) return false
+3)                if it's 'e', notice that if no num before 'e' or 'ee' are false, also, in case of 'e' is the last char, we set isNum false here
+4)                if it's '+/-', then if the previous char is not 'e', return false;
+5) all other cases, return false.

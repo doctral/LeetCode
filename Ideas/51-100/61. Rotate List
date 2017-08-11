@@ -1,0 +1,47 @@
+Given a list, rotate the list to the right by k places, where k is non-negative.
+
+For example:
+Given 1->2->3->4->5->NULL and k = 2,
+return 4->5->1->2->3->NULL.
+#################################################################################
+Edge cases: when k==0 or head==null or head.next==null, we should just return head
+The tricky part is, what if k> the size of the list? The key point is k=k%(size)
+
+Then we can use two pointers to complete the rotation.
+The code is as following:
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head==null || head.next==null || k==0) return head;
+        k=k%getSize(head);
+        ListNode copy=head, pre=head, tail=head;
+        while(k-->0 && tail!=null){
+            tail=tail.next;
+        }
+        if(tail==null) return head;
+        while(tail.next!=null){
+            tail=tail.next;
+            pre=pre.next;
+        }
+        tail.next=copy;
+        copy=pre.next;
+        pre.next=null;
+        return copy;
+    }
+    private int getSize(ListNode head){
+        int size=0;
+        while(head!=null){
+            size++;
+            head=head.next;
+        }
+        return size;
+    }
+}
