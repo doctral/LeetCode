@@ -1,0 +1,7 @@
+Given a m x n matrix, if an element is 0, set its entire row and column to 0. Do it in place.
+################################################################################################
+The key point is, when matrix[i][j]==0, we can mark matrix[i][0]=0 and matrix[0][j]=0, and to mark 
+the first column and the first row, we use two boolean row and col, when i==0, means the first row 
+should be set as 0, in this case, we set row=true; similarly, when j==0, we set col=true;
+We set 0 from i=1, j=1;
+And then finally we check row and col to set the first col and first row. 

@@ -1,0 +1,19 @@
+Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+
+Integers in each row are sorted from left to right.
+The first integer of each row is greater than the last integer of the previous row.
+For example,
+
+Consider the following matrix:
+
+[
+  [1,   3,  5,  7],
+  [10, 11, 16, 20],
+  [23, 30, 34, 50]
+]
+Given target = 3, return true.
+####################################################################################
+Given a matrix with m*n, its indices range from 0 to m*n-1; Be very careful when convert the index to 
+matrix position. 
+row=index/matrix[0].length, col=index%matrix[0].length. 
+Then according to this, use binary search to solve this problem.
