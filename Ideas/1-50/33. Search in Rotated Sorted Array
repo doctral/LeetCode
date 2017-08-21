@@ -12,3 +12,25 @@ The key point is here, even for a rotated sorted array, when we take the mid poi
 Be very careful about the edge case, for example, when num[left]==num[mid]. 
 So to determine the left part, we use num[left]<=num[mid].
 Then we use the binary search to search the target.
+
+################################################################################33
+Follow up for "Search in Rotated Sorted Array":
+What if duplicates are allowed?
+Would this affect the run-time complexity? How and why?
+
+################################################################################
+The duplicates make this problem more complicated, but we can still use binary search since the 
+property that half of list around midpoint is still sorted. The key is to find the sorted part while 
+be vary careful about the duplucates.
+The algorithm is as following:
+mid=(left+right)/2;
+if(nums[mid]==target) return true; // found
+if(nums[mid]>nums[left] ||nums[mid]>nums[right]) // if we know left part is sorted, or we know right 
+                                                    part is not sorted, then left part is sorted
+                                                    in this case, we check target if in the left part
+else if(nums[mid]<nums[right] || nums[mid]<nums[left])  // similarly, if we know right part is 
+                                                           sorted, or left part is unsorted, then
+                                                           the right part is sorted.
+else{     // in this case, means nums[left]=nums[mid]=nums[right]
+	      // we can simply update left until a new number appear.
+}                                                             

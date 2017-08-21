@@ -1,0 +1,57 @@
+Given a string S and a string T, find the minimum window in S which will contain all the characters 
+in T in complexity O(n).
+
+For example,
+S = "ADOBECODEBANC"
+T = "ABC"
+Minimum window is "BANC".
+
+Note:
+If there is no such window in S that covers all characters in T, return the empty string "".
+
+If there are multiple such windows, you are guaranteed that there will always be only one unique 
+minimum window in S.
+################################################################################################
+To deal with substring problem, using HashMap could be very expensive. One way is to use ASCII table 
+or ASCII-extended table by creating an int array from 0-127 or 0-255.
+
+The idea to solve this problem is: 
+1. Initialize int[] res using string t, and set count=t.length()
+2. Use two point left, right to check each char in s:
+   when res[right]>0, means right is in string t, in this case, count--;
+   all irrelevant char would be negative.
+   when count==0  // means a window
+        check if res[left]==0, if yes, means left is in t (all irrelevant char would be <0), count++
+                 at the same time, check the minWindow
+        then res[left]++
+        left++         
+
+
+The code is as following:
+
+public class Solution {
+    public String minWindow(String s, String t) {
+        if(s.length()<1 || t.length()<1 || s.length()<t.length()) return "";
+        int[] res=new int[128];    // assume the string belongs to ASCII, ranges from 0-127
+        for(char ch:t.toCharArray()) res[ch]++;
+        int count=t.length(), left=0, minLeft=0, minLen=s.length()+1;
+        char[] chs=s.toCharArray();
+        for(int right=0; right<chs.length; right++){
+            if(res[chs[right]]>0) count--;
+            res[chs[right]]--;
+            while(count==0){
+                if(res[chs[left]]==0){
+                    if(right-left+1<minLen){
+                        minLen=right-left+1;
+                        minLeft=left;
+                    }
+                    count++;
+                }
+                res[chs[left]]++;
+                left++;
+            }
+        }
+        if(minLen>s.length()) return "";
+        return s.substring(minLeft, minLeft+minLen);
+    }
+} 
