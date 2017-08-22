@@ -1,0 +1,72 @@
+Given n, how many structurally unique BST's (binary search trees) that store values 1...n?
+
+For example,
+Given n = 3, there are a total of 5 unique BST's.
+
+   1         3     3      2      1
+    \       /     /      / \      \
+     3     2     1      1   3      2
+    /     /       \                 \
+   2     1         2                 3
+
+#########################################################################
+This problem can be solved by using DP.
+The code is as following:
+
+class Solution {
+    public int numTrees(int n) {
+        if(n==0) return 0;
+        int[] res=new int[n+1];
+        res[0]=1;
+        res[1]=1;
+        for(int i=2; i<=n; i++){
+            for(int j=1; j<=i; j++){
+                int leftTree=j-1;
+                int rightTree=i-j;
+                res[i]+=res[leftTree]*res[rightTree];
+            }
+        }
+        return res[n];
+    }
+}
+
+####################################################################
+Follow up: how to generate all possible structures?
+This can be solved by divide-and-conquer. 
+The code is as following:
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        if(n==0) return new ArrayList<TreeNode>();
+        return helper(1, n);
+    }
+    private List<TreeNode> helper(int min, int max){
+        List<TreeNode> res=new LinkedList<>();
+        if(min>max){
+            res.add(null);
+            return res;
+        }
+        for(int i=min; i<=max; i++){
+            List<TreeNode> left=helper(min, i-1);
+            List<TreeNode> right=helper(i+1, max);
+            for(TreeNode le:left){
+                for(TreeNode ri:right){
+                    TreeNode root=new TreeNode(i);
+                    root.left=le;
+                    root.right=ri;
+                    res.add(root);
+                }
+            }
+        }
+        return res;
+    }
+}
