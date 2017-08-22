@@ -1,0 +1,98 @@
+Two elements of a binary search tree (BST) are swapped by mistake.
+
+Recover the tree without changing its structure.
+
+Note:
+A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?
+####################################################################################################
+When a swap happened, then for the first element, it would be greater than its successor;
+                      for the second element, it would be smaller than its predecessor
+Therefore, the key point is to find out the first node and the second node
+
+Approach 1: Inorder traversal and then store each node in a list, then go over 
+            the list to find first node and second node. This takes O(n) time 
+            and O(n) space
+The code is as following:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public void recoverTree(TreeNode root) {
+        TreeNode first=null, second=null;
+        Stack<TreeNode> stack=new Stack<>();
+        List<TreeNode> list=new ArrayList<>();
+        while(root!=null || !stack.isEmpty()){
+            while(root!=null){
+                stack.push(root);
+                root=root.left;
+            }
+            TreeNode curr=stack.pop();
+            list.add(curr);
+            root=curr.right;
+        }
+        for(int i=0; i<list.size(); i++){
+            if(i<list.size()-1 &&first==null && list.get(i).val>list.get(i+1).val){
+                first=list.get(i);
+            }
+            if(i>0 &&first!=null && list.get(i).val<list.get(i-1).val){
+                second=list.get(i);
+            }
+        }
+        int temp=second.val;
+        second.val=first.val;
+        first.val=temp;
+    }
+}                         
+
+Approach 2: We can also find the first node and second node during the traversal using constant space.
+            The keypoint is using a global variable to represent the predecessor node.
+            The problem is, recursive method still takes O(n) space and O(n) time.
+
+The code is as following:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    TreeNode first=null, second=null, left=new TreeNode(Integer.MIN_VALUE);
+    public void recoverTree(TreeNode root) {
+        inorder(root);
+        if(first!=null && second!=null){
+            int temp=second.val;
+            second.val=first.val;
+            first.val=temp;
+        }
+    }
+    private void inorder(TreeNode root){
+        if(root!=null){
+            inorder(root.left);
+            if(first==null && left.val>root.val){
+                first=left;
+            }
+            if(first!=null && root.val<left.val){
+                second=root;
+            }
+            left=root;
+            inorder(root.right);
+        }
+    }
+}
+
+Approach 3: Morris Traversal, use a pre pointer to store predecessor node, and compared with 
+current node. Deep understanding of Morris traversal is required for this part.
+     
+     Each time when found pre!=null && pre.val>root.val
+               we update first and second using:
+                   if(first==null) first=pre;
+                   second=root;
