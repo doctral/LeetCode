@@ -1,0 +1,76 @@
+Given preorder and inorder traversal of a tree, construct the binary tree.
+
+Note:
+You may assume that duplicates do not exist in the tree.
+#######################################################################################
+In preorder traversal, root starts from the left side; For each root, we find the index in 
+inorder traversal, then the left part would be its left children, and the right part would be 
+its right children. By doing so, we can construct the binary tree recursively.
+
+The code is as following:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return build(preorder, inorder, 0, 0, inorder.length-1);
+    }
+    private TreeNode build(int[] preorder, int[] inorder, int preIndex, int inStartIndex, int inEndIndex){
+        if(preIndex>=preorder.length || inStartIndex>inEndIndex) return null;
+        TreeNode root=new TreeNode(preorder[preIndex]);
+        int rootIndex=-1;
+        for(int i=inEndIndex;i>=inStartIndex; i--){
+            if(inorder[i]==preorder[preIndex]){
+                rootIndex=i;
+                break;
+            }
+        }
+        root.left=build(preorder, inorder, preIndex+1, inStartIndex, rootIndex-1);
+        root.right=build(preorder, inorder, preIndex+rootIndex-inStartIndex+1,rootIndex+1, inEndIndex);
+        return root;
+    }
+}
+
+
+Given inorder and postorder traversal of a tree, construct the binary tree.
+
+Note:
+You may assume that duplicates do not exist in the tree.
+##################################################################################
+Similarly, in postorder, the root starts from the right side. 
+
+The code is as following:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        return build(inorder, postorder, postorder.length-1, 0, inorder.length-1);
+    }
+    private TreeNode build(int[] inorder, int[] postorder, int postIndex, int inStartIndex, int inEndIndex){
+        if(postIndex<0 || inStartIndex>inEndIndex) return null;
+        TreeNode root=new TreeNode(postorder[postIndex]);
+        int rootIndex=-1;
+        for(int i=inEndIndex; i>=inStartIndex; i--){
+            if(inorder[i]==postorder[postIndex]){
+                rootIndex=i;
+                break;
+            }
+        }
+        root.right=build(inorder, postorder, postIndex-1, rootIndex+1, inEndIndex);
+        root.left=build(inorder, postorder, postIndex-inEndIndex+rootIndex-1, inStartIndex, rootIndex-1);
+        return root;
+    }
+}

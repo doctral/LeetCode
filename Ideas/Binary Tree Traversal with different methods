@@ -1,0 +1,110 @@
+Generally speaking, there are three different ways to traverse a binary tree: recursion, iterative with a stack, and Morris traversal
+
+Approach 1: Recursion is easy and intuitive
+
+Approach 2: Iterative with Stack
+
+    void Inorder(TreeNode root){
+         Stack<TreeNode> stack=new Stack<>();
+         while(root!=null || !stack.isEmpty()){
+              while(root!=null){
+                   stack.push(root);
+                   root=root.left;
+              }
+              TreeNode curr=stack.pop();
+              // do whatever you want for current node
+              root=curr.right;
+         }  
+    }
+
+// DFS of a binary tree
+    void Preorder(TreeNode root){
+         Stack<TreeNode> stack=new Stack<>();
+         while(root!=null || !stack.isEmpty()){
+               while(root!=null){
+                     // do whatever you want for current node
+                     stack.push(root);
+                     root=root.left;
+               }
+               root=stack.pop();
+               root=root.right;
+         }
+    }
+    
+    void Postorder(TreeNode root){
+        Stack<TreeNode> stack=new Stack<>();
+        while(root!=null || !stack.isEmpty()){
+             while(root!=null){
+                 if(root.right!=null) stack.push(root.right);
+                 stack.push(root);
+                 root=root.left;
+             }
+             root=stack.pop();
+             if(root.right!=null && root.right==stack.peek() ){ // go to right branch
+                 TreeNode temp=stack.pop();
+                 stack.push(root);
+                 root=temp;
+             }
+             else{
+                 // do whatever you want for current node
+                 root=null;                       
+             }
+
+        }
+
+    }
+
+Approach 3: Morris Traversal
+   
+   void Inorder(TreeNode root){
+        TreeNode leftRightmost=null;
+        while(root!=null){
+            if(root.left==null){
+                // do whatever you want for current node
+                root=root.right; 
+            }
+            else{
+                leftRightmost=root.left;
+                while(leftRightmost.right!=null && leftRightmost.right!=root){
+                     leftRightmost=leftRightmost.right;
+                }
+                if(leftRightmost.right==null){
+                     leftRightmost.right=root;
+                     root=root.left;
+                }
+                else{
+                     // do whatever you want for current node
+                     leftRightmost.right=null;
+                     root=root.right;
+                }
+            }
+        }
+   }
+
+// almost the same with Inorder, just change one place to print out
+   void Preorder(TreeNode root){
+        TreeNode leftRightmost=null;
+        while(root!=null){
+            if(root.left==null){
+                // do whatever you want for current node
+                root=root.right; 
+            }
+            else{
+                leftRightmost=root.left;
+                while(leftRightmost.right!=null && leftRightmost.right!=root){
+                     leftRightmost=leftRightmost.right;
+                }
+                if(leftRightmost.right==null){
+                     // do whatever you want for current node
+                     leftRightmost.right=root;
+                     root=root.left;
+                }
+                else{
+                     leftRightmost.right=null;
+                     root=root.right;
+                }
+            }
+        }
+   } 
+
+   Morris postorder could be much more complicated, no introduction here.  
