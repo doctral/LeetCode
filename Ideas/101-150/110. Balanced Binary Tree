@@ -1,0 +1,31 @@
+Given a binary tree, determine if it is height-balanced.
+
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the 
+two subtrees of every node never differ by more than 1.
+
+#################################################################################################
+An naive approach is to use a height method to calculate the height of each subtree from root to 
+leaf recursively to check if the height difference exceed 1 or not. This takes O(2^n).
+
+Another better approach is to use DFS to traversal to bottom, and then calculate the height from 
+bottom to root. The key point is here, we use a negative number to denote an unbalanced tree. 
+During the traversal, we return the negative number when we find the subtree is already unbalanced 
+or the two subtrees are unbalanced. This takes O(n) to complete the whole process since each node 
+would simply be visited once.  
+
+The code is as following:
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return height(root)!=-1;
+    }
+    private int height(TreeNode root){
+        if(root!=null){
+            int left=height(root.left);
+            if(left==-1) return -1;
+            int right=height(root.right);
+            if(right==-1 || Math.abs(left-right)>1) return -1;
+            return Math.max(left, right)+1;
+        }
+        return 0;
+    }
+}     
