@@ -1,0 +1,34 @@
+Q1:
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return all possible palindrome partitioning of s.
+
+For example, given s = "aab",
+Return
+
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+################################################################################################
+This problem can be solved easily using DFS with DP.
+
+Q2:
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return the minimum cuts needed for a palindrome partitioning of s.
+
+For example, given s = "aab",
+Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 cut.
+
+#####################################################################################
+We can solve this problem using DP with time complexity O(n^2)
+Step 1: using dp[][] to find all palindrom substring
+step 2: using cut[] to store the min value: when dp[0][i]==true, then cut[i]=0;
+                                                 else:
+                                                      cut[i]=int_max;
+                                                      for(int j=0; j<i; j++){
+                                                          if(dp[j+1][i] && 1+cut[j]<cut[i]){
+                                                                cut[i]=1+cut[j];
+                                                          } 
+                                                      }

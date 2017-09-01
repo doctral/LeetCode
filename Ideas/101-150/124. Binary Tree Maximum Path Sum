@@ -1,0 +1,41 @@
+Given a binary tree, find the maximum path sum.
+
+For this problem, a path is defined as any sequence of nodes from some starting node to any node in 
+the tree along the parent-child connections. The path must contain at least one node and does not 
+need to go through the root.
+
+For example:
+Given the below binary tree,
+
+       1
+      / \
+     2   3
+Return 6.
+
+######################################################################################################
+The basic idea is to define a global variable max, and then use bottom-up fashion to find the max value.
+when left<0, we set it to 0, when right<0, we set it to 0, means we discard it.
+then we compare the side sum with the cross sum to find the max. 
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int max=Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        dfs(root);
+        return max;
+    }
+    private int dfs(TreeNode root){
+        if(root==null) return 0;
+        int left=Math.max(dfs(root.left), 0);
+        int right=Math.max(dfs(root.right), 0);
+        max=Math.max(max, right+left+root.val);
+        return Math.max(left, right)+root.val;
+    }
+}

@@ -1,0 +1,15 @@
+There are N children standing in a line. Each child is assigned a rating value.
+
+You are giving candies to these children subjected to the following requirements:
+
+Each child must have at least one candy.
+Children with a higher rating get more candies than their neighbors.
+What is the minimum candies you must give?
+##############################################################################################
+We can solve this problem in three steps:
+1. Create a new array with initialization 1;
+2. from left to right, if ratings[i]>ratings[i-1], then candies[i]=candies[i-1]+1.
+   Now from left to right, the requirement has been satisfied.
+3. From right to left, if ratings[i-1]>ratings[i], we then simply set candies[i-1]=max(candies[i-1], 
+candies[i]+1);// candies[i-1] is updated in step 2 from left to right, now we need to make sure it 
+has the largest value to satisfy both sides.     

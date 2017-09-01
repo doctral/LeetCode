@@ -1,0 +1,19 @@
+Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
+
+For example, given the following triangle
+[
+     [2],
+    [3,4],
+   [6,5,7],
+  [4,1,8,3]
+]
+The minimum path sum from top to bottom is 11 (i.e., 2 + 3 + 5 + 1 = 11).
+
+Note:
+Bonus point if you are able to do this using only O(n) extra space, where n is the total number of
+rows in the triangle.
+
+#################################################################################################
+Using DFS recursion can be very expensive. This problem can be solved using DP. 
+From bottom to up, the optimal problem res[i][j]=Math.min(res[i+1][j], res[i+1][j+1]) + tri.get(i).get(j).
+The 2-d array can be replaced by 1-d array, since after each i, the position i is no longer useful.

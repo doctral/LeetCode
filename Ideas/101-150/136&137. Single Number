@@ -1,0 +1,27 @@
+Q1: Given an array of integers, every element appears twice except for one. Find that single one.
+
+Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+Q2: Given an array of integers, every element appears three times except for one, which appears exactly once. Find that single one.
+
+Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+###################################################################################################
+Q1: Each integer is represented as 1s in binary, when a number appears once, then a specific bit would be 1.
+If we want to eliminate a number when it appears two times, means bit 1 __ 1(coming bit) would be 0. 
+Obvious, when 1 ^ 1=0. Therefore, the solution is x=x^num. 
+
+Q2: Again, we know the method to find a number appears odd number times is by doing ones=ones^num. 
+    Then how to find a number that appears only two times? When ones is 1, and when the same number 
+    comes again, we can mark twos as 1. Therefore, twos = twos | (ones & num)
+
+    Now how to represent a number that appears three times? When both ones and twos are 1, then we 
+    want to mark threes as 1, all other case would be 0. Therefore, threes=ones & twos. 
+
+    Then we want clear all nums that already appears three times, therefore, 
+    we do: ones=ones & (~threes)   // clear all numbers that appear three times in ones
+           twos=twos & (~threes)   // clear all numbers that appear three times in twos
+Now, if we want to find a number that appears only once, we return ones
+     if we want to find a number that appears only two times, we return twos

@@ -1,0 +1,68 @@
+Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
+################################################################################################
+Given two points P1=(x1,y1), P2=(x2, y2), they have three potential relationships:
+1. They are the same.
+2. They are in a vertical line (x1==x2, but y1!=y2)
+3. They are in a normal line y=ax+b. where a=(y1-y2)/(x1-x2), and a would be a double.
+From each starting point, we need to find other points with the same slope a, therefore, we need a 
+HashMap to store the slope a. However, testing equality using float or double number or using double 
+number as a key in HashMap could always be a bad idea due to rounding issue. To make sure the slope a 
+is unique, we find the GCD between y1-y2 and x1-x2, and then update both with the GCD:
+        y1-y2/GCD
+        x1-x2/GCD
+to make the comparison easier, we can serialize the point or the slope into a string, and each time 
+we just need to find the string in the map.  
+
+The code of this problem is as following:
+
+/**
+ * Definition for a point.
+ * class Point {
+ *     int x;
+ *     int y;
+ *     Point() { x = 0; y = 0; }
+ *     Point(int a, int b) { x = a; y = b; }
+ * }
+ */
+class Solution {
+    public int maxPoints(Point[] points) {
+        if(points.length<3) return points.length;
+        Set<String> used=new HashSet<>();
+        int max=0;
+        for(int i=0; i<points.length-1; i++){
+            String str1=points[i].x+"#"+points[i].y;
+            if(used.add(str1)){  // this starting point is not used
+                int same=0, vertical=0, tempMax=0;
+                Map<String, Integer> lines=new HashMap<>();
+                for(int j=i+1; j<points.length; j++){
+                    String str2=points[j].x+"#"+points[j].y;
+                    if(str1.equals(str2)){
+                        same++;
+                    }
+                    else if(points[i].x==points[j].x){
+                        vertical++;
+                    }
+                    else{
+                        int y_inter=points[i].y-points[j].y;
+                        int x_inter=points[i].x-points[j].x;
+                        int gcd=GCD(x_inter, y_inter);
+                        String slope=(y_inter/gcd)+"#"+(x_inter/gcd);
+                        if(lines.containsKey(slope)){
+                            lines.put(slope, lines.get(slope)+1);
+                        }
+                        else{
+                            lines.put(slope, 1);
+                        }
+                        if(tempMax<lines.get(slope)) tempMax=lines.get(slope);
+                    } 
+                }
+                max=Math.max(max, Math.max(vertical, tempMax)+same+1);
+            }
+        }
+        return max;
+    }
+    private int GCD(int a, int b){
+        if(b==0) return a;
+        return GCD(b, a%b);
+    }
+}
