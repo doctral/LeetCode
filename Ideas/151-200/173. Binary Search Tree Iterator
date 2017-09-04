@@ -1,0 +1,61 @@
+Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
+
+Calling next() will return the next smallest number in the BST.
+
+Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
+################################################################################################
+There are two important hints:
+1. average O(1) time: means we don't need exact O(1) time, if each node just would be reached O(1) 
+time, then it is average O(1) time.
+2. O(h) memory: means we cannot simply traversal all nodes and store them, we can just keep tracking 
+one branch of the root each time. 
+
+Idea: use a stack and keep tracking the left branch of curr node, after each pop, we check if the 
+poped node' right is null, if not, we keep tracking the right children.
+
+The code is as following:
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+public class BSTIterator {
+    Stack<TreeNode> mins;
+
+    public BSTIterator(TreeNode root) {
+        mins=new Stack<>();
+        while(root!=null){
+            mins.push(root);
+            root=root.left;
+        }
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return !mins.isEmpty();
+    }
+
+    /** @return the next smallest number */
+    public int next() {
+        TreeNode node=mins.pop();
+        int min=node.val;
+        node=node.right;
+        while(node!=null){
+            mins.push(node);
+            node=node.left;
+        }
+        return min;
+    }
+}
+
+/**
+ * Your BSTIterator will be called like this:
+ * BSTIterator i = new BSTIterator(root);
+ * while (i.hasNext()) v[f()] = i.next();
+ */ 

@@ -1,0 +1,43 @@
+1. Counting sort: 
+
+    public static void countingSort(int[] arr, int min, int max){
+        int[] assist=new int[max-min+1];
+        for(int i=0; i<arr.length; i++){
+            assist[arr[i]-min]++;
+        }
+        int id=0;
+        for(int i=0; i<assist.length; i++){
+            while(assist[i]-->0){
+                arr[id++]=i+min;
+            } 
+        }
+    }
+
+2. Radix Sorting:
+
+    public static void countingSort(int[] arr, int max){
+        int base=1; 
+        int[] temp=new int[arr.length];
+        while(max/base>0){
+            int[] digits=new int[10];
+            for(int i=0; i<arr.length; i++){
+                digits[(arr[i]/base)%10]++;
+            }
+            //In such a case, digits[i]-1 is the index of some number
+            for(int i=1; i<10; i++){
+                digits[i]+=digits[i-1];
+            }
+
+            // store arr[i] in the right index, from end to start helps to maintain the relative 
+            //order, this is very important 
+
+            for(int i=arr.length-1; i>=0; i--){
+                temp[--digits[(arr[i]/base)%10]]=arr[i];
+            }
+            // copy the element.
+            for(int i=0; i<arr.length; i++){
+                arr[i]=temp[i];
+            }
+            base*=10; 
+        }
+    }

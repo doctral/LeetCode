@@ -1,0 +1,21 @@
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+push(x) -- Push element x onto stack.
+pop() -- Removes the element on top of the stack.
+top() -- Get the top element.
+getMin() -- Retrieve the minimum element in the stack.
+Example:
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin();   --> Returns -3.
+minStack.pop();
+minStack.top();      --> Returns 0.
+minStack.getMin();   --> Returns -2.
+##################################################################################################
+The key point is to track the min value.
+This can be done easily using another stack. 
+Or we can use just one stack, and when the coming element is <=min, then we push min to indicate the 
+privious min, and then push the coming element; in the same way, when we need to pop an element, when
+the element is equal to current min, then we pop the current value, and use the next pop value as the min.
