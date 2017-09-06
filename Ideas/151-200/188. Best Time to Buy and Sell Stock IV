@@ -1,0 +1,21 @@
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+Design an algorithm to find the maximum profit. You may complete at most k transactions.
+
+Note:
+You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
+
+###################################################################################################
+This is a very good question that combines all relative situations.
+Recall that, 
+Case 1: when k==1, from left to right, we keep track the min and maxProfit, this takes O(n) time and O(1) space
+Case 2: when k==2, we use two array to track the max profit from left to right and from right to left (+left max profit).
+Case 3: when k is very large or as many as we want, we simply add all possible profits. Actually, when k>=length/2, we can then add all possible profits to make the right solution.
+Case 4: so how about for any k?
+       This can be solved by using DP.
+       we use res[k][n] to indicate the maximum profit with k transactions and up to prices[n],
+       It's easy to know when k = 0 or n=0, res[k][n] would be 0.
+
+       Then for k>=1 & n>=1, we must have res[k][n]=Math.max(res[k][n-1], prices[n]-prices[i]+res[k-1][i]); where 0<=i < n
+       To understand this formula, at first, each time we set prices[n] as the saling prices, and then we need to find the max profit in last transaction before index n. Since prices[n] is constant, we want to maximize res[k-1][i]-prices[i]. The important thing is, since 0<=i<n, this process can be completed within the same iteration with calculation of res[k][n].
+    

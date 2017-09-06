@@ -1,0 +1,49 @@
+Reverse bits of a given 32 bits unsigned integer.
+
+For example, given input 43261596 (represented in binary as 00000010100101000001111010011100), return 964176192 (represented in binary as 00111001011110000010100101000000).
+
+Follow up:
+If this function is called many times, how would you optimize it?
+
+Q1: The first case can be solved straightforward, just check each bit and then shift.
+public class Solution {
+    // you need treat n as an unsigned value
+    public int reverseBits(int n) {
+        int res=0;
+        for(int i=0; i<32; i++){
+            res+=(n&1);
+            n=n>>>1;
+            if(i<31) res=res<<1;   // when i==31, this is the last bit
+        }
+        return res;
+    }
+}
+Q2: A reasonable approach is to using a hashmap to cache the results. 
+
+public class Solution {
+    // you need treat n as an unsigned value
+    Map<Byte, Integer> cache=new HashMap<>();
+    public int reverseBits(int n) {
+        byte[] bytes=new byte[4];
+        for(int i=0; i<4; i++){
+            bytes[i]=(byte)(n&0xFF);
+            n=n>>>8;
+        }
+        int res=0;
+        for(int i=0; i<4; i++){
+            res+=reverseByte(bytes[i]);
+            if(i<3) res=res<<8;
+        }
+        return res;
+    }
+    private int reverseByte(byte bb){
+        if(cache.containsKey(bb)) return cache.get(bb);
+        int res=0;
+        for(int i=0; i<8; i++){
+            res+= (bb>>>i &1);
+            if(i<7) res=res<<1;
+        }
+        cache.put(bb, res);
+        return res;
+    }
+}

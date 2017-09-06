@@ -1,0 +1,15 @@
+Rotate an array of n elements to the right by k steps.
+
+For example, with n = 7 and k = 3, the array [1,2,3,4,5,6,7] is rotated to [5,6,7,1,2,3,4].
+
+Note:
+Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.
+###############################################################################################
+
+Easy problem but has some tricks:
+1. k=k%nums.length   #### This is IMPORTANT, in case of k>=length
+
+Approach 1: create a new array to complete the rotation O(n) time, O(n) space.
+Approach 2: rotate the the whole array, then rotate the first k elements and rorate all left numbers.
+            O(n) time and O(1) space. 
+             

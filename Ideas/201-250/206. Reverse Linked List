@@ -1,0 +1,19 @@
+Reverse a singly linked list using recursion.
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if(head==null || head.next==null) return head;
+        ListNode pre=head.next;
+        ListNode root=reverseList(pre);   // This helps to find the root node
+        pre.next=head;        // reverse the node
+        head.next=null;       // invalid the old links
+        return root;
+    }
+}
