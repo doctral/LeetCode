@@ -1,0 +1,60 @@
+Given a string of numbers and operators, return all possible results from computing all the different possible ways to group numbers and 
+operators. The valid operators are +, - and *.
+
+
+Example 1
+Input: "2-1-1".
+
+((2-1)-1) = 0
+(2-(1-1)) = 2
+Output: [0, 2]
+
+
+Example 2
+Input: "2*3-4*5"
+
+(2*(3-(4*5))) = -34
+((2*3)-(4*5)) = -14
+((2*(3-4))*5) = -10
+(2*((3-4)*5)) = -10
+(((2*3)-4)*5) = 10
+Output: [-34, -14, -10, -10, 10]
+##########################################################################################################################
+Each string can be represented as leftStr +operator(+,-,*) + rightStr. Each substring could be a list of possible values,
+and the reoresentation of the whole string is a list of all possible combinations of two substrings. 
+To improve the performance, we can introduce hashmap to record subproblems.
+Therefore, this problem can be solved using DFS+HashMap.
+
+The code is as following:
+class Solution {
+    Map<String, List<Integer>> cache=new HashMap<>();
+    public List<Integer> diffWaysToCompute(String input){
+        if(cache.containsKey(input)) return cache.get(input);
+        List<Integer> res=new ArrayList<>();
+        for(int i=0; i<input.length(); i++){
+            char ch=input.charAt(i);
+            if(ch=='+' || ch=='-' ||ch=='*'){
+                String left=input.substring(0,i);
+                String right=input.substring(i+1);
+                List<Integer> list1=diffWaysToCompute(left);  // all possible ans in left
+                List<Integer> list2=diffWaysToCompute(right); // all possible ans in right
+                for(int num1:list1){
+                    for(int num2:list2){
+                        if(ch=='+'){
+                            res.add(num1+num2);
+                        }
+                        else if(ch=='-'){
+                            res.add(num1-num2);
+                        }
+                        else{
+                            res.add(num1*num2);
+                        }
+                    }
+                }
+            }
+        }
+        if(res.size()==0) res.add(Integer.parseInt(input)); // only number
+        cache.put(input, res);
+        return res;
+    }
+}
