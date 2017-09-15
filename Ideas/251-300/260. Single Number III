@@ -1,0 +1,14 @@
+Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once.
+
+For example:
+
+Given nums = [1, 2, 1, 3, 2, 5], return [3, 5].
+
+Note:
+The order of the result is not important. So in the above example, [5, 3] is also correct.
+Your algorithm should run in linear runtime complexity. Could you implement it using only constant space complexity?
+######################################################################################################
+1. We can do XOR operation for the whole array, and the result = a^b, where a and b are the elements that appears only once. 
+2. From the result, if we know the digit at index i ==1, that means one of a and b must be 1 at this index while the other is 0 at this index. 
+3. Therefore, we check each number at this index that equals to 1, and then we do XOR operations for all these qualified numbers, we will get the first number.
+4. We can then get the other number by doing result ^ num1.
