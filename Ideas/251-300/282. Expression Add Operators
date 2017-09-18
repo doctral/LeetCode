@@ -1,0 +1,60 @@
+Given a string that contains only digits 0-9 and a target value, return all possibilities to add binary operators (not unary) +, -, or * between the digits so they evaluate to the target value.
+
+Examples: 
+"123", 6 -> ["1+2+3", "1*2*3"] 
+"232", 8 -> ["2*3+2", "2+3*2"]
+"105", 5 -> ["1*0+5","10-5"]
+"00", 0 -> ["0+0", "0-0", "0*0"]
+"3456237490", 9191 -> []
+###################################################################################################
+The basic idea is using DFS, but if we can manipulate on array, that could be much faster.
+
+We define three variables: baseVal, currVal, nextVal;
+for +/- operator, we update baseVal and currVal using: baseVal=baseVal+currVal;
+                                                       currVal= (+/-) nextVal;
+For * operator, we keep baseVal the same, and update currVal using: currVal=currVal*nextVal. 
+
+The code is as following:
+
+class Solution {
+    List<String> res;
+    char[] chs;
+    char[] str;
+    int target;
+    public List<String> addOperators(String num, int target) {
+        res=new ArrayList<>();
+        chs=num.toCharArray();
+        if(chs.length<1) return res;
+        str=new char[2*chs.length];
+        this.target=target;
+        long preVal=0;
+        for(int i=0; i<chs.length; i++){
+            preVal=preVal*10+chs[i]-'0';
+            str[i]=chs[i];
+            dfs(i+1, i+1, 0, preVal);
+            if(preVal==0) return res;
+        }
+        return res;
+    }
+    private void dfs(int len, int index, long baseVal, long currVal){
+        if(index==chs.length){
+            if(baseVal+currVal==target){
+                res.add(new String(str, 0, len));
+            }
+            return;
+        }
+        long nextVal=0;
+        int idx=len+1;   // for following digits
+        for(int i=index; i<chs.length; i++){
+            nextVal=nextVal*10+chs[i]-'0';
+            str[idx++]=chs[i];
+            str[len]='+';
+            dfs(idx, i+1, baseVal+currVal, nextVal);
+            str[len]='-';
+            dfs(idx, i+1, baseVal+currVal, -nextVal);
+            str[len]='*';
+            dfs(idx, i+1, baseVal, currVal*nextVal);    // if *, we keep the baseVal, and do the times at first
+            if(nextVal==0) return;
+        }
+    }
+}
