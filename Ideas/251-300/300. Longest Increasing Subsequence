@@ -1,0 +1,54 @@
+Given an unsorted array of integers, find the length of longest increasing subsequence.
+
+For example,
+Given [10, 9, 2, 5, 3, 7, 101, 18],
+The longest increasing subsequence is [2, 3, 7, 101], therefore the length is 4. Note that there may be more than one LIS combination, it is only necessary for you to return the length.
+
+Your algorithm should run in O(n2) complexity.
+
+Follow up: Could you improve it to O(n log n) time complexity?
+##################################################################################################
+Approach 1: Using DP, from left to right, for each elements, we find the longest length of the subsequnce.
+The code is as following:
+
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        if(nums.length<2) return nums.length;
+        int max=0;
+        int[] res=new int[nums.length];
+        for(int i=0; i<nums.length; i++){
+            res[i]=1;
+            for(int j=0; j<i; j++){
+                if(nums[i]>nums[j] && res[j]+1>res[i]){
+                    res[i]=res[j]+1;
+                }
+            }
+            if(res[i]>max) max=res[i];
+        }
+        return max;
+    }
+}
+
+Approach 2: we use an array to record the smallest elements of each length, and the final length is the result.
+
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int[] tails=new int[nums.length];
+        int size=0;
+        for(int i=0; i<nums.length; i++){
+            int left=0, right=size;
+            while(left<right){
+                int mid=(left+right)/2;
+                if(nums[i]>tails[mid]){
+                    left=mid+1;
+                }
+                else{
+                    right=mid;
+                }
+            }
+            tails[left]=nums[i];
+            if(left==size) size++;
+        }
+        return size;
+    }
+} 
