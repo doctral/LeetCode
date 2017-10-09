@@ -1,0 +1,76 @@
+Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
+
+Note: The input string may contain letters other than the parentheses ( and ).
+
+Examples:
+"()())()" -> ["()()()", "(())()"]
+"(a)())()" -> ["(a)()()", "(a())()"]
+")(" -> [""]
+######################################################################################################
+Generally there are two popular way to fix this problem: BFS and DFS.
+There are some optimizations we can do to speed the algorithm: any leading ')' or tailing '(' can be removed directly from the original string. 
+Approach BFS: 
+class Solution {
+    public List<String> removeInvalidParentheses(String s) {
+        List<String> res=new ArrayList<>();
+        s=optimized(s);
+        if(s.length()<1){
+            res.add("");
+            return res;
+        }
+        Queue<String> curr=new LinkedList<>();
+        Set<String> set=new HashSet<>();
+        curr.add(s);
+        set.add(s);
+        boolean found=false;
+        while(curr.size()>0){
+            String str=curr.remove();
+            if(isValid(str)){
+                res.add(str);
+                found=true;
+            }
+            if(found) continue;
+            char[] ss=str.toCharArray();
+            for(int i=0; i<ss.length; i++){
+                if(ss[i]=='(' || ss[i]==')'){
+                    String temp=str.substring(0, i)+str.substring(i+1);
+                    if(set.add(temp)) curr.add(temp);
+                }
+            }
+        }
+        return res;
+    }
+    private String optimized(String s){
+        char[] chs=s.toCharArray();
+        int left=0, right=chs.length-1;
+        while(left<right && chs[left]!='('){
+            left++;
+        }
+        while(left<right && chs[right]!=')'){
+            right--;
+        }
+        StringBuilder sb=new StringBuilder();
+        for(int i=0; i<left; i++){
+            if(chs[i]!=')') sb.append(chs[i]);
+        }
+        sb.append(s.substring(left, right+1));
+        for(int i=right+1; i<chs.length; i++){
+            if(chs[i]!='(') sb.append(chs[i]);
+        }
+        if(sb.length()>0) return sb.toString();
+        return "";
+    }
+    private boolean isValid(String str){
+        int count=0;
+        char[] ss=str.toCharArray();
+        for(char ch:ss){
+            if(ch=='(') count++;
+            if(ch==')') count--;
+            if(count<0) return false;
+        }
+        return count==0;
+    }
+}
+
+#################################################################################################
+Approach 2: DFS. 

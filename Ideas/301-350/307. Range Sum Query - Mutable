@@ -1,0 +1,131 @@
+Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
+
+The update(i, val) function modifies nums by updating the element at index i to val.
+Example:
+Given nums = [1, 3, 5]
+
+sumRange(0, 2) -> 9
+update(1, 2)
+sumRange(0, 2) -> 8
+Note:
+The array is only modifiable by the update function.
+You may assume the number of calls to update and sumRange function is distributed evenly.
+##################################################################################################
+Approach 1: Binary Indexed Tree
+class NumArray {
+    int[] nums;
+    int[] bit;
+    public NumArray(int[] nums) {
+        this.nums=nums;
+        this.bit=new int[nums.length+1];
+        for(int i=0; i<nums.length; i++){
+            set(i, nums[i]);
+        }
+    }
+    private void set(int i, int val){
+        i++;
+        while(i<=nums.length){
+            bit[i]+=val;
+            i+=(i&-i);
+        }
+    }
+    public void update(int i, int val) {
+        int diff=val-nums[i];
+        nums[i]=val;
+        set(i, diff);
+    }
+    
+    public int sumRange(int i, int j) {
+        return getSum(j)-getSum(i-1);
+    }
+    private int getSum(int i){
+        int sum=0;
+        i++;
+        while(i>0){
+            sum+=bit[i];
+            i-=(i&-i);
+        }
+        return sum;
+    }
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * obj.update(i,val);
+ * int param_2 = obj.sumRange(i,j);
+ */
+ ########################################################################################3
+ Approach 2: Segment Tree
+ class NumArray {
+    class Node{
+        int start, end;
+        Node left, right;
+        int sum;
+        public Node(int start, int end){
+            this.start=start;
+            this.end=end;
+            left=right=null;
+            this.sum=0;
+        }
+    }
+    
+    private Node root=null;
+    private Node build(int[] nums, int start, int end){
+        if(start>end) return null;
+        Node root=new Node(start, end);
+        if(start==end){
+            root.sum=nums[start];      // each nums[i] is a leaf in the segment tree
+        }
+        else{
+            int mid=(start+end)/2;     // split the tree by half
+            root.left=build(nums, start, mid);
+            root.right=build(nums, mid+1, end);
+            root.sum=root.left.sum+root.right.sum;
+        }
+        return root;
+    }
+    public NumArray(int[] nums) {
+        root=build(nums, 0, nums.length-1);
+    }
+    
+    public void update(int i, int val) {
+        update(root, i, val);
+    }
+    private void update(Node root, int index, int val){
+        if(root.start==index&& root.end==index){      // when reach the leaf, update the leaf node
+            root.sum=val;
+            return;
+        }
+        int mid=(root.start+root.end)/2;
+        if(mid>=index) update(root.left, index, val);
+        if(mid<index) update(root.right, index, val);
+        root.sum=root.left.sum+root.right.sum;
+    }
+    
+    public int sumRange(int i, int j) {
+        return getSum(root, i, j);
+    }
+    private int getSum(Node root, int i,int j){
+        if(root.start==i && root.end==j){
+            return root.sum;
+        }
+        int mid=(root.start+root.end)/2;
+        if(mid>=j){
+            return getSum(root.left, i, j);   // in the left half
+        }
+        else if(i>mid){
+            return getSum(root.right, i, j);   // in the right half
+        }
+        else{
+            return getSum(root.left, i, mid)+getSum(root.right, mid+1, j);    // cross the root
+        }
+    }
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * obj.update(i,val);
+ * int param_2 = obj.sumRange(i,j);
+ */
