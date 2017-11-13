@@ -1,0 +1,62 @@
+Given an array which consists of non-negative integers and an integer m, you can split the array into m non-empty continuous subarrays. Write an algorithm to minimize the largest sum among these m subarrays.
+
+Note:
+If n is the length of array, assume the following constraints are satisfied:
+
+1 ≤ n ≤ 1000
+1 ≤ m ≤ min(50, n)
+Examples:
+
+Input:
+nums = [7,2,5,10,8]
+m = 2
+
+Output:
+18
+
+Explanation:
+There are four ways to split nums into two subarrays.
+The best way is to split it into [7,2,5] and [10,8],
+where the largest sum among the two subarrays is only 18.
+#######################################################################################
+The best way to solve this problem is using binary search:
+There are key points in this question:
+   1. The minimum sum is the maximum number in the array.
+   2. The maximum sum is the sum of all numbers in the array.
+   3. The qualified answer should be splitable as m groups while be as small as possible.  (need a valididation function)
+
+The code is as following:
+class Solution {
+    public int splitArray(int[] nums, int m) {
+        long max=0, sum=0;
+        for(int num:nums){
+            if(num>max) max=num;
+            sum+=num;
+        }
+        if(m==1) return (int)sum;
+        if(m==nums.length) return (int)max;
+        long left=max, right=sum;
+        while(left<right){
+            long mid=(left+right)/2;
+            if(valid(nums, m, mid)){
+                right=mid;
+            }
+            else{
+                left=mid+1;
+            }
+        }
+        return (int)right;
+    }
+    private boolean valid(int[] nums, int m, long max){
+        int sum=0, count=1;
+        for(int num:nums){
+            sum+=num;
+            if(sum>max){
+                count++;
+                sum=num;
+                if(count>m) return false;
+            }
+        }
+        return true;
+    }
+}
