@@ -1,0 +1,13 @@
+Design a data structure that supports all following operations in average O(1) time.
+
+insert(val): Inserts an item val to the set if not already present.
+remove(val): Removes an item val from the set if present.
+getRandom: Returns a random element from current set of elements. Each element must have the same probability of being returned.
+##################################################################################################
+The basic idea is using an arrayList and a hashmap to store the elements and its index.
+Each time, we insert the element at the end. And when we remove, we check whether the current element 
+is the last element or not, if not, we swap the target with the last one, and then do the removal. By doing this, we can return a random val at O(1) with the arraylist as well.
+
+What if duplicates are allowed?
+Similarly, we can still use arraylist and hashmap, but this time we need to use treemap in the hashmap to 
+get the maximum index of target value. Then just the same as above, comparing with the last index, and do the removal.
