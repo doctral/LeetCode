@@ -1,0 +1,73 @@
+Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks.Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.
+
+However, there is a non-negative cooling interval n that means between two same tasks, there must be at least n intervals that CPU are doing different tasks or just be idle.
+
+You need to return the least number of intervals the CPU will take to finish all the given tasks.
+
+Example 1:
+Input: tasks = ["A","A","A","B","B","B"], n = 2
+Output: 8
+Explanation: A -> B -> idle -> A -> B -> idle -> A -> B.
+Note:
+The number of tasks is in the range [1, 10000].
+The integer n is in the range [0, 100].
+
+################################################################################################
+The first approach is just following the meaning of this question by using priorityQueue.
+The code is as following:
+
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        if(n==0) return tasks.length;
+        Map<Character, Integer> map=new HashMap<>();
+        for(char ch: tasks){
+            map.put(ch, map.getOrDefault(ch, 0)+1);
+        }
+        PriorityQueue<Map.Entry<Character, Integer>> pq=new PriorityQueue<>((a,b) -> a.getValue()!=b.getValue()? b.getValue()-a.getValue(): a.getKey()-b.getKey());   // rank the freqency at first, otherwise, rank the letter then
+        int res=0;
+        pq.addAll(map.entrySet());
+        while(true){
+            int k=n+1;
+            List<Map.Entry<Character, Integer>> used=new ArrayList<>();
+            while(k>0 && !pq.isEmpty()){
+                Map.Entry<Character, Integer> entry=pq.remove();
+                entry.setValue(entry.getValue()-1);
+                used.add(entry);
+                k--;
+                res++;
+            }
+            // just keep valid entry
+            for(Map.Entry<Character, Integer> entry: used){
+                if(entry.getValue()>0) pq.add(entry);
+            }
+            // if pq is already empty, then no further step, just break
+            if(pq.isEmpty()) break;
+            res+=k; // in case CPU is idle
+        }
+        return res;
+    }
+} 
+
+#######################################################################################################
+The second approach is kind of tricky. We sort all chars with their frequency, and the char with highest 
+frequency k can be separated in k groups:
+For example: AXXXXX AXXXXX AXXXXX AHHH (H are chars with the same frequency with A).
+Therefore, if n is large enough, then the total number of intervals would be:
+           (k-1) * (n+1) + number of other chars with the same frequency with A 
+          if n is small, then there is no idle intervals, and therefore, simply return the length of chars.
+          
+The code is as following:
+
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] chs=new int[26];
+        for(char ch: tasks) chs[ch-'A']++;
+        Arrays.sort(chs);
+        int i=24;
+        while(i>=0 && chs[i]==chs[25]){
+            i--;
+        }
+        int groupNum=chs[25]-1, ch_same_freq=25-i, group_length=n+1;
+        return Math.max(tasks.length, groupNum*group_length+ch_same_freq);
+    }
+} 
