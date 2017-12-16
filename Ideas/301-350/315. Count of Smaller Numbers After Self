@@ -1,0 +1,57 @@
+You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
+
+Example:
+
+Given nums = [5, 2, 6, 1]
+
+To the right of 5 there are 2 smaller elements (2 and 1).
+To the right of 2 there is only 1 smaller element (1).
+To the right of 6 there is 1 smaller element (1).
+To the right of 1 there is 0 smaller element.
+Return the array [2, 1, 1, 0].
+
+#####################################################################################################
+The brute force method runs O(n^2) time and failed to pass the OJ.
+
+We can build a BST, and insert each node from right to left. The code is as following:
+
+class Solution {
+    class Node{
+        Node left, right;
+        int val, sum, dup=1;
+        public Node(int val, int sum){
+            this.val=val;
+            this.sum=sum;
+        }
+    }
+    public List<Integer> countSmaller(int[] nums) {
+        int[] res=new int[nums.length];
+        Node root=null;
+        for(int i=nums.length-1; i>=0; i--){
+            root=insert(res, nums[i], i, 0, root);
+        }
+        List<Integer> list=new ArrayList<>();
+        for(int num : res){
+            list.add(num);
+        }
+        return list;
+    }
+    private Node insert(int[] res, int val, int index, int presum, Node root){
+        if(root==null){
+            root=new Node(val, 0);
+            res[index]=presum;
+        }
+        else if(root.val==val){
+            root.dup++;
+            res[index]=presum+root.sum;
+        }
+        else if(root.val>val){
+            root.sum++;
+            root.left=insert(res, val, index, presum, root.left);
+        }
+        else{
+            root.right=insert(res, val, index, presum+root.sum+root.dup, root.right);
+        }
+        return root;
+    }
+}
