@@ -1,22 +1,142 @@
 Selection Sort:
-    Algorithm: find the smallest number in the array and swap it with the first num in the array.
-               Repeat this step until only a number remains.
-               
-Insertion Sort:
-    Algorithm: repeatedly inserting a new element into a sorted sublist until the whole array is sorted.
+    Algorithm: The selection sort algorithm sorts an array by repeatedly finding the minimum element 
+    (considering ascending order) from unsorted part and putting it at the beginning. The algorithm 
+    maintains two subarrays in a given array.
 
+           1) The subarray which is already sorted.
+           2) Remaining subarray which is unsorted.
+
+    In every iteration of selection sort, the minimum element (considering ascending order) from the 
+    unsorted subarray is picked and moved to the sorted subarray.
+    
+    The code of selection sort is as following:
+
+    void selectionSort(int[] arr){
+         for(int i=0; i<arr.length-1; i++){
+             int minIndex=i;
+             for(int j=i+1; j<arr.length; j++){
+                 if(arr[minIndex]>arr[j]) minIndex=j;
+             }
+             int temp=arr[i];
+             arr[i]=arr[minIndex];
+             arr[minIndex]=temp;
+         }
+
+    }
+############################################################################################          Insertion Sort:
+    Algorithm: repeatedly inserting a new element into a sorted sublist until the whole array is sorted.
+    insertionSort(arr, n)
+         Loop from i = 1 to n-1.
+             a) Pick element arr[i] and insert it into sorted sequence arr[0…i-1]
+
+    The code of insertion sort is as following:
+
+    void insertionSort(int[] arr){
+         for(int i=1; i<arr.length; i++){
+             int currIndex=i;
+             int minIndex=i-1;
+             while(minIndex>=0 && arr[minIndex]>arr[currIndex]){ // prev>curr
+                  arr[currIndex]=arr[minIndex];                  // right shift
+                  minIndex--;   
+             }
+             arr[minIndex+1]=arr[currIndex];                     // find the right position
+         }
+    }  
+############################################################################################
 Bubble Sort:
     Algorithm: on each pass, sucessive neighboring pairs are compared. If a pair is in decreasing order, its values are swapped. 
 
+    The code of bubble sort is as following:
+
+    void bubbleSort(int[] arr){
+         boolean done=false;
+         for(int i=0; i<arr.length && !done; i++){
+              done=true;
+              for(int j=0; j<arr.length-i-1; j++){
+                   if(arr[j]>arr[j+1]){
+                       int temp=arr[j];
+                       arr[j]=arr[j+1];
+                       arr[j+1]=temp;
+                       done=false;
+                   }
+              }
+         }
+    }
+###############################################################################################
 Merge Sort:
     Algorithm: divides the array into two halves and applies a merge sort on each half recursively. After the two halves are sorted,
-    then merge them. 
+    then merge them.
+    
+    The code of merge sort is as following:
 
-Quick Sort:
+    void mergeSort(int[] arr){
+         arr=mergeSort(arr, 0, arr.length-1);
+    }
+    int[] mergeSort(int[] arr, int start, int end){
+         if(end>start){
+             int mid=(start+end)/2;
+             return merge(mergeSort(arr, start, mid), mergeSort(arr, start+1, end));
+         }
+         else if(end==start){
+              int[] ar=new int[1];
+              ar[0]=arr[start];
+              return ar[0];
+         }
+         return null;
+    }
+    int[] merge(int[] arr1, int[] arr2){
+          if(arr1==null) return arr2;
+          if(arr2==null) return arr1;
+          int[] arr=new int[arr1.length+arr2.length];
+          int id1=0, id2=0;
+          for(int i=0; i<arr.length; i++){
+              if(id1>=arr1.length){
+                   arr[i]=arr2[id2++];
+              }
+              else if(id2>=arr2.length){
+                   arr[i]=arr1[id1++];
+              }
+              else if(arr1[id1]<arr2[id2]){
+                   arr[i]=arr1[id1++];
+              }
+              else{
+                  arr[i]=arr2[id2++];
+              }
+          }
+          return arr;
+    }
+############################################################################################
+Quick Sort: (time complexity O(nlogn) and constant space)
     Algorithm: The algorithm selects an element, called the pivot, in the array. It divides the array into two parts, so that
     all the elements in the first part are less than or equal to the pivot and all the elements in the second part are greater
     than the pivot. The quick sort algorithm is then recursively applied to the first part and then the second part.
 
+    The code of quicksort is as following:
+
+    void quickSort(int[] arr){
+           quickSort(arr, 0, arr.length-1);
+    }
+    void quickSort(int[] arr, int left, int right){
+         if(left<right){
+              int pivot=partition(arr, left, right);
+              quickSort(arr, left, pivot-1);
+              quickSort(arr, pivot+1, right);
+         }
+    }
+    int partition(int[] arr, int left, int right){
+        int smallIndex=left-1;      // record the index of numbers that smaller than target
+        int target=arr[right];
+        for(int i=left; i<right; i++){
+            if(target>=arr[i]){     // 
+                smallIndex++;
+                if(smallIndex!=j) swap(arr, smallIndex, j);
+            }
+        }
+        swap(arr, smallIndex+1, right);     // find the right position for the target num
+        return smallIndex+1;                // return the right index of target
+    } 
+
+##############################################################################################
 Heap Sort: a heap sort uses a binary heap, it first adds all the elements to a heap and then removes the largest elements 
     successively to obtain a sorted list.
     Heap is complete binary tree, which can be implemented by an arraylist. 
