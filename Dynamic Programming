@@ -1,5 +1,5 @@
 An optimization problem must have two key features in order for DYNAMIC PROGRAMMING to apply:
-1. optimal sunstructure: the optimal solution to the problem contains within its optimal solutions to subproblems 
+1. optimal substructure: the optimal solution to the problem contains within its optimal solutions to subproblems 
 2. overlapping subproblems
 
 There are two equivalent approaches to implement dynamic programming:
