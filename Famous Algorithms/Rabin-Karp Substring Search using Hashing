@@ -1,0 +1,15 @@
+Situation: The Search for a substring S in a larger string B with brute
+force way takes O(s(b-s)) time, where s is the length of S and b is the 
+length of B. 
+
+Key Points using Hashing: if two strings are the same, they must have the
+same hash value. Therefore, after we precompute the hash value for each 
+sequence of s characters within B, we then just need to validate these 
+locations that really do match S. 
+
+With a good hash function, the time complexity could be O(s + b), and 
+the worst case is O(sb). 
+
+
+
+

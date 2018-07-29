@@ -70,6 +70,8 @@ Key points:
    SEPARATE CHAINING: the separate chain scheme places all entries with the same hash index in the same location, rather than 
    finding new locations. Each location in the separate chaining scheme uses a bucket (Implemented by an array, ArrayList, or
    LinkedList) to hold multiple entries. 
+        1. Chaining with LinkedList (the most common case).
+        2. Chaining with Binary Search Tree (rarely take this approach unless we expected an extremely nonuniform distribution). 
 
 9. Load Factor and Rehashing
    Load factor (=n/N, n is the number of entries, N is the size of Hash table) measures how full a hash table is, if the load
