@@ -1,0 +1,14 @@
+public class Solution {
+    public int LengthOfLongestSubstring(string s) {
+        Dictionary<char, int> map=new Dictionary<char, int>();
+        int left=-1, max=0;
+        for(int i=0; i<s.Length; i++){
+            if(map.ContainsKey(s[i]) && map[s[i]]>left){
+                left=map[s[i]];                
+            }
+            map[s[i]]=i;
+            if(i-left>max) max=i-left;
+        }
+        return max;
+    }
+}
