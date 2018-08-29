@@ -1,0 +1,22 @@
+public class Solution { 
+    public string LongestPalindrome(string s) {
+        string res="";
+        for(int i=0; i<s.Length; i++){
+            if(i>0 && s[i]==s[i-1]) continue;
+            string temp_max=GetLongest(s, i);
+            if(temp_max.Length>res.Length) res=temp_max;
+        }
+        return res;
+    }
+    private string GetLongest(string s, int idx){
+        int left=idx, right=idx;
+        while(right<s.Length-1 && s[right]==s[right+1]){
+            right++;
+        }
+        while(left>0 && right<s.Length-1 && s[left-1]==s[right+1]){
+            left--;
+            right++;
+        }
+        return s.Substring(left, right-left+1);
+    }
+}

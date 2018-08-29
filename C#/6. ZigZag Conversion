@@ -1,0 +1,20 @@
+public class Solution {
+    public string Convert(string s, int numRows) {
+        if(numRows<= 1 || numRows>=s.Length) return s;
+        StringBuilder[] sbs=new StringBuilder[numRows];
+        for(int i=0; i<sbs.Length; i++){
+            sbs[i]=new StringBuilder();
+        }
+        int flag=1, curr=0;
+        for(int i=0; i<s.Length; i++){
+            sbs[curr].Append(s[i]);
+            if(curr==0) flag=1;
+            if(curr==numRows-1) flag=-1;
+            curr+=flag;
+        }
+        for(int i=1; i<numRows; i++){
+            sbs[0].Append(sbs[i]);
+        }
+        return sbs[0].ToString();
+    }
+}
