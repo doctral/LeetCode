@@ -1,0 +1,19 @@
+public class Solution {
+    public int MyAtoi(string str) {
+        long res=0;
+        int flag=1, idx=0;
+        string ss=str.Trim();
+        if(ss.Length==0) return 0;
+        if(ss[0]=='+' || ss[0]=='-'){
+            idx++;
+            if(ss[0]=='-') flag=-1;
+        }
+        while(idx<ss.Length && ss[idx]>='0' && ss[idx]<='9'){
+            res=res*10+(ss[idx]-'0');
+            idx++;
+            if(flag==1 && res>Int32.MaxValue) return Int32.MaxValue;
+            if(flag==-1 && flag*res<Int32.MinValue) return Int32.MinValue;
+        }
+        return (int)(res*flag);
+    }
+}

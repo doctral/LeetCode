@@ -1,0 +1,12 @@
+public class Solution {
+    public bool IsPalindrome(int x) {
+        if(x<0) return false;
+        long pa=0;
+        long copy=(long)x;
+        while(x!=0){
+            pa=pa*10+(x%10);
+            x=x/10;
+        }
+        return pa==copy;
+    }
+}
