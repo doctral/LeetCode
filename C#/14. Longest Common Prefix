@@ -1,0 +1,19 @@
+public class Solution {
+    public string LongestCommonPrefix(string[] strs) {
+        if(strs.Length==0) return "";
+        string res=strs[0];
+        for(int i=1; i<strs.Length; i++){
+            res=findCommonPrefix(res, strs[i]);
+            if(res.Length==0) return "";
+        }
+        return res;
+    }
+    private string findCommonPrefix(string str1, string str2){
+        StringBuilder sb=new StringBuilder();
+        int len=Math.Min(str1.Length, str2.Length);
+        for(int i=0; i<len && str1[i]==str2[i]; i++){
+            sb.Append(str1[i]);
+        }
+        return sb.ToString();
+    }
+}
