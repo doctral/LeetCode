@@ -1,0 +1,14 @@
+public class Solution {
+    public int StrStr(string haystack, string needle) {
+        if(needle.Length==0) return 0;
+        if(needle.Length>haystack.Length) return -1;
+        int index=0;
+        while(index<=haystack.Length-needle.Length){
+            if(haystack.Substring(index, needle.Length)==needle){
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+}
