@@ -1,0 +1,44 @@
+public class Solution {
+    public IList<int> FindSubstring(string s, string[] words) {
+        IList<int> res=new List<int>();
+        if(words.Length==0 || s.Length<words[0].Length) return res;
+        Dictionary<string, int> freq_map=new Dictionary<string, int>();
+        foreach(string word in words){
+            freq_map[word]=(freq_map.ContainsKey(word)? freq_map[word]+1 : 1 );
+        }
+        int word_len=words[0].Length, total=words.Length;
+        bool[] marks=new bool[s.Length];
+        Mark(marks, s, words, freq_map); // mark all possible position
+        for(int i=0; i<=s.Length-total*word_len; i++){
+            if(marks[i]){
+                bool valid=true;
+                Dictionary<string, int> temp=new Dictionary<string, int>();
+                for(int j=i; j<i+total*word_len; j+=word_len){
+                    string str=s.Substring(j,word_len);
+                    temp[str]=(temp.ContainsKey(str))? temp[str]+1 : 1;
+                    if(temp[str]>freq_map[str]){
+                        valid=false;
+                        break;
+                    }
+                }
+                if(valid) res.Add(i);
+            }
+            
+        }
+        return res;
+    }
+    
+    private void Mark(bool[] marks, string s, string[] words, Dictionary<string, int> map){
+        int m=words.Length, n=words[0].Length;
+        for(int i=0; i<=s.Length-m*n; i++){
+            bool valid=true;
+            for(int j=i; j<i+m*n; j+=n){
+                if(!map.ContainsKey(s.Substring(j, n))){
+                    valid=false;
+                    break;
+                }
+            }
+            marks[i]=valid;
+        }
+    }
+}

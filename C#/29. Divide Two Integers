@@ -1,0 +1,19 @@
+public class Solution {
+    public int Divide(int dividend, int divisor) {
+        if(dividend==Int32.MinValue && divisor==-1) return Int32.MaxValue;  // the only case that will overflow
+        if(dividend==0) return 0;
+        int flag=1;
+        if( (dividend<0 && divisor>0) || (dividend>0 && divisor<0) ) flag=-1;
+        long did=Math.Abs((long)dividend), dis=Math.Abs((long)divisor);
+        int res=0;
+        while(did>=dis){
+            int idx=0;
+            while(did >= (dis << (idx+1) )){
+                idx++;
+            }
+            res += (1<<(idx));
+            did -= (dis<<idx);
+        }
+        return res*flag;
+    }
+}
