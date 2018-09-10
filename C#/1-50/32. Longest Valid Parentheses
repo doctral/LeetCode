@@ -1,0 +1,25 @@
+public class Solution {
+    public int LongestValidParentheses(string s) {
+        Stack<char> pa=new Stack<char>();
+        Stack<int> idx=new Stack<int>();
+        pa.Push('#');
+        idx.Push(-1);
+        for(int i=0; i<s.Length; i++){
+            if(s[i]==')' && pa.Peek()=='('){
+                pa.Pop();
+                idx.Pop();
+            }
+            else{
+                pa.Push(s[i]);
+                idx.Push(i);
+            }
+        }
+        int res=0, curr=s.Length;
+        while(idx.Count>0){
+            int pre=idx.Pop();
+            if(curr-pre-1>res) res=curr-pre-1;
+            curr=pre;
+        }
+        return res;
+    }
+}
