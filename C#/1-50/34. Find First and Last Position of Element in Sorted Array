@@ -1,0 +1,29 @@
+public class Solution {
+    public int[] SearchRange(int[] nums, int target) {
+        int[] res=new int[]{-1,-1};
+        int left=0, right=nums.Length-1;
+        while(left<=right){
+            int mid=(left+right)/2;
+            if(nums[mid]==target){
+                int l=mid;
+                while(l>0 && nums[l]==nums[l-1]){
+                    l--;
+                }
+                int r=mid;
+                while(r<nums.Length-1 && nums[r]==nums[r+1]){
+                    r++;
+                }
+                res[0]=l;
+                res[1]=r;
+                break;
+            }
+            else if(nums[mid]>target){
+                right=mid-1;
+            }
+            else{
+                left=mid+1;
+            }
+        }
+        return res;
+    }
+}
