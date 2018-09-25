@@ -1,0 +1,17 @@
+public class Solution {
+    public int FirstMissingPositive(int[] nums) {
+        int temp=0, res=1;
+        for(int i=0; i<nums.Length; i++){
+            while(nums[i]>0 && nums[i]<=nums.Length && nums[nums[i]-1]!=nums[i] && nums[i]!=i+1){
+                temp=nums[i];
+                nums[i]=nums[nums[i]-1];
+                nums[temp-1]=temp;
+            }
+        }
+        for(int i=0; i<nums.Length; i++){
+            if(nums[i]!=i+1) break;
+            res++;
+        }
+        return res;
+    }
+}

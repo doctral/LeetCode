@@ -1,0 +1,27 @@
+public class Solution {
+    public string CountAndSay(int n) {
+        int index=1;
+        string res="1";
+        while(index<n){
+            StringBuilder sb=new StringBuilder();
+            int count=1;
+            char curr=res[0];
+            for(int i=1; i<res.Length; i++){
+                if(res[i]==res[i-1]){
+                    count++;
+                }
+                else{
+                    sb.Append(count);
+                    sb.Append(curr);
+                    count=1;
+                    curr=res[i];
+                }
+            }
+            sb.Append(count);
+            sb.Append(curr);
+            index++;
+            res=sb.ToString();
+        }
+        return res;
+    }
+}

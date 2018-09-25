@@ -1,0 +1,19 @@
+public class Solution {
+    public IList<IList<int>> CombinationSum(int[] candidates, int target) {
+        IList<IList<int>> res=new List<IList<int>>();
+        backtrack(res, new List<int>(), candidates, 0, target); 
+        return res;
+    }
+    private void backtrack(IList<IList<int>> res, IList<int> temp, int[] candidates, int index, int target){
+        if(target<0) return;
+        if(target==0){
+            res.Add(new List<int>(temp));
+            return;
+        }
+        for(int i=index; i<candidates.Length; i++){
+            temp.Add(candidates[i]);
+            backtrack(res, temp, candidates, i, target-candidates[i]);
+            temp.RemoveAt(temp.Count-1);
+        }
+    }
+}
