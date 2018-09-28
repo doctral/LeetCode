@@ -1,0 +1,26 @@
+public class Solution {
+    public string Multiply(string num1, string num2) {
+        int[] res=new int[num1.Length+num2.Length];
+        
+        for(int i=num1.Length-1, startIndex=res.Length-1; i>=0; i--,startIndex--){
+            int idx=startIndex, curr=num1[i]-'0';
+            for(int j=num2.Length-1; j>=0; j--){
+                int prod=curr*(num2[j]-'0')+res[idx];
+                res[idx]=prod%10;
+                res[idx-1]+=prod/10;
+                idx--;
+            }
+            if(res[idx]>=10){
+                res[idx-1]=res[idx]/10;
+                res[idx]=res[idx]%10;
+            }
+        }
+        
+        StringBuilder sb=new StringBuilder();
+        for(int i=0; i<res.Length; i++){
+            if(sb.Length==0 && res[i]==0) continue;
+            sb.Append(res[i]);
+        }
+        return sb.Length==0? "0" : sb.ToString();
+    }
+}
