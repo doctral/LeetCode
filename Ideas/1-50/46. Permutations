@@ -1,0 +1,2 @@
+1. To get all permutations, we can use a bool[] to record elements
+2. In C#, List.Remove() will remove element, List.RemoveAt() will remove element at Index i.

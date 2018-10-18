@@ -1,0 +1,23 @@
+public class Solution {
+    public IList<IList<int>> Permute(int[] nums) {
+        IList<IList<int>> res=new List<IList<int>>();
+        Dfs(res, nums, new List<int>(), new bool[nums.Length]);
+        return res;
+    }
+    
+    private void Dfs(IList<IList<int>> res, int[] nums, IList<int> temp, bool[] used){
+        if(temp.Count==nums.Length){
+            res.Add(new List<int>(temp));
+            return;
+        }
+        for(int i=0; i<nums.Length; i++){
+            if(!used[i]){
+                temp.Add(nums[i]);
+                used[i]=true;
+                Dfs(res, nums, temp, used);
+                temp.RemoveAt(temp.Count-1);
+                used[i]=false;
+            }
+        }
+    }
+}

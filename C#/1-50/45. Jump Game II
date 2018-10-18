@@ -1,0 +1,14 @@
+public class Solution {
+    public int Jump(int[] nums) {
+        int step=0, currEnd=0,maxLen=0;
+        for(int i=0; i<nums.Length-1; i++){
+            maxLen=Math.Max(maxLen, nums[i]+i);
+            if(i==currEnd){
+                step++;
+                currEnd=maxLen;
+            }
+            if(currEnd>=nums.Length-1) break;
+        }
+        return step;
+    }
+}
