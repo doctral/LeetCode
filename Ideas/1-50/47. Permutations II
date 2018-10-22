@@ -1,0 +1,15 @@
+Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+
+Example:
+
+Input: [1,1,2]
+Output:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]
+######################################################################################
+The key point in this problem is to remove duplicates. Then we can use the same idea in 46. Permutations.
+i. used[i] == true --> current element has been used, therefore, we need to continue.
+ii. i>0 && nums[i]==nums[i-1] && used[i-1] == false --> The previous element with the same value has not been used, therefore, we find duplicates and need to continue.

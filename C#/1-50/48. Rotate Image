@@ -1,0 +1,20 @@
+public class Solution {
+    public void Rotate(int[,] matrix) {
+        for(int level=0; level<matrix.GetLength(0)/2; level++){
+            // copy the top horizontal row for future use
+            int len=matrix.GetLength(0)-2*level;
+            int[] temp=new int[len];
+            for(int i=0; i<temp.Length; i++){
+                temp[i]=matrix[level,level+i];
+            }
+            
+            // rotate the pixels in image
+            for(int i=0; i<len-1; i++){
+                matrix[level, level+i]=matrix[level+len-1-i,level];
+                matrix[level+len-1-i, level]=matrix[level+len-1, level+len-1-i];
+                matrix[level+len-1, level+len-1-i]=matrix[level+i,level+len-1];
+                matrix[level+i, level+len-1]=temp[i];
+            }
+        }
+    }
+}
