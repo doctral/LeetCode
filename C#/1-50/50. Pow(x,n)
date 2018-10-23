@@ -1,0 +1,16 @@
+public class Solution {
+    public double MyPow(double x, int n) {
+        if(x==0 || x==1) return x;
+        long index=Convert.ToInt64(n);
+        if(index<0){
+            index=-index;
+            x=1/x;
+        }
+        return cal(x, index);
+    }
+    private double cal(double x, long index){
+        if(index==0) return 1;
+        if(index==1) return x;
+        return index%2==0? cal(x*x, index/2) : x* cal(x*x, index/2);
+    }
+}

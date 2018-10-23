@@ -1,0 +1,23 @@
+public class Solution {
+    public IList<IList<string>> GroupAnagrams(string[] strs) {
+        Dictionary<string, IList<string>> map=new Dictionary<string, IList<string>>();
+        foreach(string str in strs){
+            string sorted=sort(str);
+            if(map.ContainsKey(sorted)){
+                map[sorted].Add(str);
+            }
+            else{
+                map[sorted]=new List<string>();
+                map[sorted].Add(str);
+            }
+        }
+        IList<IList<string>> res=new List<IList<string>>(map.Values);
+        return res;
+        
+    }
+    private string sort(string str){
+        char[] chars=str.ToArray();
+        Array.Sort(chars);
+        return new string(chars);
+    }
+}
