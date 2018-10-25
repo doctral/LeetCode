@@ -1,0 +1,34 @@
+The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+
+
+Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+Example:
+
+Input: 4
+Output: [
+ [".Q..",  // Solution 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // Solution 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
+Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
+
+#############################################################################################
+There are a few key points to solve this problem:
+1. We can use a int[] array to record the position of queens, i.e: arr[row]=col --> a queen has been placed at [row, col]. This helps to check the validality
+    of a position efficiently.
+2. Given the record array and the position row and col, we can check if a position a valid or not quickly by checking three conditions:
+    for i=1 to i<=col:
+    1. arr[col-i]=row  --> there is already a queen in the same row, not valid
+    2. arr[col-i]=row-i --> there is already a queen in the left diagonal, not valid
+    3. arr[col-i]=row+i --> there is already a queen in the right diagonal, not valid
+    4. All other cases are valid
+3. Then we can use Backtracking algorithm to solve this problem. 

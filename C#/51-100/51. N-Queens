@@ -1,0 +1,39 @@
+public class Solution {
+    public IList<IList<string>> SolveNQueens(int n) {
+        var res=new List<IList<string>>();
+        var record=new int[n];
+        for(int i=0; i<n; i++){
+            record[i]=-1;
+        }
+        Backtrack(res, new List<string>(), record, 0, n);
+        return res;
+    }
+    
+    private void Backtrack(IList<IList<string>> res, IList<string> temp, int[] record, int currCol, int n){
+       if(currCol==n){
+           res.Add(new List<string>(temp));
+           return;
+       } 
+       for(int i=0; i<n; i++){
+           if(!valid(record, i, currCol)) continue;
+           var chars=new char[n];
+           for(int idx=0; idx<n; idx++){
+               chars[idx]='.';
+           }
+           chars[i]='Q';
+           record[currCol]=i;
+           var str=new string(chars);
+           temp.Add(str);
+           Backtrack(res, temp, record, currCol+1, n);
+           temp.RemoveAt(temp.Count-1);
+           record[currCol]=-1;
+       } 
+    }
+    
+    private bool valid(int[] record, int row, int col){
+        for(int i=1; i<=col; i++){
+            if(record[col-i]==row || record[col-i]==row-i || record[col-i]==row+i) return false;
+        }
+        return true;
+    }
+}
