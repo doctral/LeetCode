@@ -1,0 +1,49 @@
+Approach 1: DP => f(n)= arr[n]+(f(n-1)>0? f(n-1) : 0);
+
+public class Solution {
+    public int MaxSubArray(int[] nums) {
+        int res=nums[0];
+        for(int i=1; i<nums.Length; i++){
+            nums[i]=nums[i]+(nums[i-1]>0? nums[i-1] : 0);
+            if(res<nums[i]) res=nums[i];
+        }
+        return res;
+    }
+}
+
+Approach 2: Divide and Conquer
+
+public class Solution {
+    public int MaxSubArray(int[] nums) {
+        return FindMax(nums, 0, nums.Length-1);
+    }
+    
+    private int FindMax(int[] nums, int left, int right){
+        if(left>right) return 0;
+        if(left==right) return nums[left];
+        int mid=(left+right)/2;
+        int left_max=FindMax(nums, left, mid);
+        int right_max=FindMax(nums, mid+1, right);
+        int mid_max=FindMidMax(nums, left, mid, right);
+        if(left_max>= right_max && left_max>=mid_max) return left_max;
+        if(right_max>=left_max && right_max>=mid_max) return right_max;
+        return mid_max;
+    }
+    
+    private int FindMidMax(int[] nums, int left, int mid, int right){
+        int left_max=nums[mid];
+        int left_res=nums[mid];
+        for(int i=mid-1; i>=left; i--){
+            left_res=nums[i]+left_res;
+            if(left_res>left_max) left_max=left_res;
+        }
+        
+        int right_max=0; 
+        int right_res=0;
+        for(int i=mid+1; i<=right; i++){
+            right_res+=nums[i];
+            if(right_res>right_max) right_max=right_res;
+        }
+        return left_max+right_max;
+    }
+}
