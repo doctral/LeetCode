@@ -1,0 +1,33 @@
+public class Solution {
+    public IList<int> SpiralOrder(int[,] matrix) {
+        int row_min=0, row_max=matrix.GetLength(0)-1, col_min=0, col_max=matrix.GetLength(1)-1;
+        IList<int> res=new List<int>();
+        while(row_min<=row_max){
+            if(row_min<=row_max){
+                for(int i=col_min; i<=col_max; i++){
+                    res.Add(matrix[row_min, i]);
+                }
+                row_min++;
+            }
+            if(col_min<=col_max){
+                for(int i=row_min; i<=row_max; i++){
+                    res.Add(matrix[i, col_max]);
+                }
+                col_max--;
+            }
+            if(row_min<=row_max){
+                for(int i=col_max; i>=col_min; i--){
+                    res.Add(matrix[row_max, i]);
+                }
+                row_max--;
+            }
+            if(col_min<=col_max){
+                for(int i=row_max; i>=row_min; i--){
+                    res.Add(matrix[i, col_min]);
+                }
+                col_min++;
+            }
+        }
+        return res;
+    }
+}

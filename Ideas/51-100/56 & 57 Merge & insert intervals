@@ -40,7 +40,7 @@ class Solution {
 
 #####################################################################################################
 57. Insert Interval
-The idea is similar, we insert the newInterval into the intervals at first, and then we do the merge using ideas
+Approach 1: The idea is similar, we insert the newInterval into the intervals at first, and then we do the merge using ideas
 above. 
 /**
  * Definition for an interval.
@@ -78,3 +78,42 @@ class Solution {
         return res;
     }
 }  
+
+Approach 2: in C# 
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     public int start;
+ *     public int end;
+ *     public Interval() { start = 0; end = 0; }
+ *     public Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    public IList<Interval> Insert(IList<Interval> intervals, Interval newInterval) {
+        IList<Interval> res=new List<Interval>();
+        int index=0;
+        // add intervals before the newInterval
+        while(index<intervals.Count && intervals[index].end<newInterval.start){
+            res.Add(intervals[index]);
+            index++;
+        }
+        
+        // merge all possible intervals
+        while(index<intervals.Count && intervals[index].start <= newInterval.end){
+            newInterval=new Interval(
+                Math.Min(intervals[index].start, newInterval.start),
+                Math.Max(intervals[index].end, newInterval.end)
+            );
+            index++;
+        }
+        res.Add(newInterval);
+        
+        // add intervals greater than newInterval
+        while(index<intervals.Count){
+            res.Add(intervals[index]);
+            index++;
+        }
+        return res;
+    }
+}
