@@ -1,0 +1,38 @@
+public class Solution {
+    public int[,] GenerateMatrix(int n) {
+        int[,] res=new int[n,n];
+        int row_min=0, row_max=n-1, col_min=0, col_max=n-1;
+        int curr=1;
+        while(row_min<=row_max){
+            if(row_min<=row_max){
+                for(int i=col_min; i<=col_max; i++){
+                    res[row_min, i]=curr;
+                    curr++;
+                }
+                row_min++;
+            }
+            if(col_min<=col_max){
+                for(int i=row_min; i<=row_max; i++){
+                    res[i, col_max]=curr;
+                    curr++;
+                }
+                col_max--;
+            }
+            if(row_min<=row_max){
+                for(int i=col_max; i>=col_min; i--){
+                    res[row_max, i]=curr;
+                    curr++;
+                }
+                row_max--;
+            }
+            if(col_min<=col_max){
+                for(int i=row_max; i>=row_min; i--){
+                    res[i, col_min]=curr;
+                    curr++;
+                }
+                col_min++;
+            }
+        }
+        return res;
+    }
+}

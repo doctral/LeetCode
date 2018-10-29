@@ -6,7 +6,6 @@ public class Solution {
         int[] factorial=new int[n+1];
         factorial[0]=1;
         for(int i=1; i<=n; i++) factorial[i]=i*factorial[i-1];
-        
         k=k-1;
         for(int i=1; i<=n; i++){
             int index=k/factorial[n-i];
