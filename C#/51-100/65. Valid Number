@@ -1,0 +1,32 @@
+public class Solution {
+    public bool IsNumber(string s) {
+        string str=s.Trim().ToLower();
+        int left=0, right=str.Length-1;
+        if(left>right) return false;
+        if(str[0]=='+' || str[0]=='-') left++;
+        bool isNum=false, isDot=false, isExp=false;
+        while(left<=right){
+            char curr=str[left];
+            if(Char.IsDigit(curr)){
+                isNum=true;
+            }
+            else if(curr=='.'){
+                if(isDot || isExp) return false;
+                isDot=true;
+            }
+            else if(curr=='e'){
+                if(!isNum || isExp) return false;
+                isExp=true;
+                isNum=false;
+            }
+            else if(curr=='+' || curr=='-'){
+                if(str[left-1]!='e') return false;
+            }
+            else{
+                return false;
+            }
+            left++;
+        }
+        return isNum;
+    }
+}

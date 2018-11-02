@@ -1,0 +1,44 @@
+public class Solution {
+    public IList<string> FullJustify(string[] words, int maxWidth) {
+        IList<string> res=new List<string>();
+        int index=0;
+        while(index<words.Length){
+            int width=maxWidth-words[index].Length, count=1, start=index;
+            StringBuilder sb=new StringBuilder();
+            while(index+1<words.Length && width-words[index+1].Length-1>=0){
+                width=width-words[index+1].Length-1;
+                index++;
+                count++;
+            }
+            if(index==words.Length-1 || count==1){ // if it is the last line
+                sb.Append(words[start]);
+                for(int i=start+1; i<=index; i++){
+                    sb.Append(' ');
+                    sb.Append(words[i]);
+                }
+                for(int i=0; i<width; i++){
+                    sb.Append(' ');
+                }
+            }
+            else{ 
+                sb.Append(words[start]);
+                int spaceAverage=width/(count-1)+1;
+                int spaceExtra=width%(count-1);
+                for(int i=start+1; i<=index; i++){
+                    for(int j=0; j<spaceAverage; j++){
+                        sb.Append(' ');
+                    }
+                    if(spaceExtra>0){
+                        sb.Append(' ');
+                        spaceExtra--;
+                    }
+                    sb.Append(words[i]);
+                }
+            }
+            res.Add(sb.ToString());
+            index++;
+        }
+        return res;
+    
+    }
+}

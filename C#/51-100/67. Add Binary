@@ -1,0 +1,24 @@
+public class Solution {
+    public string AddBinary(string a, string b) {
+        StringBuilder sb=new StringBuilder();
+        int m=a.Length-1, n=b.Length-1, carry=0, sum=0;
+        while(m>=0 || n>=0){
+            sum=0;
+            sum+=carry;
+            if(m>=0){
+                sum+=a[m]-'0';
+                m--;
+            }
+            if(n>=0){
+                sum+=b[n]-'0';
+                n--;
+            }
+            sb.Append(sum%2);
+            carry=sum/2;
+        }
+        if(carry>0){
+            sb.Append(carry);
+        }
+        return new string(sb.ToString().Reverse().ToArray());
+    }
+}

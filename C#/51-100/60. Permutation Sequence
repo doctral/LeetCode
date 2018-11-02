@@ -1,0 +1,24 @@
+public class Solution {
+    public string GetPermutation(int n, int k) {
+        int[] factorial=new int[n+1];
+        factorial[0]=1;
+        for(int i=1; i<=n; i++){
+            factorial[i]=i*factorial[i-1];
+        }
+        
+        IList<int> nums=new List<int>();
+        for(int i=0; i<n; i++){
+            nums.Add(i+1);
+        }
+        
+        StringBuilder sb=new StringBuilder();
+        k=k-1;
+        for(int i=1; i<=n; i++){
+            int index=k/factorial[n-i];
+            sb.Append(nums[index]);
+            nums.RemoveAt(index);
+            k=k%factorial[n-i];
+        }
+        return sb.ToString();
+    }
+}

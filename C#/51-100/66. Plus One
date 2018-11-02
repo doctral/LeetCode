@@ -1,0 +1,22 @@
+public class Solution {
+    public int[] PlusOne(int[] digits) {
+        if(AllNine(digits)){
+            int[] res=new int[digits.Length+1];
+            res[0]=1;
+            return res;
+        }
+        int carry=1;
+        for(int i=digits.Length-1; i>=0; i--){
+            int sum=digits[i]+carry;
+            digits[i]=sum%10;
+            carry=sum/10;
+        }
+        return digits;
+    }
+    private bool AllNine(int[] digits){
+        foreach(var num in digits){
+            if(num<9) return false;
+        }
+        return true;
+    }
+}

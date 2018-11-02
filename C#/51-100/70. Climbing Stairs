@@ -1,0 +1,14 @@
+public class Solution {
+    public int ClimbStairs(int n) {
+        if(n<=0) return 0;
+        if(n==1) return 1;
+        int prepre=1, pre=1, index=2, res=0;
+        while(index<=n){
+            res=prepre+pre;
+            prepre=pre;
+            pre=res;
+            index++;
+        }
+        return res;
+    }
+}
