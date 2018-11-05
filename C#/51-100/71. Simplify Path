@@ -1,0 +1,20 @@
+public class Solution {
+    public string SimplifyPath(string path) {
+        string[] strs=path.Split('/');
+        IList<string> list=new List<string>();
+        foreach(string str in strs){
+            if(str==".." && list.Count>0){
+                list.RemoveAt(list.Count-1);
+            }
+            else if(str!=".." && str!="" && str!="."){
+                list.Add(str);
+            }
+        }
+        if(list.Count==0) return "/";
+        StringBuilder sb=new StringBuilder();
+        foreach(string str in list){
+            sb.Append("/"+str);
+        }
+        return sb.ToString();
+    }
+}

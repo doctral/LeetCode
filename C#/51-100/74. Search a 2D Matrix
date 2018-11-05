@@ -1,0 +1,18 @@
+public class Solution {
+    public bool SearchMatrix(int[,] matrix, int target) {
+        int m=matrix.GetLength(0), n=matrix.GetLength(1);
+        if(m==0 || n==0 || target<matrix[0,0] || target>matrix[m-1,n-1]) return false;
+        int start=0, end=m*n-1;
+        while(start<=end){
+            int index=(start+end)/2;
+            if(matrix[index/n, index%n]==target) return true;
+            if(matrix[index/n, index%n]<target){
+                start=index+1;
+            }
+            else{
+                end=index-1;
+            }
+        }
+        return false;
+    }
+}

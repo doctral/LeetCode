@@ -11,6 +11,9 @@ In this case, you should return "/".
 Another corner case is the path might contain multiple slashes '/' together, such as "/home//foo/".
 In this case, you should ignore redundant slashes and return "/home/foo".
 #################################################################################################3
+
+One key point here is, when current string == "..", then if our stack is already empty, then it should be skipped. 
+
 public class Solution {
     public String simplifyPath(String path) {
         Set<String> skips=new HashSet<>(Arrays.asList(".","..",""));

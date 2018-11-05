@@ -1,0 +1,21 @@
+public class Solution {
+    public IList<IList<int>> Subsets(int[] nums) {
+        IList<IList<int>> res=new List<IList<int>>();
+        for(int i=0; i<=nums.Length; i++){
+            BackTrack(res, new List<int>(), nums, 0, i);
+        }
+        return res;
+    }
+    
+    private void BackTrack(IList<IList<int>> res, IList<int> temp, int[] nums, int startIndex, int len){
+        if(len==0){
+            res.Add(new List<int>(temp));
+            return;
+        }
+        for(int i=startIndex; i<nums.Length; i++){
+            temp.Add(nums[i]);
+            BackTrack(res, temp, nums, i+1, len-1);
+            temp.RemoveAt(temp.Count-1);
+        }
+    }
+}

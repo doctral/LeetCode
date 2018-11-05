@@ -1,0 +1,29 @@
+public class Solution {
+    public bool Exist(char[,] board, string word) {
+        int m=board.GetLength(0), n=board.GetLength(1);
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(Valid(board, new bool[m,n], word, 0, i, j)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private bool Valid(char[,] board, bool[,] used, string word, int index, int row, int col){
+        if(board[row, col] != word[index]) return false;        
+        if(++index==word.Length) return true;
+        used[row, col]=true;
+        bool res=false;
+        if(col-1>=0 && !used[row,col-1]) res=Valid(board, used, word, index, row, col-1);
+        if(res) return true;
+        if(col+1<board.GetLength(1) && !used[row, col+1]) res=Valid(board, used, word, index, row, col+1);
+        if(res) return true;
+        if(row-1>=0 && !used[row-1, col]) res=Valid(board, used, word, index, row-1, col);
+        if(res) return true;
+        if(row+1<board.GetLength(0) && !used[row+1, col]) res=Valid(board, used, word, index, row+1, col);
+        used[row,col]=false; // backtrack 
+        return res;
+    }
+}

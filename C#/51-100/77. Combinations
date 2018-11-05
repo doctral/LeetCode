@@ -1,0 +1,19 @@
+public class Solution {
+    public IList<IList<int>> Combine(int n, int k) {
+        IList<IList<int>> res=new List<IList<int>>();
+        BackTrack(res, new List<int>(), 1, n, k);
+        return res;
+    }
+    
+    private void BackTrack(IList<IList<int>> res, IList<int> temp, int curr, int end, int len){
+        if(len==0){
+            res.Add(new List<int>(temp));
+            return;
+        }
+        for(int i=curr; i<=end; i++){
+            temp.Add(i);
+            BackTrack(res, temp, i+1, end, len-1);
+            temp.RemoveAt(temp.Count-1);
+        }
+    }
+}

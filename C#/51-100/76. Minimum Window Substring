@@ -1,0 +1,24 @@
+public class Solution {
+    public string MinWindow(string s, string t) {
+        if(s=="" || t=="" || s.Length<t.Length) return "";
+        int[] record=new int[128];
+        foreach(var ch in t) record[ch]++;
+        int left=0, count=t.Length, minLeft=0, minLen=Int32.MaxValue;
+        for(int i=0; i<s.Length; i++){
+            if(record[s[i]]>0) count--; // if it is a char in string t
+            record[s[i]]--;
+            while(count==0){   // when count=0, then there is a window substring between left and i
+                if(record[s[left]]==0){  // this is a char in string t
+                    if(i-left+1<minLen){
+                        minLen=i-left+1;
+                        minLeft=left;
+                    }
+                    count++;
+                }
+                record[s[left]]++;
+                left++;
+            }
+        }
+        return minLen>s.Length? "" : s.Substring(minLeft, minLen);
+    }
+}
