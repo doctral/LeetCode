@@ -1,0 +1,17 @@
+public class Solution {
+    public int RemoveDuplicates(int[] nums) {
+        if(nums.Length<3) return nums.Length;
+        int currIndex=1, count=1;
+        for(int i=1; i<nums.Length; i++){
+            if(nums[i]==nums[currIndex-1] && count<2){
+                nums[currIndex++]=nums[i];
+                count++;
+            }
+            else if(nums[i]!=nums[currIndex-1]){
+                nums[currIndex++]=nums[i];
+                count=1;
+            }
+        }
+        return currIndex;
+    }
+}
