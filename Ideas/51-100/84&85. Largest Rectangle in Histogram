@@ -53,6 +53,10 @@ public class Solution {
 
 Approach 3: using a stack in one pass. (O(n), beat 40%) (Need to understand why this way is correct)
 
+The key ideas in this approach is: we traverse all bars from left to right, maintain a stack of bars. Every bar
+ is pushed to stack once. A bar is poped from stack when a bar of smaller height is found. When a bar is poped, we calculate
+ the area with the popped bar as smallest bar.   
+
 The code is as following:
 
 public class Solution {
