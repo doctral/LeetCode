@@ -15,7 +15,7 @@ when n==1, res={0,1}
 when n==2, res={00,01, 11, 10}
 and so on
 
-The thing is here, from f(n-1) t0 f(n), the first part of f(n) would be exactly the same as f(n-1), 
+The thing is here, from f(n-1) to f(n), the first part of f(n) would be exactly the same as f(n-1), 
 and the last half part of f(n) is the reverse ordered f(n-1)+ (1<<(n-1) ).
 Therefore, when we need to calculate f(n), based on f(n-1), we simply add another half to the list
 by adding the reverse ordered f(n-1)+ 1<<n-1 
