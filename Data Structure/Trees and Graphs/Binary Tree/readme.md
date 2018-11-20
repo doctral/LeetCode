@@ -1,14 +1,29 @@
-Binart Search Tree:
-A binary Search Tree is a binary tree in which every node fits a specific ordering property: ALL LEFT DESCENDENTS <= PARENT <= ALL RIGHT 
-VS Binary Tree: a binary tree is a tree in which each node has up to two children.
+# Binary Tree & Binart Search Tree
 
-For a reasonable "balanced" binary search tree, the insertion, look up, and deletion operations can all be done in O(log n) time. 
+## Useful resources
+1. [Binary Tree & Binary Search Tree](https://msdn.microsoft.com/en-us/library/ms379572(v=vs.80).aspx)
+
+## Binary Tree
+1. Binary Tree: a binary tree is a tree in which each node has up to two children.
+2. **Complete binary tree**: every level except possibly the last level is completely filled, and all nodes are as far left as possible.
+3. **Full binary tree**: every node has either zero or two children.
+4. **Perfect binary tree**: binary tree both complete and full.
+5. Tree Traversal:
+    1. Inorder: left, root, right
+    2. Preorder: root, left, right
+    3. Postorder: left, right. root
+
+## Binary Search Tree
+1. A binary Search Tree is a binary tree in which every node fits a specific ordering property: ALL LEFT DESCENDENTS <= PARENT < ALL RIGHT 
+2. For a reasonable "balanced" binary search tree, the insertion, look up, and deletion operations can all be done in O(log n) time.
+
+ 
 
 Two common types of balanced trees are red-black trees and AVL trees.
 
-Complete binary tree: every level except possibly the last level is completely filled, and all nodes are as far left as possible.
-Full binary tree: every node has either zero or two children.
-Perfect binary tree: binary tree both complete and full.
+
+
+
 
 A binary search tree can be implemented using a linked structure. 
 
@@ -21,9 +36,7 @@ Case 3: Node has two children: This is little tricky.. the steps involved in thi
         Step 2: Delete the successor (or predessor) from the tree.
         Step 3: Replace the node to be deleted with the successor (or predessor)
 
-Inorder: left, root, right
-Preorder: root, left, right
-Postorder: left, right. root
+
 
 BFS for a Binary Search Tree:
     Method 1: Recursion
