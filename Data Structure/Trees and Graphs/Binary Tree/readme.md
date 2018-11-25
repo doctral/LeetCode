@@ -9,10 +9,9 @@
 2. **Complete binary tree**: every level except possibly the last level is completely filled, and all nodes are as far left as possible.
 3. **Full binary tree**: every node has either zero or two children.
 4. **Perfect binary tree**: binary tree both complete and full.
-5. Tree Traversal:
-    1. Inorder: left, root, right
-    2. Preorder: root, left, right
-    3. Postorder: left, right. root
+5. Tree Traversal: in-order, pre-order, post-order
+    1. Recursive implementation: trivial
+    2. Iterative implementation
 
 ## Binary Search Tree
 1. A binary Search Tree is a binary tree in which every node fits a specific ordering property: ALL LEFT DESCENDENTS < PARENT < ALL RIGHT 
@@ -74,4 +73,4 @@
                         predecessorParent.Right=predecessor.Left. 
                     ```
                 5. Now we remove the target node successfully and we just need to return true.     
-    3. 
+    3. Search (O(log n)).

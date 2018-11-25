@@ -6,22 +6,37 @@ using System.Threading.Tasks;
 
 namespace Data_Structure_Implementation.BinaryTree
 {
-	public class BinarySearchTree
+	public class BinarySearchTree : BinaryTree
 	{
 		private BinaryTreeNode root;
-		
-		public BinaryTreeNode Root {
+
+		public new BinaryTreeNode Root {
 			get => this.root;
+			set => this.root = value;
 		}
 
-		public BinarySearchTree()
+		public BinarySearchTree(IList<int?> list)
 		{
-			this.root = null;
-		}
-
-		public BinarySearchTree(int[] arr)
-		{
-
+			root = new BinaryTreeNode(list[0].Value);
+			Queue<BinaryTreeNode> nodes = new Queue<BinaryTreeNode>();
+			Queue<int> indices = new Queue<int>();
+			nodes.Enqueue(root);
+			indices.Enqueue(0);
+			while (nodes.Count>0) {
+				int index = indices.Dequeue();
+				int left = index * 2 + 1, right = index * 2 + 2;
+				BinaryTreeNode curr = nodes.Dequeue();
+				if (left<list.Count && list[left]!=null) {
+					curr.Left = new BinaryTreeNode(list[left].Value);
+					nodes.Enqueue(curr.Left);
+					indices.Enqueue(left);
+				}
+				if (right < list.Count && list[right]!=null) {
+					curr.Right = new BinaryTreeNode(list[right].Value);
+					nodes.Enqueue(curr.Right);
+					indices.Enqueue(right);
+				}
+			}
 		}
 
 		// Insert elements iteratively
@@ -122,6 +137,24 @@ namespace Data_Structure_Implementation.BinaryTree
 				}
 			}
 			return true;
+		}
+
+		public bool Search(int value) {
+			BinaryTreeNode curr = root;
+			while (curr!=null) {
+				if (curr.Value > value)
+				{
+					curr = curr.Left;
+				}
+				else if (curr.Value < value)
+				{
+					curr = curr.Right;
+				}
+				else {
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }
