@@ -73,6 +73,65 @@ namespace Data_Structure_Implementation.BinaryTree
 			return Math.Max(left, right)+1;
 		}
 
+		public IList<int> Preorder_Iterative(BinaryTreeNode root) {
+			IList<int> res = new List<int>();
+			Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+			BinaryTreeNode curr = root;
+			while (curr!=null || stack.Count>0)
+			{
+				while (curr!=null) {
+					stack.Push(curr);
+					res.Add(curr.Value);
+					curr = curr.Left;
+				}
+				curr = stack.Pop();
+				curr = curr.Right;
+			}
+			return res;
+		}
+
+		public IList<int> Inorder_Iterative(BinaryTreeNode root) {
+			var res = new List<int>();
+			Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+			BinaryTreeNode curr = root;
+			while (curr!=null || stack.Count>0) {
+				while (curr!=null) {
+					stack.Push(curr);
+					curr = curr.Left;
+				}
+				curr = stack.Pop();
+				res.Add(curr.Value);
+				curr = curr.Right;
+			}
+			return res;
+
+		}
+
+		public IList<int> Postorder_Iterative(BinaryTreeNode root) {
+			IList<int> res = new List<int>();
+			Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+			BinaryTreeNode curr = root;
+			while (curr!=null || stack.Count>0) {
+				while (curr!=null) {
+					if (curr.Right != null) stack.Push(curr.Right);
+					stack.Push(curr);
+					curr = curr.Left;
+				}
+				curr = stack.Pop();
+				if (stack.Count>0 && curr.Right != null && stack.Peek() == curr.Right)
+				{
+					BinaryTreeNode right = stack.Pop();
+					stack.Push(curr);
+					curr = right;
+				}
+				else {
+					res.Add(curr.Value);
+					curr = null;
+				}
+			}
+			return res;
+		}
+
 		private void Inorder(BinaryTreeNode root, IList<int> res) {
 			if (root!=null) {
 				Inorder(root.Left, res);

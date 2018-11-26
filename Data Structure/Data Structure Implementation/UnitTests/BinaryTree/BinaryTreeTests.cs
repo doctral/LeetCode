@@ -77,6 +77,51 @@ namespace UnitTests.BinaryTree
 			Assert.True(IsSame(list, expected));
 		}
 
+		[Theory]
+		[MemberData(nameof(PreorderData))]
+		public void WhenCalling_PreorderIterative_ShouldReturnPreorderList(IList<int?> tree, IList<int> expected)
+		{
+			// Arrange
+			var bt = new Data_Structure_Implementation.BinaryTree.BinaryTree(tree);
+			var root = bt.Root;
+
+			// Act
+			var list = bt.Preorder_Iterative(root);
+
+			// Assert
+			Assert.True(IsSame(list, expected));
+		}
+
+		[Theory]
+		[MemberData(nameof(InorderData))]
+		public void WhenCalling_InorderIterative_ShouldReturnInorderList(IList<int?> tree, IList<int> expected)
+		{
+			// Arrange
+			var bt = new Data_Structure_Implementation.BinaryTree.BinaryTree(tree);
+			var root = bt.Root;
+
+			// Act
+			var list = bt.Inorder_Iterative(root);
+
+			// Assert
+			Assert.True(IsSame(list, expected));
+		}
+
+		[Theory]
+		[MemberData(nameof(PostorderData))]
+		public void WhenCalling_PostorderIterative_ShouldReturnPostorderList(IList<int?> tree, IList<int> expected)
+		{
+			// Arrange
+			var bt = new Data_Structure_Implementation.BinaryTree.BinaryTree(tree);
+			var root = bt.Root;
+
+			// Act
+			var list = bt.Postorder_Iterative(root);
+
+			// Assert
+			Assert.True(IsSame(list, expected));
+		}
+
 		private bool IsSame(IList<int> list1, IList<int> list2)
 		{
 			if (list1.Count != list2.Count) return false;
