@@ -11,7 +11,7 @@
 4. **Perfect binary tree**: binary tree both complete and full.
 5. Tree Traversal: in-order, pre-order, post-order
     1. Recursive implementation: trivial
-    2. Iterative implementation
+    2. Iterative implementation using Stack
 
 ## Binary Search Tree
 1. A binary Search Tree is a binary tree in which every node fits a specific ordering property: ALL LEFT DESCENDENTS < PARENT < ALL RIGHT 
