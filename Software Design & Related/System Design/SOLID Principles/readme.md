@@ -28,4 +28,5 @@
 3. Whenever possible, let the client define the interface 
 
 ## Dependency Inversion Principle (DIP)
-1. High-level module should not depend on low-level module.
+1. High-level module should not depend on low-level module. Both should depend on abstractions.
+2. Abstractions should not depend on details. Details should depend on abstractions.
