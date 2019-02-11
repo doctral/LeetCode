@@ -4,6 +4,7 @@
 1. Every class should have only one job to do.
 2. Following SRP leads to lower coupling and higher cohesion
 3. Mang small classes with distinct responsibilities result in a more flexible design
+4. It makes code easier to be followed, understood, debugged, removed, and refactored.
 
 ## Open-Close Principle (OCP)
 1. A software module or class should be open for extension and closed for modification.
@@ -17,9 +18,10 @@
         2. Provides a 'plug in' model
         3. Implementations utilize inheritance, client utilize composition
 3. Conformance to OCP yields flexibility, reusability, and maintainability.
+4. Can be achieved using abstraction including abstract and interface
 
 ## Liskov Substitution Principle (LSP)
-1. A derived class must be substitutable for its base class.
+1. A derived class must be substitutable for its base class. That means derived classes must not violate any constraints defined on the base class.
 2. Remember IS-SUBSTITUTABLE-FOR instead of IS-A.
 
 ## Interface Segregation Principle (ISP)
