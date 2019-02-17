@@ -6,7 +6,7 @@ Note:
 A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?
 ####################################################################################################
 When a swap happened, then for the first element, it would be greater than its successor;
-                      for the second element, it would be smaller than its predecessor
+                      for the second element, it would be the last element in the in-order list that smaller than its predecessor.
 Therefore, the key point is to find out the first node and the second node
 
 Approach 1: Inorder traversal and then store each node in a list, then go over 
