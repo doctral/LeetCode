@@ -1,0 +1,16 @@
+Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
+
+Example 1:
+
+Input: "(()"
+Output: 2
+Explanation: The longest valid parentheses substring is "()"
+Example 2:
+
+Input: ")()())"
+Output: 4
+Explanation: The longest valid parentheses substring is "()()"
+
+-----------------------------------------------------------------------------
+The idea is to use two Stack, one for chars that are not able to form parentheses, and the other is for indices of these chars.
+After that, we simply count the difference between these indices and get the largest diff, that would be the answer.
