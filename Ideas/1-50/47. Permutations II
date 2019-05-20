@@ -12,4 +12,4 @@ Output:
 ######################################################################################
 The key point in this problem is to remove duplicates. Then we can use the same idea in 46. Permutations.
 i. used[i] == true --> current element has been used, therefore, we need to continue.
-ii. i>0 && nums[i]==nums[i-1] && used[i-1] == false --> The previous element with the same value has not been used, therefore, we find duplicates and need to continue.
+ii. i>0 && nums[i]==nums[i-1] && !used[i-1] --> when a number has the same value with its previous, we can use this number only if his previous is used

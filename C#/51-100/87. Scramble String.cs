@@ -14,6 +14,7 @@ public class Solution {
         }
 
         // if s1 and s2 are scramble, and their substrings must be scramble as well, we check this recursively.
+        // two non-empty substrings
         for(int i=1; i<s1.Length; i++){
             if(IsScramble(s1.Substring(0, i), s2.Substring(0,i)) && IsScramble(s1.Substring(i, s1.Length-i), s2.Substring(i, s2.Length-i)) ) return true;
             if(IsScramble(s1.Substring(0,i), s2.Substring(s2.Length-i,i) ) && IsScramble( s1.Substring(i, s1.Length-i), s2.Substring(0,s1.Length-i) )) return true;
