@@ -11,8 +11,11 @@ Return 3.
 
 #################################################################################################
 This problem can be solved by using DP.
-We name a 2-d array res[t.length][s.length].
-Than res[0][i] should be 1 for any i; // delete all characters in s to make empty t
-Then for res[i][j], when char[t]!=char[s], res[i][j]=res[i][j-1];
-when char[t]==char[s], res[i][j]=res[i][j-1]+res[i-1][j-1];
+We name a 2-d array res[t.length+1][s.length+1].
+Than res[0][i] should be 1 for any i when t is an empty string.
+     res[i][0] should be 0 for any i>0 when s is empty but t is not empty
+
+Then for res[i+1][j+1],
+     when char[t]!=char[s], res[i+1][j+1]=res[i+1][j];   // we just get valid results from previous record
+     when char[t]==char[s], res[i+1][j+1]=res[i+1][j]+res[i][j]; // we get both new records and previous results
                         
