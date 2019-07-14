@@ -1,20 +1,16 @@
 public class Solution {
     public int Rob(int[] nums) {
-        if(nums.Length==0) return 0;
-        int[] max=new int[nums.Length];
-        int res=0;
+        int max=0;
+        int[] temp=new int[nums.Length];
         for(int i=0; i<nums.Length; i++){
-            if(i==0){
-                max[i]=nums[i];
-            }
-            else if(i==1){
-                max[i]=Math.Max(nums[0], nums[1]);
+            if(i<2){
+                temp[i]=(i==0)? nums[i]: Math.Max(nums[i-1], nums[i]);
             }
             else{
-                max[i]=Math.Max(max[i-1], max[i-2]+nums[i]);
+                temp[i]=Math.Max(temp[i-2]+nums[i], temp[i-1]);
             }
-            if(res<max[i]) res=max[i];
+            if(max<temp[i]) max=temp[i];
         }
-        return res;
+        return max;
     }
 }
