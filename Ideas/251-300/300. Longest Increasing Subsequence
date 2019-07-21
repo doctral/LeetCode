@@ -29,7 +29,14 @@ class Solution {
     }
 }
 
-Approach 2: we use an array to record the smallest elements of each length, and the final length is the result.
+Approach 2: In this approach, we use an array to store the increasing subsequence. For each element in nums array nums[i],
+given existing range from 0 to size, we try to find the position of nums[i] in the result array of increasing subsequence.
+The position of nums[i] would vary from 0 to size.
+
+Case 1: if the position index idx of nums[i] in this subsequence array has idx==size, that means we get a new element for the subsequence array,
+We increase size++;
+Case 2: If the position index idx < size, that means there is an element in subsequence array is larger than nums[i],
+it would be replaced by nums[i] and the size remains the same.
 
 class Solution {
     public int lengthOfLIS(int[] nums) {

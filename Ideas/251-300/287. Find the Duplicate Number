@@ -1,0 +1,50 @@
+Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), prove that at least one duplicate number must exist. Assume that there is only one duplicate number, find the duplicate one.
+
+Example 1:
+
+Input: [1,3,4,2,2]
+Output: 2
+
+Example 2:
+
+Input: [3,1,3,4,2]
+Output: 3
+Note:
+
+You must not modify the array (assume the array is read only).
+You must use only constant, O(1) extra space.
+Your runtime complexity should be less than O(n2).
+There is only one duplicate number in the array, but it could be repeated more than once.
+
+####################################################################################################
+
+Given n+1 holes and n numbers, there is only one duplicate number, find the duplicate.
+
+Understand the constraints:
+1. Must not modify the array: that means we cannot sort the array
+2. Must use only constant: that means we cannot use hashmap or hashset, or another array to sort this target array
+3. Time complexity should be less than O(n2), that means we should not use two nested for loop to brute force this problem.
+
+
+Approach 1: Cycle Linked List O(n) time complexity and O(1) space complexity
+Given an array:
+index: 0 1 2 3 4 5 6 7 ...
+value: 3 4 5 1 2 3 7 6 ...
+
+We treat value = num[value] as a move, then for an array with values from 0 to n, it should go infinite, whicb means  
+it will form a cycle. Therefore, this problem can be solved by using Cycle Linked List.
+Now we provide two pointer: slow pointer, which makes a move each time, and fast pointer, which makes two moves each time.
+
+slow = nums[slow], fast=nums[nums[fast]];
+The key point is here, if there is no duplicate, then slow and fast should be always different.
+
+If there is a duplicate, then slow and fast would be the same in some point.
+
+In this problem, since values vary from 1 to n, which means index 0 will never be a duplicate. We can start from index 0
+for both slow and fast.
+
+slow=nums[0], fast=nums[0];
+
+Approach 2: Binary Search O(nlogn) time complexity and O(1) space complexity
+Given a number x, each time we loop through the array, if there are more than x numbers that are less than x, then the duplicate
+is in left, otherwise, the duplicate is in right side. 
