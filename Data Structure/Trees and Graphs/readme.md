@@ -8,5 +8,6 @@
 
 ### Breadth-First Search
 1. Given a graph G = (V,E) and a distinguished source vertex s, breadth-first search systematically explores the edges of G to “discover” every vertex that is reachable from s.
-2. BFS Algorithm:
-![BFS Algorithm](./images/BFS.png)
+2. ![BFS Algorithm](./images/BFS.png)
+
+3. Breadth-First Search runs in time linear in the size of the adjacency-list representation of G, that's **O(V+E)**.
