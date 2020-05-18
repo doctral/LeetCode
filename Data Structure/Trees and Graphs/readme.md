@@ -25,5 +25,16 @@ Each vertex is initially white, is grayed when it is discovered in the search, a
         2. **Back Edges**: edges (u,v) connecting a vertex u to an **ancestor** v in a depth-first tree. We consider self-loops, which may occur in directed graphs, to be back edges. 
         3. **Forward Edges**: nontree edges (u,v) connecting a vertex u to a **descendant** v in a depth-first tree.
         4. **Cross Edges**: all other edges. They can go between vertices in the same depth-first tree, as long as one vertex is not an ancestor of the other, or they can go between vertices in different depth-first trees.
-        5. ![Edge Classifications](./images/Edges_Classification.png)
+    3. The key idea is that when we first explore an edge (u,v), the color of vertex v tells us something about the edge:
+        1. WHITE indicates a tree edge
+        2. Gray indicates a back edge
+        3. Black indicates a forward or cross edge 
+    4. In a DFS of an undirected graph G, every edge of G is either a tree edge or a back edge. Forward and cross edges never occur in a depth-first search of an undirected graph.     
+    5. ![Edge Classifications](./images/Edges_Classification.png)
 
+
+
+### Topological Sort
+1. A topological sort of a dag (**directed acyclic graph**) G = (V,E) is a linear ordering of all its vertices such that if G contains an edge (u,v) then u appears before v in the ordering.
+2. ![Topological Sort](./images/Topological_Sort.png)
+3. Time complexity of Topological Sort is \Theta(V+E). 
