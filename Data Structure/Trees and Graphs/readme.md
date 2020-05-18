@@ -17,7 +17,7 @@ Each vertex is initially white, is grayed when it is discovered in the search, a
 1. Depth-First Search timestamps each vertex. Each vertex v has two timestamps: the first timestamp v.d records when v is first discovered (and grayed), and the second timestamp v.f records when the search finishes examining v’s adjacency list (and blackens v). These timestamps are integers between 1 and 2|V|.
 2. For every vertex u with u.d < u.f, vertex u is white before time u.d, gray between u.d and u.f, and black thereafter.
 3. ![DFS Algorithm](./images/DFS.PNG)
-4. The running time of DFS is \Theta(V+E).   
+4. The running time of DFS is \U+0398(V+E).   
 5. Important Properties of DFS:
     1. Discovery and finishing times have parenthesis structure in DFS. Vertex v is a proper descendant of vertex u in the depth-first forest for a (directed or undirected) graph G if and only if **u.d < v.d < v.f < u.f**.
     2. Classification of edges:
@@ -37,4 +37,4 @@ Each vertex is initially white, is grayed when it is discovered in the search, a
 ### Topological Sort
 1. A topological sort of a dag (**directed acyclic graph**) G = (V,E) is a linear ordering of all its vertices such that if G contains an edge (u,v) then u appears before v in the ordering.
 2. ![Topological Sort](./images/Topological_Sort.png)
-3. Time complexity of Topological Sort is \Theta(V+E). 
+3. Time complexity of Topological Sort is \U+0398(V+E). 
