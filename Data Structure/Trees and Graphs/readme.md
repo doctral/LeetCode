@@ -8,6 +8,22 @@
 
 ### Breadth-First Search
 1. Given a graph G = (V,E) and a distinguished source vertex s, breadth-first search systematically explores the edges of G to “discover” every vertex that is reachable from s.
-2. ![BFS Algorithm](./images/BFS.png)
-
+2. ![BFS Algorithm](./images/BFS.png) 
+Each vertex is initially white, is grayed when it is discovered in the search, and is blackened when it is finished.
 3. Breadth-First Search runs in time linear in the size of the adjacency-list representation of G, that's **O(V+E)**.
+4. Application: Find Shortest Distances from a given source.
+
+### Depth-First Search
+1. Depth-First Search timestamps each vertex. Each vertex v has two timestamps: the first timestamp v.d records when v is first discovered (and grayed), and the second timestamp v.f records when the search finishes examining v’s adjacency list (and blackens v). These timestamps are integers between 1 and 2|V|.
+2. For every vertex u with u.d < u.f, vertex u is white before time u.d, gray between u.d and u.f, and black thereafter.
+3. ![DFS Algorithm](./images/DFS.PNG)
+4. The running time of DFS is \Theta(V+E).   
+5. Important Properties of DFS:
+    1. Discovery and finishing times have parenthesis structure in DFS. Vertex v is a proper descendant of vertex u in the depth-first forest for a (directed or undirected) graph G if and only if **u.d < v.d < v.f < u.f**.
+    2. Classification of edges:
+        1. **Tree Edges**: Edge (u,v) is a tree edge if v was first discovered by exploring edge (u,v).
+        2. **Back Edges**: edges (u,v) connecting a vertex u to an **ancestor** v in a depth-first tree. We consider self-loops, which may occur in directed graphs, to be back edges. 
+        3. **Forward Edges**: nontree edges (u,v) connecting a vertex u to a **descendant** v in a depth-first tree.
+        4. **Cross Edges**: all other edges. They can go between vertices in the same depth-first tree, as long as one vertex is not an ancestor of the other, or they can go between vertices in different depth-first trees.
+        5. ![Edge Classifications](./images/Edges_Classification.png)
+
