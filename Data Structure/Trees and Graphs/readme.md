@@ -17,7 +17,7 @@ Each vertex is initially white, is grayed when it is discovered in the search, a
 1. Depth-First Search timestamps each vertex. Each vertex v has two timestamps: the first timestamp v.d records when v is first discovered (and grayed), and the second timestamp v.f records when the search finishes examining v’s adjacency list (and blackens v). These timestamps are integers between 1 and 2|V|.
 2. For every vertex u with u.d < u.f, vertex u is white before time u.d, gray between u.d and u.f, and black thereafter.
 3. ![DFS Algorithm](./images/DFS.PNG)
-4. The running time of DFS is \U+0398(V+E).   
+4. The running time of DFS is Θ(V+E).   
 5. Important Properties of DFS:
     1. Discovery and finishing times have parenthesis structure in DFS. Vertex v is a proper descendant of vertex u in the depth-first forest for a (directed or undirected) graph G if and only if **u.d < v.d < v.f < u.f**.
     2. Classification of edges:
@@ -37,4 +37,17 @@ Each vertex is initially white, is grayed when it is discovered in the search, a
 ### Topological Sort
 1. A topological sort of a dag (**directed acyclic graph**) G = (V,E) is a linear ordering of all its vertices such that if G contains an edge (u,v) then u appears before v in the ordering.
 2. ![Topological Sort](./images/Topological_Sort.png)
-3. Time complexity of Topological Sort is \U+0398(V+E). 
+3. Time complexity of Topological Sort is Θ(V+E). 
+4. A directed graph G is acyclic if and only if a DFS of G yields no back edges.
+
+### Strongly Connected Components
+1. A strongly connected component of a directed graph G = (V,E) is a maximal set of vertices C ⊆ V such that for every pair of vertices u and v in C, we have both u -> v and v -> u; that is, vertices u and v are reachable from each other.
+
+### Articulation Points and Bridges
+1. Let G = (V,E) be a connected, undirected graph. An articulation point of G is a vertex whose removal disconnects G. A bridge of G is an edge whose removal disconnects G.
+2. We can determine articulation points and bridges using depth-first search. Let G' = (V, E') be a depth-first tree of G.
+    1. The root of G' is an articulation point of G if and only if it has at least two children in G'.
+    2. Given a non-root vertex of G' v, v is an articulation point of G if and only if v has a child s such that there is no back edge from s or any descendant of s to a proper ancestor of v.
+    3. How to compute all articulation points in O(E) time?
+    4. An edge of G is a bridge if and only if it does not lie on any simple cycle of G.
+    5. How to compute all the bridges of G in O(E) time?
