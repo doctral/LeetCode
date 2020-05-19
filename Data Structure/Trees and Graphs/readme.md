@@ -51,3 +51,4 @@ Each vertex is initially white, is grayed when it is discovered in the search, a
     3. How to compute all articulation points in O(E) time?
     4. An edge of G is a bridge if and only if it does not lie on any simple cycle of G.
     5. How to compute all the bridges of G in O(E) time?
+3. [Algorithm Post](https://codeforces.com/blog/entry/71146)
