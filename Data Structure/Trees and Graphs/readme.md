@@ -62,4 +62,12 @@ Each vertex is initially white, is grayed when it is discovered in the search, a
     3. a array low[].  For every node u, we need to find out the earliest visited vertex (the vertex with minimum discovery time) that can be reached from subtree rooted with u. low[u] = min(disc[u], disc[w]) where w is an ancestor of u and there is a back edge from some descendant of u to w. 
 3. [Algorithm details](https://www.geeksforgeeks.org/articulation-points-or-cut-vertices-in-a-graph/)  
 
-    
+## Minimum Spanning Trees
+1. Given an undirected graph G = (V, E), for each edge (u,v) ∈ E, we have a weight w(u,v) specifying the cost to connect u and v. We wish to find an acyclic subset T ⊆ E that connects all of the vertices and whose total weight sum( w(u,v) ) is minimized. Since T connects all vertices and acyclic, it must form a tree, which we can spanning tree.
+2. There are two common algorithms for solving the minimum spanning-tree problem:
+    1. Kruskal's algorithm
+    2. Prim's algorithm
+3. Some basic definitions:
+    1. A **cut** (S, V-S) of an undirected graph G = (V,S) is a partition of V. 
+    2. We say that an edge (u,v) ∈ E **crosses** the cut (S, V-S) if one of its endpoints is in S and the other is in V - S.
+    3. An edge is a **light edge** crossing a cut if its weight is the minimum of any edge crossing the cut.
